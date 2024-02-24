@@ -1,0 +1,17 @@
+header {
+    width: 110%; //背景填滿
+    position: fixed;
+    top: -1px;
+    left: -1px;
+
+    .img-header {
+        width: 105%; //背景填滿 
+    }
+    
+    .img-back {
+        width: 40px;
+        position: fixed;
+        top: 20px;
+        left: 10px;
+    }
+}
