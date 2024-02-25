@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-img-btn',
@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class ImgBtnComponent {
 
-  imgUrl = "assets/images/button/button_main.png"
+  imgUrl = "assets/images/button/button_main.png";
+  @Input() btnText = "開發中功能";
+  @Input() btnRouterLink = "";
 
 }
