@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ImgBtnComponent {
 
-  imgUrl = "assets/images/button/button_main.png";
+  @Input() imgUrl = "";
   @Input() btnText = "開發中功能";
   @Input() btnRouterLink = "";
 
