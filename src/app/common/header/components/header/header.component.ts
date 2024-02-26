@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-header',
@@ -9,12 +10,16 @@ export class HeaderComponent implements OnInit {
 
   headerImageUrl = "";
   isMainHeader = false;
-  isBackIndex = false;
+  // 上一頁 是否指定其他路徑
+  otherBackUrl = "";
+  // 是否隱藏上一頁 icon
   isHiddenBacke = false;
   // header 當前元素
   @ViewChild('header') headerElementRef!: ElementRef;
 
-  constructor() {}
+  constructor(
+    private location: Location
+  ) {}
 
   ngOnInit() {
     //判斷 header 依照當設備前寬度,判斷所需取用之圖片
@@ -36,6 +41,12 @@ export class HeaderComponent implements OnInit {
     console.log(this.headerElementRef.nativeElement.offsetHeight);
   }
 
-  back() { }
+  back() { 
+    if (this.otherBackUrl.trim().length === 0){
+      this.location.back();
+    } else {
+
+    }
+  }
 
 }

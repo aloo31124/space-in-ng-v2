@@ -1,0 +1,190 @@
+/* https://codepen.io/JeffreyTaylor/pen/zZgKvw?editors=1100 */
+/* https://codepen.io/MALLU-CODER-SUGU/pen/QWzBaBw */
+
+
+.clock-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 350px;
+    padding: 20px 0;
+}
+
+img {
+    width: 40px;
+}
+
+.clock-paicker {
+    width: 350px;
+    .clock-header {
+        background: #661983;
+        color: #cfcfcf;
+        font-size: 50px;
+        padding: 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .am-pm-selector {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+            padding: 0 15px;
+        }
+
+        .selected {
+          color: white;
+        }
+    }
+}
+
+
+  .clock-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+  }
+
+  
+  i {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .clock {    
+    background: #F0EDF1;
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    ul {
+      height: 38%;
+      width: 0;
+      position: absolute;
+      bottom: 45%;
+      left: 50%;
+      list-style-type: none;
+
+      
+      li {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform-origin: 50% 100%;
+        
+        .selected {
+          background: #661983;
+          color: white;
+          border-radius: 50%;
+          width: 35px;
+          height: 35px;
+
+          text-align: center; /* 文本水平居中 */
+        }
+        
+        i {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 20px;
+
+          position: absolute;
+          top: 0;
+          left: 45%;
+        }
+        
+        &:nth-child(1) {
+          transform: rotate(0);
+          i {transform: translateX(-50%) rotate(0)}
+        }        
+        &:nth-child(2) {
+          transform: rotate(30deg);
+          i {transform: translateX(-50%) rotate(-30deg)}
+        }
+        &:nth-child(3) {
+          transform: rotate(60deg);
+          i {transform: translateX(-50%) rotate(-60deg)}
+        }
+        &:nth-child(4) {
+          transform: rotate(90deg);
+          i {transform: translateX(-50%) rotate(-90deg)}
+        }
+        &:nth-child(5) {
+          transform: rotate(120deg);
+          i {transform: translateX(-50%) rotate(-120deg)}
+        }
+        &:nth-child(6) {
+          transform: rotate(150deg);
+          i {transform: translateX(-50%) rotate(-150deg)}
+        }
+        &:nth-child(7) {
+          transform: rotate(180deg);
+          i {transform: translateX(-50%) rotate(-180deg)}
+        }
+        &:nth-child(8) {
+          transform: rotate(210deg);
+          i {transform: translateX(-50%) rotate(-210deg)}
+        }
+        &:nth-child(9) {
+          transform: rotate(240deg);
+          i {transform: translateX(-50%) rotate(-240deg)}
+        }
+        &:nth-child(10) {
+          transform: rotate(270deg);
+          i {transform: translateX(-50%) rotate(-270deg)}
+        }
+        &:nth-child(11) {
+          transform: rotate(300deg);
+          i {transform: translateX(-50%) rotate(-300deg)}
+        }
+        &:last-child  {
+          transform: rotate(330deg);
+          i {transform: translateX(-50%) rotate(-330deg)}
+        }
+      }
+    }
+  }
+
+  // 指針  
+  .clock-container .indicator {
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    display: flex;
+    justify-content: center;
+  }
+
+    
+  .indicator::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background: #661983;
+  }
+
+  .indicator .hand {
+    position: absolute;
+    height: 102px;
+    width: 2px;
+    bottom: 10px; //指針向上偏移 ="=
+    transform-origin: bottom;
+    background: #661983;
+    
+    transform: rotate(0deg);
+  }
+
+
+  

@@ -1,0 +1,39 @@
+
+<div class="form-container">
+
+    <div class="form">
+        <div class="row">
+            <label>申請人</label>
+            <div class="select-item">阿翔</div>
+        </div>
+    
+        <div class="row">
+            <label>起迄日</label>        
+        </div>
+        <div class="row-time">
+            <div>
+                {{ selectDate }}  {{ selectDay }} {{ selectTime }}
+            </div>
+            <div>
+                {{ selectDate }}  {{ selectDay }}  {{ selectTime }}
+            </div>
+        </div>
+        
+        <div class="row">
+            <label>教室</label>
+            <div class="select-item">智慧教室</div>
+            <img src="assets/images/icon/icon_map_position.png" (click)="selectMap()">
+        </div>
+        
+        <div class="row" *ngIf="bookingType === 'site'">
+            <label>座位</label>
+            <div class="select-item">A105</div>
+        </div>
+    
+    </div>
+
+        
+    <img src="assets/images/icon/icon_submit.png" (click)="addData()">
+
+</div>
+

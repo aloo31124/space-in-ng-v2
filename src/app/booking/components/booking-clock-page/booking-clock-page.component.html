@@ -1,0 +1,58 @@
+
+<div class="clock-page-container">
+    <div class="clock-paicker">
+        <div class="clock-header">
+            <div (click)="selectHour()" [ngClass]="{ 'selected': isSelectHour }">{{ getHourString() }}</div>
+            :
+            <div (click)="selectMin()" [ngClass]="{ 'selected': isSelectMin }"> {{ getMinString() }}</div>
+            <div class="am-pm-selector">
+                <div class="am" (click)="selectAm()" [ngClass]="{ 'selected': isAm }">AM</div>
+                <div class="pm" (click)="selectPm()" [ngClass]="{ 'selected': isPm }">PM</div>
+            </div>
+        </div>
+                
+        <div class="clock-container">
+            <section class="clock">
+                <ul *ngIf="isSelectHour">
+                    <li><i (click)="selectTime(12)" [ngClass]="{'selected':_selectHour === 12 }">12</i></li>
+                    <li><i (click)="selectTime(1)" [ngClass]="{'selected':_selectHour === 1 }">1</i></li>
+                    <li><i (click)="selectTime(2)" [ngClass]="{'selected':_selectHour === 2 }">2</i></li>
+                    <li><i (click)="selectTime(3)" [ngClass]="{'selected':_selectHour === 3 }">3</i></li>
+                    <li><i (click)="selectTime(4)" [ngClass]="{'selected':_selectHour === 4 }">4</i></li>
+                    <li><i (click)="selectTime(5)" [ngClass]="{'selected':_selectHour === 5 }">5</i></li>
+                    <li><i (click)="selectTime(6)" [ngClass]="{'selected':_selectHour === 6 }">6</i></li>    
+                    <li><i (click)="selectTime(7)" [ngClass]="{'selected':_selectHour === 7 }">7</i></li>    
+                    <li><i (click)="selectTime(8)" [ngClass]="{'selected':_selectHour === 8 }">8</i></li>    
+                    <li><i (click)="selectTime(9)" [ngClass]="{'selected':_selectHour === 9 }">9</i></li>    
+                    <li><i (click)="selectTime(10)" [ngClass]="{'selected':_selectHour === 10 }">10</i></li>    
+                    <li><i (click)="selectTime(11)" [ngClass]="{'selected':_selectHour === 11 }">11</i></li>
+                </ul>
+
+                
+                <ul *ngIf="isSelectMin">
+                    <li><i (click)="selectTime(0)" [ngClass]="{'selected':_selectMin === 0 }">00</i></li>
+                    <li><i (click)="selectTime(05)" [ngClass]="{'selected':_selectMin === 05 }">05</i></li>
+                    <li><i (click)="selectTime(10)" [ngClass]="{'selected':_selectMin === 10 }">10</i></li>
+                    <li><i (click)="selectTime(15)" [ngClass]="{'selected':_selectMin === 15 }">15</i></li>
+                    <li><i (click)="selectTime(20)" [ngClass]="{'selected':_selectMin === 20 }">20</i></li>
+                    <li><i (click)="selectTime(25)" [ngClass]="{'selected':_selectMin === 25 }">25</i></li>
+                    <li><i (click)="selectTime(30)" [ngClass]="{'selected':_selectMin === 30 }">30</i></li>    
+                    <li><i (click)="selectTime(35)" [ngClass]="{'selected':_selectMin === 35 }">35</i></li>    
+                    <li><i (click)="selectTime(40)" [ngClass]="{'selected':_selectMin === 40 }">40</i></li>    
+                    <li><i (click)="selectTime(45)" [ngClass]="{'selected':_selectMin === 45 }">45</i></li>    
+                    <li><i (click)="selectTime(50)" [ngClass]="{'selected':_selectMin === 50 }">50</i></li>    
+                    <li><i (click)="selectTime(55)" [ngClass]="{'selected':_selectMin === 55 }">55</i></li>
+                </ul>
+
+                
+
+                <div class="indicator">
+                  <span *ngIf="isSelectHour" class="hand"  [style.transform]="'rotate(' + getRotationAngle(_selectHour + 1) + 'deg)'"></span>
+                  <span *ngIf="isSelectMin" class="hand"  [style.transform]="'rotate(' + getRotationAngle(_selectMin/5 + 1) + 'deg)'"></span>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <img src="assets/images/icon/icon_next.png" (click)="nextStep()">
+</div>

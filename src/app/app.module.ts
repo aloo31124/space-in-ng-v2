@@ -7,6 +7,12 @@ import { HeaderComponent } from './common/header/components/header/header.compon
 import { ImgBtnComponent } from './common/button/components/img-btn/img-btn.component';
 import { HomePageComponent } from './home/components/home-page/home-page.component';
 import { LoginPageComponent } from './auth/components/login-page/login-page.component';
+import { CalendarPickerComponent } from './common/time/component/calendar-picker/calendar-picker.component';
+import { ClockPickerComponent } from './common/time/component/clock-picker/clock-picker.component';
+import { BookingDatePageComponent } from './booking/components/booking-date-page/booking-date-page.component';
+import { BookingClockPageComponent } from './booking/components/booking-clock-page/booking-clock-page.component';
+import { BookingSelectTypePageComponent } from './booking/components/booking-select-type-page/booking-select-type-page.component';
+import { BookingCheckFormPageComponent } from './booking/components/booking-check-form-page/booking-check-form-page.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +20,13 @@ import { LoginPageComponent } from './auth/components/login-page/login-page.comp
     HeaderComponent,
     ImgBtnComponent,
     HomePageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    CalendarPickerComponent,
+    ClockPickerComponent,
+    BookingDatePageComponent,
+    BookingClockPageComponent,
+    BookingSelectTypePageComponent,
+    BookingCheckFormPageComponent
   ],
   imports: [
     BrowserModule,
