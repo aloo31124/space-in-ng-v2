@@ -1,0 +1,54 @@
+
+.calendar-picker {
+    width: 350px;
+    .calendar-header {                
+        background: #661983;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        font-size: 20px;
+    }
+
+    .calendar-content {
+        .grid-row {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+            .grid {                
+                width: 14%;
+                //height: 40px;
+                text-align: center; /* 文本水平居中 */
+                padding: 12px 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+
+                .no-selected {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    width: 35px;
+                    height: 35px;
+                }
+
+                .selected {
+                    background: #661983;
+                    color: white;
+                    border-radius: 100%;
+                }
+
+                .dot {
+                    width: 4px;
+                    height: 4px;
+                    background: #661983;
+                    border-radius: 100%;                    
+                }
+            }
+        }
+    }
+}
