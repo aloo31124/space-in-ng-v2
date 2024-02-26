@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { 
+  Firestore,
+  collection,
+  collectionData,
+  addDoc
+} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-booking-check-form-page',
@@ -15,7 +21,8 @@ export class BookingCheckFormPageComponent {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private firestore: Firestore,
   ) {
     this.getData();
   }
@@ -63,14 +70,30 @@ export class BookingCheckFormPageComponent {
   }
   
 
+
   addData() {
     //console.log(f.value);
 
     const testData = { mail: 'newaloo31124@gmail.com', selectDate: this.selectDate, selectTime: this.selectTime, bookingType: this.bookingType }
 
+    const collectionInstance = collection(this.firestore, 'UsersTest');
+    addDoc(collectionInstance, testData)
+      .then(() => {
+        //console.log("success!! :)")
+        alert("post success! selectDate : " + this.selectDate + " ,"  + this.selectTime);
+        this.router.navigate(["review-booking/review-booking-calendar"]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   getData() {
+    const collectionInstance = collection(this.firestore, 'UsersTest');
+    collectionData(collectionInstance)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 
   selectMap() {

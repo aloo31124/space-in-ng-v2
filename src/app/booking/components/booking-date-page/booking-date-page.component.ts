@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-
+import { 
+  Firestore,
+  collection,
+  collectionData,
+  addDoc
+} from '@angular/fire/firestore';
 
 
 @Component({
@@ -25,6 +30,7 @@ export class BookingDatePageComponent {
   
   constructor(
     private router: Router,
+    private firestore: Firestore
   ) { }
 
   ngOnInit(): void {
@@ -55,12 +61,29 @@ export class BookingDatePageComponent {
   }
 
 
+
   /* 
    * 從 FireStore 取得所有 booking 日期。
    */
   setBookingDotDate() {
     // 取得已選擇 日期 (尚未依照 email 搜尋)
-    
+    const collectionInstance = collection(this.firestore, 'UsersTest');
+    collectionData(collectionInstance)
+      .subscribe((data) => {
+        this._bookedDateAll = [];
+        this._bookedDay = [];
+        const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
+        const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
+        for(let i=0 ; i< data.length ; i++){
+          const checkDate = new Date(data[i]['selectDate']);
+          if(startDate <= checkDate && checkDate <= endDate){
+            this._bookedDateAll[i] = new Date(data[i]['selectDate']);
+            // 取得 已被 bookin 之日期
+            this._bookedDay[i] = this._bookedDateAll[i].getDate();
+          }
+        }
+        console.log(this._bookedDay);        
+      });
   }
 
   /* 

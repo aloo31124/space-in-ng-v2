@@ -14,6 +14,21 @@ import { BookingClockPageComponent } from './booking/components/booking-clock-pa
 import { BookingSelectTypePageComponent } from './booking/components/booking-select-type-page/booking-select-type-page.component';
 import { BookingCheckFormPageComponent } from './booking/components/booking-check-form-page/booking-check-form-page.component';
 
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+
+const  firebase = {
+  projectId: 'spacein-ec8ab',
+  appId: '1:328066296243:web:b1897c1201a0f9b55843c6',
+  databaseURL: 'https://spacein-ec8ab-default-rtdb.firebaseio.com',
+  storageBucket: 'spacein-ec8ab.appspot.com',
+  apiKey: 'AIzaSyDKF1CmT6ugm2WYk8mgRzyPQy8-AsBAgvs',
+  authDomain: 'spacein-ec8ab.firebaseapp.com',
+  messagingSenderId: '328066296243',
+  measurementId: 'G-54HYGJ7ZDQ',
+}
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +45,12 @@ import { BookingCheckFormPageComponent } from './booking/components/booking-chec
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+       
+    provideFirebaseApp(() => initializeApp(firebase)),
+    provideFirestore(() => getFirestore()), 
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
