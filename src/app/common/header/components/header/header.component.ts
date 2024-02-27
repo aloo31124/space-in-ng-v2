@@ -1,5 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Location } from '@angular/common'
+import { RouteUrlRecordService } from '../../services/route-url-record.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +20,9 @@ export class HeaderComponent implements OnInit {
   @ViewChild('header') headerElementRef!: ElementRef;
 
   constructor(
-    private location: Location
+    private location: Location,
+    private routeUrlRecordService: RouteUrlRecordService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -41,12 +45,15 @@ export class HeaderComponent implements OnInit {
     console.log(this.headerElementRef.nativeElement.offsetHeight);
   }
 
+  /*
+   * 上一頁 
+   */
   back() { 
-    if (this.otherBackUrl.trim().length === 0){
+    if (this.routeUrlRecordService.getPreviousUrl().includes("booking-check-form")){
+      this.router.navigate(["home"])
+    } else if (this.otherBackUrl.trim().length === 0){
       this.location.back();
-    } else {
-
-    }
+    } 
   }
 
 }
