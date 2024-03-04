@@ -1,0 +1,47 @@
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm; 
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// 03/04
+// 評估另一種方式開啟 綠界 form html
+window.open(url);
+window.open("https://getecpaysdkpage-querqokzna-uc.a.run.app");
+
+/////////////////////////////////////////////////////////////////////////////////////////
+03/01
+//=> 使用 httpClient 取得 綠界 html 頁面
+
+  private async fetchPaymentPageHtml(): Promise<string> {
+    // 發送 HTTP 請求到綠界 API
+    const apiUrl = 'https://getecpayresult-querqokzna-uc.a.run.app';
+    this.http
+      .get(apiUrl)
+      .subscribe(
+        x => {
+          console.log("success!");
+          console.log(x);
+          return x;
+        },
+        error => {
+          console.log(" error 2 ! : " + error.error.text);
+          this.paymentPageEl.nativeElement.innerHTML = error.error.text;
+          
+          return error.error.text;          
+        }
+      );
+      return "畫面載入中,請稍等。";
+
+/////////////////////////////////////////////////////////////////////////////////////////
+02/27
+刷新 html 畫面
+
+html: 
+<div #paymentPage></div>
+
+ts:
+  @ViewChild('paymentPage') paymentPageEl!: ElementRef;
+
+    // 將 HTML 內容設定給 paymentPageEl
+    this.paymentPageEl.nativeElement.innerHTML = paymentPageHtml;
+    console.log(document.getElementById('_form_aiochk'));

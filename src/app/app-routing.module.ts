@@ -7,6 +7,8 @@ import { BookingDatePageComponent } from './booking/components/booking-date-page
 import { BookingClockPageComponent } from './booking/components/booking-clock-page/booking-clock-page.component';
 import { BookingSelectTypePageComponent } from './booking/components/booking-select-type-page/booking-select-type-page.component';
 import { BookingCheckFormPageComponent } from './booking/components/booking-check-form-page/booking-check-form-page.component';
+import { PaidPlanListComponent } from './payment/components/paid-plan-list/paid-plan-list.component';
+import { EcpayFormComponent } from './payment/components/ecpay-form/ecpay-form.component';
 
 const routes: Routes = [
   {path:'', component: LoginPageComponent},
@@ -30,7 +32,15 @@ const routes: Routes = [
   {
     path: 'booking-check-form',
     component: BookingCheckFormPageComponent,
-  }
+  },
+  {
+    path: 'payment',
+    component: PaidPlanListComponent,
+  },
+  {
+    path: 'ecpay-form',
+    component: EcpayFormComponent,
+  },
 ];
 
 @NgModule({

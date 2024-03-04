@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/components/header/header.component';
 import { ImgBtnComponent } from './common/button/components/img-btn/img-btn.component';
@@ -16,6 +18,9 @@ import { BookingCheckFormPageComponent } from './booking/components/booking-chec
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { PaidPlanListComponent } from './payment/components/paid-plan-list/paid-plan-list.component';
+import { EcpayFormComponent } from './payment/components/ecpay-form/ecpay-form.component';
+
 
 const  firebase = {
   projectId: 'spacein-ec8ab',
@@ -41,11 +46,14 @@ const  firebase = {
     BookingDatePageComponent,
     BookingClockPageComponent,
     BookingSelectTypePageComponent,
-    BookingCheckFormPageComponent
+    BookingCheckFormPageComponent,
+    PaidPlanListComponent,
+    EcpayFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
 
        
     provideFirebaseApp(() => initializeApp(firebase)),
