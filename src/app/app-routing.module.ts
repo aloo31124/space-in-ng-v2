@@ -44,7 +44,7 @@ const routes: Routes = [
     component: ReviewRoomDetailComponent,
   },
   {
-    path: 'payment',
+    path: 'pay-plan-list',
     component: PaidPlanListComponent,
   },
   {
