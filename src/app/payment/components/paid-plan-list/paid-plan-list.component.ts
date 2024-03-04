@@ -8,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class PaidPlanListComponent {
 
+  routeToECPayForm() {
+    window.open("https://getecpaysdkpage-querqokzna-uc.a.run.app");
+  }
+
 }
 
 
