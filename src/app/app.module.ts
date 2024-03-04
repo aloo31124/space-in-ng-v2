@@ -20,6 +20,8 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { PaidPlanListComponent } from './payment/components/paid-plan-list/paid-plan-list.component';
 import { EcpayFormComponent } from './payment/components/ecpay-form/ecpay-form.component';
+import { ReviewRoomOverviewComponent } from './review-room/components/review-room-overview/review-room-overview.component';
+import { ReviewRoomDetailComponent } from './review-room/components/review-room-detail/review-room-detail.component';
 
 
 const  firebase = {
@@ -48,7 +50,9 @@ const  firebase = {
     BookingSelectTypePageComponent,
     BookingCheckFormPageComponent,
     PaidPlanListComponent,
-    EcpayFormComponent
+    EcpayFormComponent,
+    ReviewRoomOverviewComponent,
+    ReviewRoomDetailComponent
   ],
   imports: [
     BrowserModule,

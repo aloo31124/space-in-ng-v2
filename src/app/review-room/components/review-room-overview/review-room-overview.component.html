@@ -1,0 +1,57 @@
+<div class="main-container">
+    <div class="review-container">    
+        <div class="row">
+            <label class="title">剩餘空間</label>
+            <div class="select-item" id="show-modal-example">今日</div>
+        </div>
+        <div class="row">
+            <label class="title-second">所有剩餘空間</label>
+        </div>
+        <div class="row">
+            <label class="content">140 / 200間 (70%)</label>
+        </div>       
+        <div class="row" (click)="clickToReivewRoomDetail()">
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>   
+    </div>
+    
+    <div class="review-container">      
+        <div class="row">
+            <label class="title">借用趨勢</label>
+            <div class="select-item" (click)="showDialog()"> {{ selectChartTimeWording }}</div>
+        </div> 
+        <canvas  id="lineChart" >{{ lineChart }}</canvas>
+    </div>
+    
+    <div class="dialog-container" [ngStyle]="{ display: isHiddenDialog ? 'none' : 'flex' }">
+        <div class="dialog-mask" (click)="hiddenDialog()">
+        </div>
+        <div class="dialog">
+            <div class="dialog-header">
+            </div>
+            <div class="dialog-content">        
+                <div class="row" (click)="selectCharTimeModel(chartTimeModel.week)">
+                    本周
+                </div>          
+                <div class="row" (click)="selectCharTimeModel(chartTimeModel.month)">
+                    本月
+                </div>        
+                <div class="row" (click)="selectCharTimeModel(chartTimeModel.season)">
+                    本季
+                </div>        
+                <div class="row" (click)="selectCharTimeModel(chartTimeModel.halfYear)">
+                    半年
+                </div>        
+                <div class="row" (click)="selectCharTimeModel(chartTimeModel.year)">
+                    今年
+                </div>  
+            </div>
+            <div class="dialog-footer">
+                <img class="img-next" src="assets/images/icon/icon_next.png" (click)="hiddenDialog()">    
+            </div>
+        </div>
+    </div>
+
+</div>
