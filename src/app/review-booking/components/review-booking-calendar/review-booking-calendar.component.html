@@ -1,0 +1,38 @@
+<p>已借用</p>
+
+
+
+<div class="container">
+    <div class="calendar-picker">
+        <div class="calendar-header">
+            <img src="assets/images/icon/icon_back.png" (click)="backMonth()">
+            {{ currentYear }} 年 {{ currentMonth }} 月
+            <img src="assets/images/icon/icon_next.png" (click)="nextMonth()">
+        </div>
+        <div class="calendar-content">
+            <div class="grid-row">
+                <div class="grid">日</div>
+                <div class="grid">一</div>
+                <div class="grid">二</div>
+                <div class="grid">三</div>
+                <div class="grid">四</div>
+                <div class="grid">五</div>
+                <div class="grid">六</div>
+            </div>
+            <div class="grid-row">
+                <div 
+                    class="grid" 
+                    *ngFor="let number of [].constructor(displayAllDayGrid); let i = index"  
+                    (click)="selectDate( i + 1 - currentMonthFirstDayWeekly )"                     
+                    [id]="'grid-' + ( i + 1 - currentMonthFirstDayWeekly )">
+                        <div class="no-selected"
+                             [ngClass]="{ 'selected': _selectDate === i + 1 - currentMonthFirstDayWeekly }"
+                             *ngIf="i + 1 > currentMonthFirstDayWeekly">
+                                {{ i + 1 - currentMonthFirstDayWeekly }}
+                        </div>
+                        <div *ngIf="isShowDot(i + 1 - currentMonthFirstDayWeekly )" class="dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

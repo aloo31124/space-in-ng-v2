@@ -22,6 +22,8 @@ import { PaidPlanListComponent } from './payment/components/paid-plan-list/paid-
 import { EcpayFormComponent } from './payment/components/ecpay-form/ecpay-form.component';
 import { ReviewRoomOverviewComponent } from './review-room/components/review-room-overview/review-room-overview.component';
 import { ReviewRoomDetailComponent } from './review-room/components/review-room-detail/review-room-detail.component';
+import { ReviewBookingCalendarComponent } from './review-booking/components/review-booking-calendar/review-booking-calendar.component';
+import { ReviewBookingFormComponent } from './review-booking/components/review-booking-form/review-booking-form.component';
 
 
 const  firebase = {
@@ -52,7 +54,9 @@ const  firebase = {
     PaidPlanListComponent,
     EcpayFormComponent,
     ReviewRoomOverviewComponent,
-    ReviewRoomDetailComponent
+    ReviewRoomDetailComponent,
+    ReviewBookingCalendarComponent,
+    ReviewBookingFormComponent
   ],
   imports: [
     BrowserModule,
