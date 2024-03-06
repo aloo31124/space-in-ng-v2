@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { 
-  Firestore,
-  collection,
-  collectionData,
-  addDoc
-} from '@angular/fire/firestore';
+import { ReviewBookingService } from '../../services/review-booking.service';
 
 @Component({
   selector: 'app-review-booking-calendar',
@@ -28,7 +23,7 @@ export class ReviewBookingCalendarComponent {
   
   constructor(
     private router: Router,
-    private firestore: Firestore
+    private reviewBookingService: ReviewBookingService,
   ) { }
 
   ngOnInit(): void {
@@ -64,11 +59,9 @@ export class ReviewBookingCalendarComponent {
    */
   setBookingDotDate() {
     // 取得已選擇 日期 (尚未依照 email 搜尋)
-    const collectionInstance = collection(this.firestore, 'UsersTest');
-    collectionData(
-        collectionInstance, 
-        {idField: 'fireStoreId'}  // fireStoreId
-      ).subscribe((data) => {
+    this.reviewBookingService
+      .getAllBookingDayByUserId()
+      .subscribe((data) => {
         console.log(data);
         this._bookedDateAll = [];
         this._bookedDay = [];
@@ -146,7 +139,7 @@ export class ReviewBookingCalendarComponent {
 
 
   /* 
-   * 選擇日期
+   * 選擇日期,檢視細節並評估是否刪除
    */
   selectDate(date: number) {
     console.log("selectDate: " + date);
@@ -161,11 +154,10 @@ export class ReviewBookingCalendarComponent {
 
     //取得 firebase id (需要優化)
     // 很爛的寫法 為啥要 重取一次 ="= ， 需要建立 model
-    const collectionInstance = collection(this.firestore, 'UsersTest');
-    collectionData(
-        collectionInstance, 
-        {idField: 'fireStoreId'}  // fireStoreId
-      ).subscribe((data) => {
+    
+    this.reviewBookingService
+      .getAllBookingDayByUserId()
+      .subscribe((data) => {
         const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
         const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
         for(let i=0 ; i< data.length ; i++){

@@ -74,6 +74,7 @@ export class ReviewBookingFormComponent {
   }
 
   deleteBooking() {
+    alert("取消借用");
     const docInstance = doc(this.firestore, 'UsersTest', this.fireStoreId);
     deleteDoc(docInstance);
     this.router.navigate(["review-booking-calendar"]);
