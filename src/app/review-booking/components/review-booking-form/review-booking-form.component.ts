@@ -76,7 +76,7 @@ export class ReviewBookingFormComponent {
   deleteBooking() {
     const docInstance = doc(this.firestore, 'UsersTest', this.fireStoreId);
     deleteDoc(docInstance);
-    this.router.navigate(["review-booking/review-booking-calendar"]);
+    this.router.navigate(["review-booking-calendar"]);
   }
 
 }
