@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PlayTypeModel } from '../../models/plan-type.model';
+import { PlanTypeModel } from '../../models/plan-type.model';
 import { PlanTimeTypeModel } from '../../models/plan-time-type.model';
 
 
@@ -11,7 +11,7 @@ import { PlanTimeTypeModel } from '../../models/plan-time-type.model';
 export class PaidPlanListComponent {
 
   // 選擇方案 models
-  palnTypeModel = new PlayTypeModel();
+  palnTypeModel = new PlanTypeModel();
   // 選擇時段 models
   planTimeTypeModel = new PlanTimeTypeModel();
 
@@ -69,8 +69,19 @@ export class PaidPlanListComponent {
    *  下一步, 送給 伺服器 (google cloud function),由 伺服器 與 綠界金流 取付款介面
    */
   routeToECPayForm() {
-    //檢查是否已勾選
-    window.open("https://getecpaysdkpage-querqokzna-uc.a.run.app?plan=b&time=year");
+    //檢查是否已勾選 購買方案
+    if(this.selectPlanType === "") {
+      alert("請選擇購買方案");
+      return;
+    }
+    //檢查是否已勾選 購買方案
+    if(this.selectPlanTimeType === "") {
+      alert("請選擇購買方案時段");
+      return;
+    }
+
+    //導向綠界付款
+    window.open("https://getecpaysdkpage-querqokzna-uc.a.run.app?planType=" + this.selectPlanType + "&planTimeType=" +this.selectPlanTimeType);
   }
 
 }
