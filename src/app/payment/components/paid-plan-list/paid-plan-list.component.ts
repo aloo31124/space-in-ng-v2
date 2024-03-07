@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PlanTypeModel } from '../../models/plan-type.model';
 import { PlanTimeTypeModel } from '../../models/plan-time-type.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,6 +23,10 @@ export class PaidPlanListComponent {
   iconUrl3 = this.iconCheckNo;
   selectPlanType = "";
   selectPlanTimeType = "";
+
+  constructor(
+    private router: Router,
+  ) {}
 
   /* 
    * 勾選 欲 購買方案 
@@ -52,8 +57,6 @@ export class PaidPlanListComponent {
     if(this.selectPlanType === selectPlanType) {
       this.selectPlanTimeType = selectPlanTimeType;
     }
-    console.log(this.selectPlanType);
-    console.log(this.selectPlanTimeType);
   }
 
   /* 
@@ -82,6 +85,7 @@ export class PaidPlanListComponent {
 
     //導向綠界付款
     window.open("https://getecpaysdkpage-querqokzna-uc.a.run.app?planType=" + this.selectPlanType + "&planTimeType=" +this.selectPlanTimeType);
+    this.router.navigate(["/home"]);
   }
 
 }
