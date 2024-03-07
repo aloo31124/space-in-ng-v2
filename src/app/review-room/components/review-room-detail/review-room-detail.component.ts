@@ -14,6 +14,13 @@ import {
 })
 export class ReviewRoomDetailComponent {
 
+  //選擇空間種類 dialog
+  dialogRoomType = ["全部", "教室預約", "座位預約"];
+  isDialogHiddenRoomType = true;
+  //選擇剩餘空間 dialog
+  dialogRemainRoomRate = ["10%", "20%", "30%", "40%", "50%"];
+  isDialogHiddenRemainRommRate = true;
+
   currentDate = new Date();
   currentYear = 0;
   currentMonth = 0;
@@ -182,34 +189,32 @@ export class ReviewRoomDetailComponent {
     this.router.navigate(["booking/clock"], navigationExtras);
   }
 
-
-  /////////////////////////////////////////////////////////////////////////////////////
-  
-  public showDialog() {
-    this.isHiddenDialog = false;
-  }
-
-  public hiddenDialog() {
+  public selectRate(selectRate: string) {
     this.isHiddenDialog = true;
-  }
-
-  public selectRate(selectRate: number) {
-    this.hiddenDialog();
-    this.showRate = selectRate;
-  }
-
-  /////////////////////////////////////////////////////////////////////////////////////
-  
-  public showRoomDialog() {
-    this.isHiddenRoomDialog = false;
-  }
-
-  public hiddenRoomDialog() {
-    this.isHiddenRoomDialog = true;
+    switch(selectRate) {
+      case "10%" :
+        this.showRate = 10;
+        break;
+      case "20%" :
+        this.showRate = 20;
+        break;
+      case "30%" :
+        this.showRate = 30;
+        break;
+      case "40%" :
+        this.showRate = 40;
+        break;
+      case "50%" :
+        this.showRate = 50;
+        break;
+      default:
+        this.showRate = 30;
+    }
+    
   }
 
   public selectRoomType(selectRoomType: string) {
-    this.hiddenRoomDialog();
+    this.isHiddenRoomDialog = true;
     this._selectRoomType = selectRoomType;
   }
 

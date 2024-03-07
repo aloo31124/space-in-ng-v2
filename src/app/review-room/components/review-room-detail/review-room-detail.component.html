@@ -23,13 +23,13 @@
     <div class="review-container"> 
         <div class="row">
             <label class="title">空間種類</label>
-            <div class="select-item" (click)="showRoomDialog()"> {{ _selectRoomType }} </div>
+            <div class="select-item" (click)="isDialogHiddenRoomType=false"> {{ _selectRoomType }} </div>
         </div>
         
            
         <div class="row">
             <label class="title-second">顯示剩餘空間</label>
-            <div class="select-item" (click)="showDialog()"> {{ showRate }} %</div>
+            <div class="select-item" (click)="isDialogHiddenRemainRommRate=false"> {{ showRate }} %</div>
             <label class="title-second">以下</label>
         </div>
     
@@ -72,57 +72,23 @@
     </div>
     
     <!-- 選擇剩餘空間% dialog -->
-    <div class="dialog-container" [ngStyle]="{ display: isHiddenDialog ? 'none' : 'flex' }">
-        <div class="dialog-mask" (click)="hiddenDialog()">
-        </div>
-        <div class="dialog">
-            <div class="dialog-header">
-            </div>
-            <div class="dialog-content">        
-                <div class="row" (click)="selectRate(10)">
-                    10 %
-                </div>          
-                <div class="row" (click)="selectRate(20)">
-                    20 %
-                </div>        
-                <div class="row" (click)="selectRate(30)">
-                    30 %
-                </div>        
-                <div class="row" (click)="selectRate(40)">
-                    40 %
-                </div>        
-                <div class="row" (click)="selectRate(50)">
-                    50 %
-                </div>  
-            </div>
-            <div class="dialog-footer">
-                <img class="img-next" src="assets/images/icon/icon_next.png" (click)="hiddenDialog()">    
-            </div>
-        </div>
+    <div class="dialog-container">
+        <app-dialog 
+            [isHiddenDialog]="isDialogHiddenRemainRommRate"
+            (hideDialog)="isDialogHiddenRemainRommRate=true"
+            (selectedItem)="selectRate($event)"
+            [itemList]="dialogRemainRoomRate">
+        </app-dialog>
     </div>
     
     <!-- 選擇空間種類 dialog -->
-    <div class="dialog-container" [ngStyle]="{ display: isHiddenRoomDialog ? 'none' : 'flex' }">
-        <div class="dialog-mask" (click)="hiddenRoomDialog()">
-        </div>
-        <div class="dialog">
-            <div class="dialog-header">
-            </div>
-            <div class="dialog-content">        
-                <div class="row" (click)="selectRoomType(roomType.all)">
-                    全部
-                </div>          
-                <div class="row" (click)="selectRoomType(roomType.roomBooking)">
-                    教室預約
-                </div>        
-                <div class="row" (click)="selectRoomType(roomType.siteBooking)">
-                    座位預約
-                </div>   
-            </div>
-            <div class="dialog-footer">
-                <img class="img-next" src="assets/images/icon/icon_next.png" (click)="hiddenRoomDialog()">    
-            </div>
-        </div>
+    <div class="dialog-container">
+        <app-dialog 
+            [isHiddenDialog]="isDialogHiddenRoomType"
+            (hideDialog)="isDialogHiddenRoomType=true"
+            (selectedItem)="selectRoomType($event)"
+            [itemList]="dialogRoomType">
+        </app-dialog>
     </div>
     
 

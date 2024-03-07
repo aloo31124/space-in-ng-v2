@@ -11,13 +11,21 @@ import { ChartTimeWord } from '../../models/chartTimeWord.model';
   styleUrls: ['./review-room-overview.component.scss']
 })
 export class ReviewRoomOverviewComponent {
-  public lineChart: any;
-  public isHiddenDialog = true;
 
 
   public chartTimeModel = new ChartTime();
   public chartTimeModelWording = new ChartTimeWord();
   public selectChartTimeWording = this.chartTimeModelWording.halfYear; 
+
+  public lineChart: any;
+  public isHiddenDialog = true;
+  public dialogChartTimeItem = [
+    this.chartTimeModelWording.week,
+    this.chartTimeModelWording.month,
+    this.chartTimeModelWording.season,
+    this.chartTimeModelWording.halfYear,
+    this.chartTimeModelWording.year,
+  ];
   
   constructor(
     private router : Router,
@@ -79,34 +87,28 @@ export class ReviewRoomOverviewComponent {
   selectCharTimeModel(selectTimeModel: string) {
     this.lineChart.destroy(); // 銷毀現有圖表
     
-    if(selectTimeModel === this.chartTimeModel.week) {
+    if(selectTimeModel === this.chartTimeModelWording.week) {
       this.selectChartTimeWording = this.chartTimeModelWording.week;
+      this.createChart(this.chartTimeModel.week);
     }
-    if(selectTimeModel === this.chartTimeModel.month) {
+    if(selectTimeModel === this.chartTimeModelWording.month) {
       this.selectChartTimeWording = this.chartTimeModelWording.month;
+      this.createChart(this.chartTimeModel.month);
     }
-    if(selectTimeModel === this.chartTimeModel.season) {
+    if(selectTimeModel === this.chartTimeModelWording.season) {
       this.selectChartTimeWording = this.chartTimeModelWording.season;
+      this.createChart(this.chartTimeModel.season);
     }
-    if(selectTimeModel === this.chartTimeModel.halfYear) {
+    if(selectTimeModel === this.chartTimeModelWording.halfYear) {
       this.selectChartTimeWording = this.chartTimeModelWording.halfYear;
+      this.createChart(this.chartTimeModel.halfYear);
     }
-    if(selectTimeModel === this.chartTimeModel.year) {
+    if(selectTimeModel === this.chartTimeModelWording.year) {
       this.selectChartTimeWording = this.chartTimeModelWording.year;
+      this.createChart(this.chartTimeModel.year);
     }
-
-    this.hiddenDialog();
-    this.createChart(selectTimeModel)
   }
-
-  public showDialog() {
-    this.isHiddenDialog = false;
-  }
-
-  public hiddenDialog() {
-    this.isHiddenDialog = true;
-  }
-
+  
   clickToReivewRoomDetail() {
     this.router.navigate(["/review-room-detail"]);
   }
