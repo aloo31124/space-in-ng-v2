@@ -1,0 +1,20 @@
+
+
+    <div class="dialog-container" [ngStyle]="{ display: isHiddenDialog ? 'none' : 'flex' }">
+        <div class="dialog-mask" (click)="hiddenDialog()">
+        </div>
+
+        <div class="dialog">
+
+            <div class="dialog-content">
+                <div class="row" *ngFor="let item of itemList"  (click)="clickItem(item)" > {{ item }}</div>
+            </div>
+
+           <!--  按鈕待優化
+            <div class="dialog-footer">
+                <img class="img-next" src="assets/images/icon/icon_next.png" (click)="hiddenDialog()">    
+            </div>
+             -->
+        </div>
+
+    </div>

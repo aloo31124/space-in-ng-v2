@@ -24,6 +24,7 @@ import { ReviewRoomOverviewComponent } from './review-room/components/review-roo
 import { ReviewRoomDetailComponent } from './review-room/components/review-room-detail/review-room-detail.component';
 import { ReviewBookingCalendarComponent } from './review-booking/components/review-booking-calendar/review-booking-calendar.component';
 import { ReviewBookingFormComponent } from './review-booking/components/review-booking-form/review-booking-form.component';
+import { DialogComponent } from './common/dialog/components/dialog/dialog.component';
 
 
 const  firebase = {
@@ -56,7 +57,8 @@ const  firebase = {
     ReviewRoomOverviewComponent,
     ReviewRoomDetailComponent,
     ReviewBookingCalendarComponent,
-    ReviewBookingFormComponent
+    ReviewBookingFormComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
