@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Booking } from '../../models/booking.model';
 import { BookingService } from '../../services/booking.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GoogleAuthService } from 'src/app/auth/services/google-auth.service';
+import { GoogleAuthUser } from 'src/app/auth/models/google-auth-user.model';
 
 @Component({
   selector: 'app-booking-check-form-page',
@@ -19,6 +21,7 @@ export class BookingCheckFormPageComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private bookingService: BookingService,
+    private googleAuthService: GoogleAuthService,
   ) {
   }
 
@@ -63,19 +66,32 @@ export class BookingCheckFormPageComponent {
       }
     });
   }
-  
-
 
   submitBooking() {
-    const bookingData = { mail: 'newaloo31124@gmail.com', selectDate: this.selectDate, selectTime: this.selectTime, bookingType: this.bookingType };
-    this.bookingService.post(bookingData)      .then(() => {
-      alert("送出成功, 預約時間: " + this.selectDate + " " + this.selectTime);
-      this.router.navigate(["home"]);
-    })
-    .catch((error) => {
-      console.log(error);
-      alert("資料送出失敗,請重新輸入");
-    });
+    
+    const googleAuthUser = this.googleAuthService.getCurrentUser();
+    console.log(googleAuthUser);
+
+    if(!googleAuthUser) {
+      alert("使用者資訊不足");
+      return;
+    }
+    
+    if(googleAuthUser.email === "") {
+      alert("無法取得使用者 email");
+      return;
+    }
+
+    const bookingData = { mail: googleAuthUser.email, selectDate: this.selectDate, selectTime: this.selectTime, bookingType: this.bookingType };
+    this.bookingService.post(bookingData)      
+      .then(() => {
+        alert("送出成功, 預約時間: " + this.selectDate + " " + this.selectTime);
+        this.router.navigate(["home"]);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("資料送出失敗,請重新輸入");
+      });
     alert("資料傳輸中");
   }
 
