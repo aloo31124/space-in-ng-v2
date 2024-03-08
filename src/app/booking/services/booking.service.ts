@@ -21,7 +21,7 @@ export class BookingService {
    * 取得所有 booking 資料
    */
   getAll() {
-    const collectionInstance = collection(this.firestore, 'UsersTest');
+    const collectionInstance = collection(this.firestore, 'Booking');
     return collectionData(collectionInstance);
   }
 
@@ -29,7 +29,7 @@ export class BookingService {
    * 新增一筆 booking 資料
    */
   post(booking: Booking):Promise<any> {
-    const collectionInstance = collection(this.firestore, 'UsersTest');
+    const collectionInstance = collection(this.firestore, 'Booking');
     return addDoc(collectionInstance, booking);
   }
 

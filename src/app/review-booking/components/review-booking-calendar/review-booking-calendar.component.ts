@@ -68,9 +68,9 @@ export class ReviewBookingCalendarComponent {
         const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
         const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
         for(let i=0 ; i< data.length ; i++){
-          const checkDate = new Date(data[i]['selectDate']);
+          const checkDate = new Date(data[i]['startDate']);
           if(startDate <= checkDate && checkDate <= endDate){
-            this._bookedDateAll[i] = new Date(data[i]['selectDate']);
+            this._bookedDateAll[i] = new Date(data[i]['startDate']);
             // 取得 已被 bookin 之日期
             this._bookedDay[i] = this._bookedDateAll[i].getDate();
           }
@@ -142,7 +142,6 @@ export class ReviewBookingCalendarComponent {
    * 選擇日期,檢視細節並評估是否刪除
    */
   selectDate(date: number) {
-    console.log("selectDate: " + date);
 
     if(!this._bookedDay.includes(date)) {
       return;
@@ -162,15 +161,15 @@ export class ReviewBookingCalendarComponent {
         const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
         for(let i=0 ; i< data.length ; i++){
 
-          const checkDate = new Date(data[i]['selectDate']); 
+          const checkDate = new Date(data[i]['startDate']); 
           if(startDate <= checkDate && checkDate <= endDate && checkDate.getDate() === date){  
 
             // 建立 NavigationExtras 對象
             const navigationExtras: NavigationExtras = {
               queryParams: {                
                 fireStoreId: data[i]['fireStoreId'],
-                selectDate: data[i]['selectDate'],
-                selectTime: data[i]['selectTime'],
+                selectDate: data[i]['startDate'],
+                selectTime: data[i]['startTime'],
                 bookingType: data[i]['bookingType']
               }
             };

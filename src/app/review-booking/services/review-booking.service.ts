@@ -18,7 +18,7 @@ export class ReviewBookingService {
    * 使用 userId找該員之紀錄 
    */
   getAllBookingDayByUserId() {
-    const collectionInstance = collection(this.firestore, 'UsersTest');
+    const collectionInstance = collection(this.firestore, 'Booking');
     return collectionData(
         collectionInstance, 
         {idField: 'fireStoreId'}  // fireStoreId

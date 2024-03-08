@@ -16,6 +16,7 @@ export class BookingCheckFormPageComponent {
   selectDay = "";
   selectTime = "";
   bookingType = "";
+  currentUser!: GoogleAuthUser;
 
   constructor(
     private router: Router,
@@ -26,6 +27,13 @@ export class BookingCheckFormPageComponent {
   }
 
   ngOnInit(): void {
+    // 取得使用者資訊
+    this.currentUser = this.googleAuthService.getCurrentUser();
+    if(!this.currentUser) {
+      alert("無法取得使用者資訊，請重新登入。");
+      this.router.navigate(["/"]);
+    }
+
     // 提取日期参数
     this.activatedRoute.queryParams.subscribe(params => {
       this.selectDate = params['selectDate'];
@@ -68,21 +76,43 @@ export class BookingCheckFormPageComponent {
   }
 
   submitBooking() {
-    
-    const googleAuthUser = this.googleAuthService.getCurrentUser();
-    console.log(googleAuthUser);
 
-    if(!googleAuthUser) {
-      alert("使用者資訊不足");
-      return;
-    }
-    
-    if(googleAuthUser.email === "") {
-      alert("無法取得使用者 email");
+    if(!this.currentUser) {
+      alert("使用者資訊不足，請重新登入");
       return;
     }
 
-    const bookingData = { mail: googleAuthUser.email, selectDate: this.selectDate, selectTime: this.selectTime, bookingType: this.bookingType };
+    if(this.currentUser.email === "") {
+      alert("無法取得使用者 email，請重新登入");
+      return;
+    }
+
+    if(this.currentUser.id === "") {
+      alert("無法取得使用者 id ，請重新登入");
+      return;
+    }
+
+    const bookingData = { 
+      userId: this.currentUser.id, 
+      mail: this.currentUser.email, 
+      startDate: this.selectDate, 
+      endDatae: this.selectDate, 
+      startTime: this.selectTime,
+      endTime: this.selectTime,
+      bookingType: this.bookingType,
+      room: "",
+      site: "",
+    };
+    
+    //Function addDoc() called with invalid data. Data must be an object, but it was: a custom Booking object 
+    //let bookingData = new Booking();
+    //bookingData.mail = googleAuthUser.email;
+    //bookingData.selectDate = this.selectDate;
+    //bookingData.selectTime = this.selectTime;
+    //bookingData.bookingType = this.bookingType;
+
+    console.log(bookingData);
+
     this.bookingService.post(bookingData)      
       .then(() => {
         alert("送出成功, 預約時間: " + this.selectDate + " " + this.selectTime);

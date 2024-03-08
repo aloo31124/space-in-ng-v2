@@ -73,9 +73,9 @@ export class CalendarPickerComponent {
         const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
         const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
         for(let i=0 ; i< data.length ; i++){
-          const checkDate = new Date(data[i]['selectDate']);
+          const checkDate = new Date(data[i]['startDate']);
           if(startDate <= checkDate && checkDate <= endDate){
-            this._bookedDateAll[i] = new Date(data[i]['selectDate']);
+            this._bookedDateAll[i] = new Date(data[i]['startDate']);
             // 取得 已被 bookin 之日期
             this._bookedDay[i] = this._bookedDateAll[i].getDate();
           }
@@ -149,7 +149,6 @@ export class CalendarPickerComponent {
    * 選擇日期
    */
   selectDate(date: number) {
-    console.log("selectDate: " + date);
     if( date > 0 ) {
       this._selectDate = date;
     }
@@ -160,7 +159,6 @@ export class CalendarPickerComponent {
    * 射出 年月日資訊 
    */
   emitDateInfo() {
-    console.log("送出日期！");
     let selectDate = this.currentYear + '-' + this.currentMonth + '-' + "1";
     if(this._selectDate != 0){
       selectDate = this.currentYear + '-' + this.currentMonth + '-' + this._selectDate;

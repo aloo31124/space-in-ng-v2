@@ -1,16 +1,13 @@
 export class Booking {
     //bookId = "";
-    //userId = "";
+    userId = "";
     mail = "";
-    selectDate = "";
-    selectTime = "";
 
-
-    //startDate = "";
-    //endDatae = "";
-    //startTime = "";
-    //endTime = "";
+    startDate = "";
+    endDatae = "";
+    startTime = "";
+    endTime = "";
     bookingType = "";
-    //room = "";
-    //site = "";
+    room = "";
+    site = "";
 }
