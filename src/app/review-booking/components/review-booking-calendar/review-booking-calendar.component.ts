@@ -62,7 +62,6 @@ export class ReviewBookingCalendarComponent {
     this.reviewBookingService
       .getAllBookingDayByUserId()
       .subscribe((data) => {
-        console.log(data);
         this._bookedDateAll = [];
         this._bookedDay = [];
         const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
@@ -74,8 +73,7 @@ export class ReviewBookingCalendarComponent {
             // 取得 已被 bookin 之日期
             this._bookedDay[i] = this._bookedDateAll[i].getDate();
           }
-        }
-        console.log(this._bookedDay);        
+        }      
       });
   }
 
@@ -130,7 +128,6 @@ export class ReviewBookingCalendarComponent {
     }
 
     if(this.currentMonth > 12) {
-      console.log(this.currentMonth);
       this.currentMonth = 1;
       this.currentYear = this.currentYear + 1;   
       return;   
@@ -157,6 +154,8 @@ export class ReviewBookingCalendarComponent {
     this.reviewBookingService
       .getAllBookingDayByUserId()
       .subscribe((data) => {
+        console.log(data);
+        
         const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
         const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
         for(let i=0 ; i< data.length ; i++){

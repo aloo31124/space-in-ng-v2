@@ -1,28 +1,29 @@
 import { Injectable } from '@angular/core';
-import { 
-  Firestore,
-  collection,
-  collectionData,
-} from '@angular/fire/firestore';
+import { FireStoreService } from 'src/app/firebase-api/services/fire-store.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewBookingService {
 
+  bookingTableName = this.fireStoreService.fireStoreTabelNameList.Booking;
+
   constructor(
-    private firestore: Firestore,
+    private fireStoreService: FireStoreService,
   ) { }
 
   /* 
-   * 使用 userId找該員之紀錄 
+   * 使用 fireStoreId 找該員之紀錄 
    */
   getAllBookingDayByUserId() {
-    const collectionInstance = collection(this.firestore, 'Booking');
-    return collectionData(
-        collectionInstance, 
-        {idField: 'fireStoreId'}  // fireStoreId
-    )
+    return this.fireStoreService.getAll(this.bookingTableName);
+  }
+
+  /*
+   * 使用 fireStoreId ,取消(刪除) 預約booking 紀錄
+   */
+  deleteBookingById(fireStoreId: string) {
+    this.fireStoreService.deleteById(this.bookingTableName, fireStoreId);
   }
 
 }

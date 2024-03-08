@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { 
-  Firestore,
-  collection,
-  collectionData,
-  deleteDoc,
-  doc
-} from '@angular/fire/firestore';
+import { ReviewBookingService } from '../../services/review-booking.service';
 
 @Component({
   selector: 'app-review-booking-form',
@@ -24,7 +18,7 @@ export class ReviewBookingFormComponent {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private firestore: Firestore,
+    private reviewBookingService: ReviewBookingService
   ) {
   }
 
@@ -75,8 +69,8 @@ export class ReviewBookingFormComponent {
 
   deleteBooking() {
     alert("取消借用");
-    const docInstance = doc(this.firestore, 'Booking', this.fireStoreId);
-    deleteDoc(docInstance);
+    console.log(this.fireStoreId);
+    this.reviewBookingService.deleteBookingById(this.fireStoreId);
     this.router.navigate(["review-booking-calendar"]);
   }
 
