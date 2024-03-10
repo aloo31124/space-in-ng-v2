@@ -47,27 +47,7 @@ export class ReviewRoomOverviewComponent {
     let charCharSite:number[] = [];
     let charCharRoom:number[] = [];
 
-    if(selectTimeModel === this.chartTimeType.month) {
-      chartTitle = this.reviewRoomService.getMonthTitle();
-      charCharSite = this.reviewRoomService.getMonthSiteData();
-      charCharRoom = this.reviewRoomService.getMonthRoomData();
-
-
-      this.lineChart = new Chart("lineChart", {
-        type: 'line', //this denotes tha type of chart
-        data: {// values on X-Axis
-          labels: chartTitle, // X 軸上的標籤
-          datasets: [
-            { label: this.chartTimeWording.booking_site, data: charCharSite, borderColor: '#FBE0FF',}, // Dataset 1 的資料
-            { label: this.chartTimeWording.booking_room, data: charCharRoom, borderColor: '#661983',}  // Dataset 2 的資料
-          ]
-        },
-        options: { aspectRatio:1}
-      });
-
-    } else {
-
-      const chartTimeModel = this.reviewRoomService.getChartByTimeType(selectTimeModel);
+    const chartTimeModel = this.reviewRoomService.getChartByTimeType(selectTimeModel);
       chartTimeModel
         .subscribe(
           (responseData) => {
@@ -93,7 +73,6 @@ export class ReviewRoomOverviewComponent {
             console.log(error);
           }
         );
-    }
   }
 
   selectCharTimeModel(selectTimeModel: string) {
