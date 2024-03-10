@@ -51,7 +51,7 @@ export class EcpayFormComponent implements OnInit {
    * 測試用 :)  
    */
   openWindow() {
-    window.open("https://getecpaysdkpage-querqokzna-uc.a.run.app");
+    window.open("https://getecpayselectplanpage-querqokzna-uc.a.run.app");
   }
 
 }

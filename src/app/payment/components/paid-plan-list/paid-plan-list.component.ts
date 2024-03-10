@@ -84,7 +84,7 @@ export class PaidPlanListComponent {
     }
 
     //導向綠界付款
-    window.open("https://getecpaysdkpage-querqokzna-uc.a.run.app?planType=" + this.selectPlanType + "&planTimeType=" +this.selectPlanTimeType);
+    window.open("https://getecpayselectplanpage-querqokzna-uc.a.run.app?planType=" + this.selectPlanType + "&planTimeType=" +this.selectPlanTimeType);
     this.router.navigate(["/home"]);
   }
 
