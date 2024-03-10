@@ -1,4 +1,4 @@
-export class ChartTime {
+export class ChartTimeType {
     week = "week";
     month = "month"; 
     season = "season"; 

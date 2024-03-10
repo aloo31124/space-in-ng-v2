@@ -3,6 +3,34 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
+// 03/10
+
+HttpClient subscribe 型別轉換
+--------------------------------------
+
+this.httpClient.get("url").subscribe(x => {});
+如上, get 回傳 observable<object>, 其 x 為 object 型別, 
+如何將 x 轉換為指定型別物件？ 如:
+export class ChartTimeModel {
+    timeTitle = [];
+    roomCount = [];
+    siteCount = [];
+}
+=> gpt 魔幻回答 :)
+
+--------------------------------------
+英文關鍵字:
+httpClient get & Property xx does not exist on type 'Object'
+
+--------------------------------------
+https://stackoverflow.com/questions/47202177/angular-4-http-to-httpclient-property-someproperty-does-not-exist-on-type
+
+this.http.get< customer obj> (url)
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
 // 03/04
 // 評估另一種方式開啟 綠界 form html
 window.open(url);
@@ -45,3 +73,4 @@ ts:
     // 將 HTML 內容設定給 paymentPageEl
     this.paymentPageEl.nativeElement.innerHTML = paymentPageHtml;
     console.log(document.getElementById('_form_aiochk'));
+
