@@ -22,6 +22,8 @@ export class BookingCheckFormPageComponent {
   currentUser!: GoogleAuthUser;
   dialogRoomList:string[] = [];
   isHiddenDialogRoom = true;
+  dialogUserInfo: string[] = [];
+  isHiddenDialogUserInfo = true;
 
   constructor(
     private router: Router,
@@ -39,6 +41,9 @@ export class BookingCheckFormPageComponent {
       alert("無法取得使用者資訊，請重新登入。");
       this.router.navigate(["/"]);
     }
+    this.dialogUserInfo.push("姓名: " + this.currentUser.name);
+    this.dialogUserInfo.push("信箱: " + this.currentUser.email);
+
 
     // 取得教室資訊
     this.roomSiteService

@@ -4,7 +4,7 @@
     <div class="form">
         <div class="row">
             <label>申請人</label>
-            <div class="select-item"> {{ currentUser.email }} </div>
+            <div class="select-item" (click)="isHiddenDialogUserInfo=false"> {{ currentUser.email }} </div>
         </div>
     
         <div class="row">
@@ -42,6 +42,15 @@
             [isHiddenDialog]="isHiddenDialogRoom"
             (hideDialog)="isHiddenDialogRoom=true"
             [itemList]="dialogRoomList">
+        </app-dialog>
+    </div>
+
+    <!-- dialog 使用者資訊 -->
+    <div class="dialog-container">
+        <app-dialog 
+            [isHiddenDialog]="isHiddenDialogUserInfo"
+            (hideDialog)="isHiddenDialogUserInfo=true"
+            [itemList]="dialogUserInfo">
         </app-dialog>
     </div>
 
