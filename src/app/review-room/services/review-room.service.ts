@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ChartTimeType } from '../models/chartTimeType.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { CloudFunService } from 'src/app/firebase-api/services/cloud-fun.service';
 import { ChartTimeModel } from '../models/chartTimeModel.model';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +9,11 @@ import { Observable } from 'rxjs';
 export class ReviewRoomService {
 
   constructor(
-    private httpClient: HttpClient,
+    private cloudFunService: CloudFunService,
   ) { }
 
   getChartByTimeType(timeType:string): Observable<ChartTimeModel> {
-    return this.httpClient.get<ChartTimeModel>("https://getrviewroomchartbytimetype-querqokzna-uc.a.run.app?timeType=" + timeType);
+    return this.cloudFunService.getBookingTrend(timeType);
   }
  
 }

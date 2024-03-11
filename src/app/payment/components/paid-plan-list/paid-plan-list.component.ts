@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PlanTypeModel } from '../../models/plan-type.model';
 import { PlanTimeTypeModel } from '../../models/plan-time-type.model';
 import { Router } from '@angular/router';
+import { EcpayService } from '../../services/ecpay.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class PaidPlanListComponent {
 
   constructor(
     private router: Router,
+    private ecpayService: EcpayService,
   ) {}
 
   /* 
@@ -84,7 +86,7 @@ export class PaidPlanListComponent {
     }
 
     //導向綠界付款
-    window.open("https://getecpayselectplanpage-querqokzna-uc.a.run.app?planType=" + this.selectPlanType + "&planTimeType=" +this.selectPlanTimeType);
+    this.ecpayService.openECPayWindow(this.selectPlanType, this.selectPlanTimeType);
     this.router.navigate(["/home"]);
   }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { EcpayService } from '../../services/ecpay.service';
 
 @Component({
   selector: 'app-ecpay-form',
@@ -10,6 +12,8 @@ export class EcpayFormComponent implements OnInit {
   @ViewChild('paymentPage') paymentPageEl!: ElementRef;
 
   constructor(
+    private router: Router,
+    private ecpayService: EcpayService,
     private http: HttpClient,
   ) {}
 
@@ -51,7 +55,9 @@ export class EcpayFormComponent implements OnInit {
    * 測試用 :)  
    */
   openWindow() {
-    window.open("https://getecpayselectplanpage-querqokzna-uc.a.run.app");
+    //導向綠界付款
+    this.ecpayService.openECPayWindow("studio", "month");
+    this.router.navigate(["/home"]);
   }
 
 }
