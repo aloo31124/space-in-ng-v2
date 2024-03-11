@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ReviewBookingService } from '../../services/review-booking.service';
+import { Booking } from 'src/app/booking/models/booking.model';
 
 @Component({
   selector: 'app-review-booking-calendar',
@@ -17,8 +18,9 @@ export class ReviewBookingCalendarComponent {
   currentMonthFirstDayWeekly = 0;
   displayAllDayGrid = 0
   _selectDate = 1;
-  _bookedDateAll: Date[] = [];
-  _bookedDay: number[] = [];
+
+  // 當前使用者 booking 之日期
+  bookingDateList = new Array<Booking>();
   
   
   constructor(
@@ -59,34 +61,56 @@ export class ReviewBookingCalendarComponent {
    */
   setBookingDotDate() {
     // 取得已選擇 日期 (尚未依照 email 搜尋)
+
+    const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
+    const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
+
     this.reviewBookingService
       .getAllBookingDayByUserId()
-      .subscribe((data) => {
-        this._bookedDateAll = [];
-        this._bookedDay = [];
-        const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
-        const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
-        for(let i=0 ; i< data.length ; i++){
-          const checkDate = new Date(data[i]['startDate']);
-          if(startDate <= checkDate && checkDate <= endDate){
-            this._bookedDateAll[i] = new Date(data[i]['startDate']);
-            // 取得 已被 bookin 之日期
-            this._bookedDay[i] = this._bookedDateAll[i].getDate();
-          }
-        }      
+      .subscribe((responseData) => {
+        responseData
+          .filter(data => { 
+            const checkDate = new Date(data['startDate']);
+            return ( startDate <= checkDate && checkDate <= endDate);
+          }) 
+          .forEach(x => {
+            this.bookingDateList.push(new Booking(
+              x["fireStoreId"],
+              x["userId"],
+              x["mail"],
+              x["startDate"],
+              x["endDatae"],
+              x["startTime"],
+              x["endTime"],
+              x["bookingType"],
+              x["roomId"],
+              x["roomName"],
+              x["siteId"],
+              x["siteName"],
+            ));
+          });
       });
   }
 
   /* 
-   * 確認該日是否已被 bookin，顯示 紫色小點 dot
+   * 確認該日是否已被 booking，顯示 紫色小點 dot
    */
   isShowDot(checkDay: number): boolean {
-    for(let i=0; i< this._bookedDay.length; i++){
-      if(this._bookedDay[i] === checkDay){
-        return true;
-      }
-    }
-    return false;
+    return this.isIncloudCount(checkDay) > 0;
+  }
+
+  /*
+   * 計算該日期(數字) 包含次數 
+   */
+  isIncloudCount(checkNumber: number) {
+    let dotCount = 0;
+    this.bookingDateList
+      .forEach(booking => {
+        if((new Date(booking.startDate)).getDate() === checkNumber ) {
+          dotCount ++;
+        }
+      });
+    return dotCount;
   }
 
 
@@ -140,7 +164,7 @@ export class ReviewBookingCalendarComponent {
    */
   selectDate(date: number) {
 
-    if(!this._bookedDay.includes(date)) {
+    if(this.isIncloudCount(date) === 0) {
       return;
     }
 
@@ -148,33 +172,21 @@ export class ReviewBookingCalendarComponent {
       this._selectDate = date;
     }
 
-    //取得 firebase id (需要優化)
-    // 很爛的寫法 為啥要 重取一次 ="= ， 需要建立 model
-    
-    this.reviewBookingService
-      .getAllBookingDayByUserId()
-      .subscribe((data) => {
-        console.log(data);
-        
-        const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
-        const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
-        for(let i=0 ; i< data.length ; i++){
-
-          const checkDate = new Date(data[i]['startDate']); 
-          if(startDate <= checkDate && checkDate <= endDate && checkDate.getDate() === date){  
-
-            // 建立 NavigationExtras 對象
+    this.bookingDateList
+      .forEach(booking => {
+        // 後續要改成id @_@
+        if(new Date(booking.startDate).getDate() === date) {
+          // 建立 NavigationExtras 對象// 建立 NavigationExtras 對象
             const navigationExtras: NavigationExtras = {
               queryParams: {                
-                fireStoreId: data[i]['fireStoreId'],
-                selectDate: data[i]['startDate'],
-                selectTime: data[i]['startTime'],
-                bookingType: data[i]['bookingType']
+                fireStoreId: booking.fireStoreId,
+                selectDate: booking.startDate,
+                selectTime: booking.startTime,
+                bookingType: booking.bookingType,
               }
             };
             
-            this.router.navigate(["review-booking-form"], navigationExtras);
-          }
+          this.router.navigate(["review-booking-form"], navigationExtras);
         }
       });
   }

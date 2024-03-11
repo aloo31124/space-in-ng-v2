@@ -127,6 +127,7 @@ export class BookingCheckFormPageComponent {
     }
 
     const bookingData = { 
+      fireStoreId: "",
       userId: this.currentUser.id, 
       mail: this.currentUser.email, 
       startDate: this.selectDate, 
