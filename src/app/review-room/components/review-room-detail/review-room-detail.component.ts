@@ -83,7 +83,7 @@ export class ReviewRoomDetailComponent {
    */
   setBookingDotDate() {
     // 取得已選擇 日期 (尚未依照 email 搜尋)
-    const collectionInstance = collection(this.firestore, 'UsersTest');
+    const collectionInstance = collection(this.firestore, 'User');
     collectionData(collectionInstance)
       .subscribe((data) => {
         this._bookedDateAll = [];

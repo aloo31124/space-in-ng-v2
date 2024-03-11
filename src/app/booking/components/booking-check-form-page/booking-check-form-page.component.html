@@ -21,7 +21,7 @@
         
         <div class="row">
             <label>教室</label>
-            <div class="select-item">智慧教室</div>
+            <div class="select-item" (click)="isHiddenDialogRoom=false" >{{ selectRoom.name }}</div>
             <img src="assets/images/icon/icon_map_position.png" (click)="selectMap()">
         </div>
         
@@ -34,6 +34,16 @@
 
         
     <img src="assets/images/icon/icon_submit.png" (click)="submitBooking()">
+
+    <!-- dialog 選擇教室 -->
+    <div class="dialog-container">
+        <app-dialog 
+            (selectedItem)="selectedRoom($event)"
+            [isHiddenDialog]="isHiddenDialogRoom"
+            (hideDialog)="isHiddenDialogRoom=true"
+            [itemList]="dialogRoomList">
+        </app-dialog>
+    </div>
 
 </div>
 

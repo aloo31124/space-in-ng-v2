@@ -7,24 +7,24 @@ import { FireStoreService } from 'src/app/firebase-api/services/fire-store.servi
 })
 export class BookingService {
 
-  private bookingTable = this.frieStoreService.fireStoreTabelNameList.Booking;
+  private bookingTable = this.fireStoreService.fireStoreTabelNameList.Booking;
 
   constructor(
-    private frieStoreService: FireStoreService,
+    private fireStoreService: FireStoreService,
   ) { }
 
   /* 
    * 取得所有 booking 資料
    */
   getAll() {
-    return this.frieStoreService.getAll(this.bookingTable);
+    return this.fireStoreService.getAll(this.bookingTable);
   }
 
   /* 
    * 新增一筆 booking 資料
    */
   post(booking: Booking):Promise<any> {
-    return this.frieStoreService.post(this.bookingTable, booking);
+    return this.fireStoreService.post(this.bookingTable, booking);
   }
 
 }

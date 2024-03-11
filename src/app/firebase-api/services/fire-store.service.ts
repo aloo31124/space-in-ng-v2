@@ -14,7 +14,11 @@ import {
 export class FireStoreService {
 
   // 資料庫表名稱
-  fireStoreTabelNameList = { User: "User", Booking: "Booking"};
+  fireStoreTabelNameList = { 
+    User: "User", 
+    Booking: "Booking",
+    Room: "Room",
+  };
 
   constructor(
     private firestore: Firestore,

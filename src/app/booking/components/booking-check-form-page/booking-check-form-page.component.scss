@@ -8,6 +8,10 @@
     align-items: center;
 }
 
+.dialog-container {
+    z-index: 91;
+}
+
 .form {
     width: 300px;
     display: flex;

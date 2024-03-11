@@ -8,6 +8,8 @@ export class Booking {
     startTime = "";
     endTime = "";
     bookingType = "";
-    room = "";
-    site = "";
+    roomId = "";
+    roomName = ""
+    siteId = "";
+    siteName = ""
 }

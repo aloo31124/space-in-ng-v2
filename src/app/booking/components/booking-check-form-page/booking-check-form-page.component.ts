@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Booking } from '../../models/booking.model';
 import { BookingService } from '../../services/booking.service';
+import { RoomSiteService } from 'src/app/common/room-site/services/room-site.service';
+import { Room } from 'src/app/common/room-site/models/room.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleAuthService } from 'src/app/auth/services/google-auth.service';
 import { GoogleAuthUser } from 'src/app/auth/models/google-auth-user.model';
@@ -16,12 +17,17 @@ export class BookingCheckFormPageComponent {
   selectDay = "";
   selectTime = "";
   bookingType = "";
+  roomList = new Array<Room>();
+  selectRoom!: Room;
   currentUser!: GoogleAuthUser;
+  dialogRoomList:string[] = [];
+  isHiddenDialogRoom = true;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private bookingService: BookingService,
+    private roomSiteService: RoomSiteService,
     private googleAuthService: GoogleAuthService,
   ) {
   }
@@ -33,6 +39,24 @@ export class BookingCheckFormPageComponent {
       alert("無法取得使用者資訊，請重新登入。");
       this.router.navigate(["/"]);
     }
+
+    // 取得教室資訊
+    this.roomSiteService
+      .getAllRoomList()
+      .subscribe(
+        responseData => {
+          responseData.forEach(room => {
+            this.roomList.push(
+              new Room(room['fireStoreId'],room['name'],room['ownerId'],room['ownerMail'])
+            );
+            this.dialogRoomList.push(room['name']);
+          });
+          this.selectRoom = this.roomList[0];
+        },
+        error => {
+          alert("教室資訊無法取得,錯誤資訊 : " + error);
+        }
+      );
 
     // 提取日期参数
     this.activatedRoute.queryParams.subscribe(params => {
@@ -75,6 +99,11 @@ export class BookingCheckFormPageComponent {
     });
   }
 
+  selectedRoom(_selectRoomName: string) {
+    this.selectRoom = this.roomList.filter(room => {return room.name === _selectRoomName; })[0];
+    console.log(this.selectRoom);
+  }
+
   submitBooking() {
 
     if(!this.currentUser) {
@@ -100,8 +129,10 @@ export class BookingCheckFormPageComponent {
       startTime: this.selectTime,
       endTime: this.selectTime,
       bookingType: this.bookingType,
-      room: "",
-      site: "",
+      roomId: this.selectRoom.fireStoreId,
+      roomName: this.selectRoom.name,
+      siteId: "",
+      siteName: "",
     };
     
     //Function addDoc() called with invalid data. Data must be an object, but it was: a custom Booking object 
@@ -115,7 +146,7 @@ export class BookingCheckFormPageComponent {
 
     this.bookingService.post(bookingData)      
       .then(() => {
-        alert("送出成功, 預約時間: " + this.selectDate + " " + this.selectTime);
+        alert("送出成功, 預約時間: " + this.selectDate + " " + this.selectTime +  " ,地點:" + this.selectRoom.name + "預約成功。");
         this.router.navigate(["home"]);
       })
       .catch((error) => {
