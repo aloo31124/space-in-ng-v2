@@ -4,7 +4,7 @@
     <div class="form">
         <div class="row">
             <div class="row-txt">申請人</div>
-            <div class="select-item" (click)="isHiddenDialogUserInfo=false"> {{ currentUser.email }} </div>
+            <div class="select-item" (click)="isHiddenDialogUserInfo=false"> {{ currentUser.email | wordShroten:8 }} </div>
         </div>
     
         <div class="row">
