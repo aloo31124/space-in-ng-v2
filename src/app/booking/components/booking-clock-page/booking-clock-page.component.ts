@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
+import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
 
 @Component({
   selector: 'app-booking-clock-page',
@@ -18,7 +19,7 @@ export class BookingClockPageComponent {
   isPm = false;
 
   constructor(
-    private router: Router,
+    private routeUrlRecordService: RouteUrlRecordService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -88,7 +89,7 @@ export class BookingClockPageComponent {
       }
     };
     
-    this.router.navigate(["booking-select-type"], navigationExtras);
+    this.routeUrlRecordService.nextPage("booking-select-type", navigationExtras);
   }
   
 }

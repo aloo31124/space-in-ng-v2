@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
 
 @Component({
   selector: 'app-home-page',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent {
+
+  constructor(
+    private routeUrlRecordService: RouteUrlRecordService,
+  ) {}
+
+  /*
+   * 進入功能頁面 
+   */
+  nextPage(nextUrl: string) {
+    this.routeUrlRecordService.nextPage(nextUrl, {});
+  }
 
 }

@@ -3,6 +3,7 @@ import { BookingService } from '../../services/booking.service';
 import { RoomSiteService } from 'src/app/common/room-site/services/room-site.service';
 import { Room } from 'src/app/common/room-site/models/room.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
 import { GoogleAuthService } from 'src/app/auth/services/google-auth.service';
 import { GoogleAuthUser } from 'src/app/auth/models/google-auth-user.model';
 
@@ -26,7 +27,7 @@ export class BookingCheckFormPageComponent {
   isHiddenDialogUserInfo = true;
 
   constructor(
-    private router: Router,
+    private routeUrlRecordService: RouteUrlRecordService,
     private activatedRoute: ActivatedRoute,
     private bookingService: BookingService,
     private roomSiteService: RoomSiteService,
@@ -39,7 +40,7 @@ export class BookingCheckFormPageComponent {
     this.currentUser = this.googleAuthService.getCurrentUser();
     if(!this.currentUser) {
       alert("無法取得使用者資訊，請重新登入。");
-      this.router.navigate(["/"]);
+      this.routeUrlRecordService.nextPage("/", {});
     }
     this.dialogUserInfo.push("姓名: " + this.currentUser.name);
     this.dialogUserInfo.push("信箱: " + this.currentUser.email);
@@ -153,7 +154,7 @@ export class BookingCheckFormPageComponent {
     this.bookingService.post(bookingData)      
       .then(() => {
         alert("送出成功, 預約時間: " + this.selectDate + " " + this.selectTime +  " ,地點:" + this.selectRoom.name + "預約成功。");
-        this.router.navigate(["home"]);
+        this.routeUrlRecordService.nextPage("/home", {});
       })
       .catch((error) => {
         console.log(error);
@@ -163,6 +164,6 @@ export class BookingCheckFormPageComponent {
   }
 
   selectMap() {
-    this.router.navigate(["map"]);
+    //this.router.navigate(["map"]);
   }
 }

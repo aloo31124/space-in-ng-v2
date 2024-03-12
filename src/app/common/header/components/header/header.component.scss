@@ -2,7 +2,7 @@ header {
     width: 110%; //背景填滿
     position: fixed;
     z-index: 90;
-    top: -1px;
+    top: -4px;
     left: -1px;
 
     .img-header {
@@ -15,10 +15,20 @@ header {
         top: 20px;
         left: 10px;
     }
+
+    .header-title {
+        font-size: 25px;
+        width: 100%;
+        color: #FBE0FF;
+        position: fixed;
+        top: 20px;
+        left: 10px;
+        text-align: center;
+    }
 }
 
 
 
-.pedding-box {
-    height: 150px;
+.padding-box {
+    background: white;
 }

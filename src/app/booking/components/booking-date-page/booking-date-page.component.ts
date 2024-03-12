@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { BookingService } from '../../services/booking.service';
+import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class BookingDatePageComponent {
   
   constructor(
     private router: Router,
+    private routeUrlRecordService: RouteUrlRecordService,
   ) { }
 
   ngOnInit(): void { }
@@ -33,7 +35,7 @@ export class BookingDatePageComponent {
       }
     };
     
-    this.router.navigate(["booking-clock"], navigationExtras);
+    this.routeUrlRecordService.nextPage("booking-clock", navigationExtras);
   }
 
   /*

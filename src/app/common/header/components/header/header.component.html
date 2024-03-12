@@ -1,5 +1,7 @@
 <header #header>
     <img class="img-header" [src]="headerImageUrl">
-    <img class="img-back" src="assets/images/icon/icon_back.png" (click)="back()">
+    <div class="header-title">{{ headerTitle }}</div>
+    <!-- 上一頁 按鈕需放最下面, 避免被覆蓋 -->
+    <img class="img-back" src="assets/images/icon/icon_back.png" (click)="backPage()">
 </header>
-<div class="pedding-box"></div>
+<div [ngStyle]="{height: headerPeddingHeigh}"></div>
