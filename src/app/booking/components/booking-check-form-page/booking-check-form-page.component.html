@@ -21,7 +21,7 @@
         
         <div class="row">
             <label>教室</label>
-            <div class="select-item" (click)="isHiddenDialogRoom=false" >{{ selectRoom.name }}</div>
+            <div class="select-item" (click)="isHiddenDialogRoom=false" >{{ selectRoom ? selectRoom.name : "" }}</div>
             <img src="assets/images/icon/icon_map_position.png" (click)="selectMap()">
         </div>
         

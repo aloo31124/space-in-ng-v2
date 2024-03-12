@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ReviewBookingService } from '../../services/review-booking.service';
+import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
 
 @Component({
   selector: 'app-review-booking-form',
@@ -16,7 +17,7 @@ export class ReviewBookingFormComponent {
   bookingType = "";
 
   constructor(
-    private router: Router,
+    private routeUrlRecordService: RouteUrlRecordService,
     private activatedRoute: ActivatedRoute,
     private reviewBookingService: ReviewBookingService
   ) {
@@ -71,7 +72,7 @@ export class ReviewBookingFormComponent {
     alert("取消借用");
     console.log(this.fireStoreId);
     this.reviewBookingService.deleteBookingById(this.fireStoreId);
-    this.router.navigate(["review-booking-calendar"]);
+    this.routeUrlRecordService.nextPage("review-booking-calendar", {});
   }
 
 }

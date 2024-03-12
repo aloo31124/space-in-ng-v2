@@ -27,8 +27,6 @@ export class RouteUrlRecordService {
         this.currentUrl = event.url;
         this.routeUrlRecord.push(event.url);
       };
-      console.log(this.routeUrlRecord);
-
     });
   }
 
@@ -70,8 +68,6 @@ export class RouteUrlRecordService {
    */
   backPage() {
     const previousUrl = this.getPreviousUrl();
-    console.log(this.routeUrlRecord);
-    console.log("back : " + previousUrl);
     // 問號參數的攜帶需處理
     if(previousUrl.includes("?")) {
       this.location.back();
@@ -89,7 +85,7 @@ export class RouteUrlRecordService {
     if(!checkUrl) {
       return;
     }
-    if(checkUrl.includes("booking-check-form")) {
+    if(checkUrl.includes("booking-check-form") || checkUrl.includes("review-booking-form")) {
       this.cleanUrlRecord();
       this.routeUrlRecord.push("/");
       this.routeUrlRecord.push("/home");

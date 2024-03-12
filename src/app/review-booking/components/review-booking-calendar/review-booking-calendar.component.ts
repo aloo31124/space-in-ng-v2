@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ReviewBookingService } from '../../services/review-booking.service';
 import { Booking } from 'src/app/booking/models/booking.model';
+import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
 
 @Component({
   selector: 'app-review-booking-calendar',
@@ -24,7 +25,7 @@ export class ReviewBookingCalendarComponent {
   
   
   constructor(
-    private router: Router,
+    private routeUrlRecordService: RouteUrlRecordService,
     private reviewBookingService: ReviewBookingService,
   ) { }
 
@@ -176,7 +177,7 @@ export class ReviewBookingCalendarComponent {
       .forEach(booking => {
         // 後續要改成id @_@
         if(new Date(booking.startDate).getDate() === date) {
-          // 建立 NavigationExtras 對象// 建立 NavigationExtras 對象
+          // 建立 NavigationExtras 對象
             const navigationExtras: NavigationExtras = {
               queryParams: {                
                 fireStoreId: booking.fireStoreId,
@@ -185,8 +186,7 @@ export class ReviewBookingCalendarComponent {
                 bookingType: booking.bookingType,
               }
             };
-            
-          this.router.navigate(["review-booking-form"], navigationExtras);
+          this.routeUrlRecordService.nextPage("review-booking-form", navigationExtras);
         }
       });
   }
