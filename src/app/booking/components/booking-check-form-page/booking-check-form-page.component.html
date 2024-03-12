@@ -3,12 +3,12 @@
 
     <div class="form">
         <div class="row">
-            <label>申請人</label>
+            <div class="row-txt">申請人</div>
             <div class="select-item" (click)="isHiddenDialogUserInfo=false"> {{ currentUser.email }} </div>
         </div>
     
         <div class="row">
-            <label>起迄日</label>        
+            <div class="row-txt">起迄日</div>      
         </div>
         <div class="row-time">
             <div>
@@ -20,13 +20,13 @@
         </div>
         
         <div class="row">
-            <label>教室</label>
+            <div class="row-txt">教室</div>
             <div class="select-item" (click)="isHiddenDialogRoom=false" >{{ selectRoom ? selectRoom.name : "" }}</div>
             <img src="assets/images/icon/icon_map_position.png" (click)="selectMap()">
         </div>
         
         <div class="row" *ngIf="bookingType === 'site'">
-            <label>座位</label>
+            <div class="row-txt">座位</div>
             <div class="select-item">A105</div>
         </div>
     

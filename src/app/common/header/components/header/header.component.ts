@@ -57,15 +57,15 @@ export class HeaderComponent implements OnInit {
     if(window.innerWidth > 1200) {
       this.headerImageUrl 
         = urlContent + (this.isMainHeader?"main/bar-main-2000px.png":"secondary/bar-secondary-2000px.png");
-        this.headerPeddingHeigh  = this.isMainHeader? '250px':'150px';
+        this.headerPeddingHeigh  = this.isMainHeader? '200px':'100px';
     } else if( 500 <= window.innerWidth && window.innerWidth <= 1200) {
       this.headerImageUrl 
         = urlContent + (this.isMainHeader?"main/bar-main-1000px.png":"secondary/bar-secondary-1000px.png");
-      this.headerPeddingHeigh  = this.isMainHeader? '250px':'150px';
+      this.headerPeddingHeigh  = this.isMainHeader? '200px':'100px';
     } else {
       this.headerImageUrl 
         = urlContent + (this.isMainHeader?"main/bar-main-400px.png":"secondary/bar-secondary-400px.png");
-      this.headerPeddingHeigh  = this.isMainHeader? '200px':'150px';
+      this.headerPeddingHeigh  = this.isMainHeader? '160px':'100px';
     }
   }
 
