@@ -93,14 +93,18 @@ export class CalendarPickerComponent {
    * 計算該日期(數字) 包含次數 
    */
   countDot(checkDateNumber: number) {
+    console.log(checkDateNumber)
     if(checkDateNumber <= 0){
       return 0;
     }
     const checkDate = new Date(this.currentYear, this.currentMonth - 1, checkDateNumber);
+    console.log(checkDate);
+    console.log(this.bookingList);
     const filterBooking = this.bookingList
       .filter(booking => {
         return (new Date(booking.startDate).getTime() === checkDate.getTime());
       });
+    console.log(filterBooking);
     return filterBooking.length;
   }
 
@@ -112,7 +116,6 @@ export class CalendarPickerComponent {
     this.currentMonth = this.currentMonth - 1;
     this.checkMonth();
     this.setCalendarDateInfo();
-    this.setBookingDotDate();
     this._selectDate = 1;
     this.emitDateInfo();
   }
@@ -124,8 +127,7 @@ export class CalendarPickerComponent {
   nextMonth() {
     this.currentMonth = this.currentMonth + 1;
     this.checkMonth();
-    this.setCalendarDateInfo();   
-    this.setBookingDotDate(); 
+    this.setCalendarDateInfo(); 
     this._selectDate = 1;
     this.emitDateInfo();
   }
@@ -145,7 +147,6 @@ export class CalendarPickerComponent {
     }
 
     if(this.currentMonth > 12) {
-      console.log(this.currentMonth);
       this.currentMonth = 1;
       this.currentYear = this.currentYear + 1;   
       return;   
