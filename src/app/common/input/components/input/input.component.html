@@ -1,6 +1,6 @@
 
-<div class="row">
+<div class="row" (click)="clickInput()">
     <div class="row-txt">{{ inputTitle | wordShroten:inputTitleLimit }}</div>
-    <div class="select-item"> {{ inputContent | wordShroten:inputContentLimit }} </div>
+    <div class="select-item" [ngClass]="isSelect?'_selected':'_not_selected'"> {{ inputContent | wordShroten:inputContentLimit }} </div>
 </div>
 

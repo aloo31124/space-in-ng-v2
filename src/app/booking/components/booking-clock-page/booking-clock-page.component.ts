@@ -16,15 +16,30 @@ export class BookingClockPageComponent {
   isAm = true;
   isPm = false;
 
-
   selectDate = "";
   selectStartTime = "12:00";
-  selectEndTime = "12:00"
+  selectEndTime = "12:00";
+  selectDayAllBookingRecord = new Array<string>();
+
+  //選擇開始時段
+  isSelectStartTimeInput = true;
+  //選擇結束時段
+  //isEndTimeInput = false;
+  //開始時間
+  startTime = "";
+  //結束時間
+  endTime = "";
+
 
   constructor(
     private routeUrlRecordService: RouteUrlRecordService,
     private activatedRoute: ActivatedRoute
   ) {}
+
+  
+  toggleInput() {
+    this.isSelectStartTimeInput = !this.isSelectStartTimeInput;
+  }
 
   getHourString(): string {
     const selectHour = this._selectHour + ( this.isPm? 12 : 0 );
@@ -38,34 +53,39 @@ export class BookingClockPageComponent {
   selectHour() {
     this.isSelectHour = true;
     this.isSelectMin = false;    
+    this.setSelectTime();
   }
 
   selectMin() {
     this.isSelectHour = false;
-    this.isSelectMin = true;     
+    this.isSelectMin = true; 
+    this.setSelectTime();
   }
 
   selectAm() {
     this.isAm = true;
     this.isPm = false;
+    this.setSelectTime();
   }
 
   selectPm() {
     this.isAm = false;
     this.isPm = true;
+    this.setSelectTime();
   }
     
 
   ngOnInit(): void {
     // 提取日期参数
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.selectDate = params['selectDate'];
-    });
+    this.activatedRoute.queryParams
+      .subscribe(params => {
+        this.selectDate = params['selectDate'];
+        this.selectDayAllBookingRecord = params['selectDayAllBookingRecord'];
+      });
   }
 
   
   selectTime(selectTime: number) {
-    console.log("selectTime : " + selectTime);
     if( this.isSelectHour ) {
       this._selectHour = selectTime;
     }
@@ -73,6 +93,21 @@ export class BookingClockPageComponent {
     if( this.isSelectMin ) {
       this._selectMin = selectTime;
     }
+
+    this.setSelectTime();
+  }
+
+  /*
+   * 設定 開始 或 結束 時間 
+   */
+  setSelectTime() {
+    if(this.isSelectStartTimeInput) {
+      this.startTime = this.getHourString() + ":" + this.getMinString();
+    } 
+    else {
+      this.endTime = this.getHourString() + ":" + this.getMinString();
+    } 
+
   }
 
   getRotationAngle(hour: number): number {
@@ -88,7 +123,8 @@ export class BookingClockPageComponent {
     const navigationExtras: NavigationExtras = {
       queryParams: {
         selectDate: this.selectDate,
-        selectTime: selectTime
+        startTime: this.startTime,
+        endTime: this.endTime,
       }
     };
     

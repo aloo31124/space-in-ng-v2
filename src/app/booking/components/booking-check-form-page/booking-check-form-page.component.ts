@@ -16,7 +16,8 @@ export class BookingCheckFormPageComponent {
 
   selectDate = "";
   selectDay = "";
-  selectTime = "";
+  startTime = "";
+  endTime = "";
   bookingType = "";
   roomList = new Array<Room>();
   selectRoom!: Room;
@@ -67,7 +68,8 @@ export class BookingCheckFormPageComponent {
     // 提取日期参数
     this.activatedRoute.queryParams.subscribe(params => {
       this.selectDate = params['selectDate'];
-      this.selectTime = params['selectTime'];
+      this.startTime = params['startTime'];
+      this.endTime = params['endTime'];
       this.bookingType = params['bookingType'];
 
       const dayOfWeek = (new Date(this.selectDate)).getDay();
@@ -133,8 +135,8 @@ export class BookingCheckFormPageComponent {
       mail: this.currentUser.email, 
       startDate: this.selectDate, 
       endDatae: this.selectDate, 
-      startTime: this.selectTime,
-      endTime: this.selectTime,
+      startTime: this.startTime,
+      endTime: this.endTime,
       bookingType: this.bookingType,
       roomId: this.selectRoom.fireStoreId,
       roomName: this.selectRoom.name,
@@ -153,7 +155,7 @@ export class BookingCheckFormPageComponent {
 
     this.bookingService.post(bookingData)      
       .then(() => {
-        alert("送出成功, 預約時間: " + this.selectDate + " " + this.selectTime +  " ,地點:" + this.selectRoom.name + "預約成功。");
+        alert("送出成功, 預約時間: " + this.selectDate + " " + this.startTime + "~" + this.endTime + " ,地點:" + this.selectRoom.name + "預約成功。");
         this.routeUrlRecordService.nextPage("/home", {});
       })
       .catch((error) => {

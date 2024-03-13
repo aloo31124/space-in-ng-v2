@@ -10,7 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 export class BookingSelectTypePageComponent {
 
   selectDate = "";
-  selectTime = "";
+  startTime = "";
+  endTime = "";
 
   constructor(
     private router: Router,
@@ -21,7 +22,8 @@ export class BookingSelectTypePageComponent {
     // 提取日期参数
     this.activatedRoute.queryParams.subscribe(params => {
       this.selectDate = params['selectDate'];
-      this.selectTime = params['selectTime'];
+      this.startTime = params['startTime'];
+      this.endTime = params['endTime'];
     });
   }
 
@@ -30,7 +32,8 @@ export class BookingSelectTypePageComponent {
     const navigationExtras: NavigationExtras = {
       queryParams: {
         selectDate: this.selectDate,
-        selectTime: this.selectTime,
+        startTime: this.startTime,
+        endTime: this.endTime,
         bookingType: bookingType
       }
     };

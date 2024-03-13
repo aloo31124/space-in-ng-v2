@@ -1,8 +1,20 @@
 
 <div class="clock-page-container">
 
-    <app-input [inputTitle]="'開始時間:'" [inputContent]="selectStartTime"></app-input>
-    <app-input [inputTitle]="'結束時間:'" [inputContent]="selectStartTime"></app-input>
+    <app-input 
+        (inputClick)="toggleInput()"
+        [inputContent]="startTime"
+        [isSelect]="isSelectStartTimeInput"
+        [inputTitle]="'開始時間:'" 
+        [inputContent]="selectStartTime">
+    </app-input>
+    <app-input 
+        (inputClick)="toggleInput()"
+        [inputContent]="endTime"
+        [isSelect]="!isSelectStartTimeInput"
+        [inputTitle]="'結束時間:'" 
+        [inputContent]="selectStartTime">
+    </app-input>
 
 
     <div class="clock-paicker">
@@ -56,6 +68,13 @@
                   <span *ngIf="isSelectMin" class="hand"  [style.transform]="'rotate(' + getRotationAngle(_selectMin/5 + 1) + 'deg)'"></span>
                 </div>
             </section>
+        </div>
+    </div>
+
+    <div class="booking-record">
+        <div>已預約時段: </div>
+        <div *ngFor="let record of selectDayAllBookingRecord">
+            {{ record }}
         </div>
     </div>
 

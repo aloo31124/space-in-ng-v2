@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { NavigationExtras } from '@angular/router';
 import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
 import { Booking } from '../../models/booking.model';
 
@@ -15,13 +15,12 @@ export class BookingDatePageComponent {
   currentMonth = 0;
   selectDateInfo = "";
   // 該日 預約booking 紀錄
-  selectDayAllBookingRecord = 0;
+  selectDayAllBookingRecordList = new Array<Booking>();
   // 該日期 預約booking 上限
   bookingDaylimit = 3;
   
   
   constructor(
-    private router: Router,
     private routeUrlRecordService: RouteUrlRecordService,
   ) { }
 
@@ -32,21 +31,27 @@ export class BookingDatePageComponent {
    */
   nextStep() {
     //檢查該日期是否超過上限
-    if(this.selectDayAllBookingRecord >= this.bookingDaylimit) {
+    if(this.selectDayAllBookingRecordList.length >= this.bookingDaylimit) {
       alert("每日預約上限最多 " + this.bookingDaylimit + "次");
       return;
     }
 
     alert("確定下一步？選擇日期為: " + this.selectDateInfo);
+    const bookingRecordList = this.selectDayAllBookingRecordList
+      .map(booking => {
+        return booking.startTime + "~" + booking.endTime;
+      });
     // 建立 NavigationExtras 對象
     const navigationExtras: NavigationExtras = {
       queryParams: {
-        selectDate: this.selectDateInfo
+        selectDate: this.selectDateInfo,
+        selectDayAllBookingRecord: bookingRecordList
       }
     };
     
     this.routeUrlRecordService.nextPage("booking-clock", navigationExtras);
   }
+
 
   /*
    * 更新日期元件 之 日期資訊 
@@ -59,7 +64,7 @@ export class BookingDatePageComponent {
    * 更新 該選擇日期 之 預約 booking 紀錄 
    */
   updateBookingRecord(bookingRecordList: Booking[]) {
-    this.selectDayAllBookingRecord = bookingRecordList.length;
+    this.selectDayAllBookingRecordList = bookingRecordList;
   }
 
 

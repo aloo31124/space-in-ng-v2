@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-input',
@@ -11,5 +11,15 @@ export class InputComponent {
   @Input() inputTitleLimit = 10;
   @Input() inputContent = "";
   @Input() inputContentLimit = 10;
+  @Input() isSelect = false;
+
+
+  // 該 input 欄位被點選
+  @Output() inputClick = new EventEmitter<string>();
+
+  clickInput() {
+    this.isSelect = !this.isSelect;
+    this.inputClick.emit(this.inputTitle);
+  }
 
 }
