@@ -109,7 +109,7 @@ export class CalendarPickerComponent {
    * 上個月。
    */
   backMonth() {
-    this.currentMonth =this.currentMonth - 1;
+    this.currentMonth = this.currentMonth - 1;
     this.checkMonth();
     this.setCalendarDateInfo();
     this.setBookingDotDate();
@@ -122,7 +122,7 @@ export class CalendarPickerComponent {
    * 下個月。
    */
   nextMonth() {
-    this.currentMonth =this.currentMonth + 1;
+    this.currentMonth = this.currentMonth + 1;
     this.checkMonth();
     this.setCalendarDateInfo();   
     this.setBookingDotDate(); 

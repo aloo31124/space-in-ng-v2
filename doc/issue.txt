@@ -3,6 +3,55 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
+
+    const dotList = document.querySelectorAll('.dot');
+    Array.prototype.forEach.call( dotList, function( node ) {
+      node.parentNode.removeChild( node );
+    });
+
+    const dotList2 = document.querySelectorAll('.dot');
+    dotList2.forEach(e => {
+      console.log(e);
+    })
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+<div class="dot"></div>
+<div class="dot"></div>
+
+angular 修改上述 class="dot" 元素 display=none
+
+angular 移除全部 class="dot" 之元素
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// 03/13
+行事曆 切換上下一個月份 , dot 紫點如何 "全部" 移除？
+
+---------------------------------------------
+法一
+viewchile() remove element
+https://stackoverflow.com/questions/52017507/how-delete-element-nativeelement-from-dom
+
+<div #dot>dot1</div>
+<div #dot>dot2</div>
+
+  @ViewChild("dot") dotElementRef!: ElementRef;
+
+  this.dotElementRef.nativeElement.remove(); => 無法 @_@
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// 03/13
+// => 依照數字重複印出, 印出 dot
+
+<div *ngFor="let i of [].constructor(5)">
+</div>
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
 // 03/12
 router outlet output
 https://stackoverflow.com/questions/37662456/angular-2-output-from-router-outlet
