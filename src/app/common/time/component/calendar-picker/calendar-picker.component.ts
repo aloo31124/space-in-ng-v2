@@ -23,6 +23,8 @@ export class CalendarPickerComponent {
 
   _selectDate = 1;
   bookingList = new Array<Booking>();
+  //該天 booking 幾次
+  thisDayBookingList = new Array<Booking>();
   
   
   constructor(
@@ -93,19 +95,30 @@ export class CalendarPickerComponent {
    * 計算該日期(數字) 包含次數 
    */
   countDot(checkDateNumber: number) {
-    console.log(checkDateNumber)
     if(checkDateNumber <= 0){
       return 0;
     }
     const checkDate = new Date(this.currentYear, this.currentMonth - 1, checkDateNumber);
-    console.log(checkDate);
-    console.log(this.bookingList);
     const filterBooking = this.bookingList
       .filter(booking => {
         return (new Date(booking.startDate).getTime() === checkDate.getTime());
       });
-    console.log(filterBooking);
+    this.thisDayBookingList = filterBooking;
     return filterBooking.length;
+  }
+
+  /*
+   * 確認當天 借用 dot 的顏色 (教室/座位預約) 
+   */
+  checkDotColor() {
+    const booking = this.thisDayBookingList.pop();
+    if(booking?.bookingType === "room") {
+      return "#661983";
+    } 
+    else if (booking?.bookingType === "site") { 
+      return "#FBE0FF";
+    }
+    return "yellow";
   }
 
 

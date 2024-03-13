@@ -25,7 +25,9 @@
                             {{ i + 1 - currentMonthFirstDayWeekly }}
                     </div>
                     <div class="dot-bar">
-                        <div class="dot" *ngFor="let i of [].constructor(countDot(i + 1 - currentMonthFirstDayWeekly))">
+                        <div class="dot" 
+                            *ngFor="let i of [].constructor(countDot(i + 1 - currentMonthFirstDayWeekly))"
+                            [ngStyle]="{background: checkDotColor()}">
                         </div>
                     </div>
             </div>
