@@ -12,6 +12,8 @@ export class CalendarPickerComponent {
 
   // 該日期元件選擇年月日
   @Output() selectDatInfo = new EventEmitter<string>();
+  // 選擇該日 之 其他 booking 紀錄
+  @Output() selectDayAllBookingRecord = new EventEmitter<Booking[]>();
 
   currentDate = new Date();
   currentYear = 0;
@@ -179,6 +181,7 @@ export class CalendarPickerComponent {
 
   /*
    * 射出 年月日資訊 
+   * 與 當天 所有 booking 紀錄, 方便卡控
    */
   emitDateInfo() {
     let selectDate = this.currentYear + '-' + this.currentMonth + '-' + "1";
@@ -186,6 +189,12 @@ export class CalendarPickerComponent {
       selectDate = this.currentYear + '-' + this.currentMonth + '-' + this._selectDate;
     }
     this.selectDatInfo.emit(selectDate);
+
+    const selectDayAllBookingRecord = this.bookingList
+      .filter(booking => {
+        return (new Date(booking.startDate).getTime() === new Date(selectDate).getTime());
+      });
+    this.selectDayAllBookingRecord.emit(selectDayAllBookingRecord);
   }
 
 }
