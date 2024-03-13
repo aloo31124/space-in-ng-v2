@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 import { BookingService } from 'src/app/booking/services/booking.service';
+import { Booking } from 'src/app/booking/models/booking.model';
 
 @Component({
   selector: 'app-calendar-picker',
@@ -20,9 +20,9 @@ export class CalendarPickerComponent {
   currentMonthFirstDay?: Date;
   currentMonthFirstDayWeekly = 0;
   displayAllDayGrid = 0
+
   _selectDate = 1;
-  _bookedDateAll: Date[] = [];
-  _bookedDay: number[] = [];
+  bookingList = new Array<Booking>();
   
   
   constructor(
@@ -31,14 +31,14 @@ export class CalendarPickerComponent {
 
   ngOnInit(): void {
     //取得當前日期
-    this.currentDate = new Date(); 
+    this.currentDate = new Date();
+    this._selectDate = this.currentDate.getDate();
 
     //取得當前年月
     this.currentYear = this.currentDate.getFullYear();
     this.currentMonth = this.currentDate.getMonth() + 1; //月份從0開始算，後續計算需加1
     this.setCalendarDateInfo();
     this.setBookingDotDate();
-
     this.emitDateInfo();
   }
 
@@ -64,36 +64,44 @@ export class CalendarPickerComponent {
    * 從 FireStore 取得所有 booking 日期。
    */
   setBookingDotDate() {
-    // 取得已選擇 日期 (尚未依照 email 搜尋)
+
     this.bookingService
       .getAll()
-      .subscribe((data) => {
-        this._bookedDateAll = [];
-        this._bookedDay = [];
-        const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
-        const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
-        for(let i=0 ; i< data.length ; i++){
-          const checkDate = new Date(data[i]['startDate']);
-          if(startDate <= checkDate && checkDate <= endDate){
-            this._bookedDateAll[i] = new Date(data[i]['startDate']);
-            // 取得 已被 bookin 之日期
-            this._bookedDay[i] = this._bookedDateAll[i].getDate();
-          }
-        }
-        //console.log(this._bookedDay);        
+      .subscribe(bookingList => {
+        bookingList
+          .forEach(booking => {
+            this.bookingList.push(new Booking(
+              booking["fireStoreId"],
+              booking["userId"],
+              booking["mail"],
+              booking["startDate"],
+              booking["endDatae"],
+              booking["startTime"],
+              booking["endTime"],
+              booking["bookingType"],
+              booking["roomId"],
+              booking["roomName"],
+              booking["siteId"],
+              booking["siteName"],
+            ));
+          });
       });
+
   }
 
-  /* 
-   * 確認該日是否已被 bookin，顯示 紫色小點 dot
+  /*
+   * 計算該日期(數字) 包含次數 
    */
-  isShowDot(checkDay: number): boolean {
-    for(let i=0; i< this._bookedDay.length; i++){
-      if(this._bookedDay[i] === checkDay){
-        return true;
-      }
+  countDot(checkDateNumber: number) {
+    if(checkDateNumber <= 0){
+      return 0;
     }
-    return false;
+    const checkDate = new Date(this.currentYear, this.currentMonth - 1, checkDateNumber);
+    const filterBooking = this.bookingList
+      .filter(booking => {
+        return (new Date(booking.startDate).getTime() === checkDate.getTime());
+      });
+    return filterBooking.length;
   }
 
 

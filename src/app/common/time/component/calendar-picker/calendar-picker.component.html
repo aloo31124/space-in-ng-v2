@@ -16,17 +16,20 @@
             <div class="grid">六</div>
         </div>
         <div class="grid-row">
-            <div 
-                class="grid" 
+            <div class="grid" 
                 *ngFor="let number of [].constructor(displayAllDayGrid); let i = index"  
-                (click)="selectDate( i + 1 - currentMonthFirstDayWeekly )"                     
-                [id]="'grid-' + ( i + 1 - currentMonthFirstDayWeekly )">
+                (click)="selectDate( i + 1 - currentMonthFirstDayWeekly )">
                     <div class="no-selected"
                          [ngClass]="{ 'selected': _selectDate === i + 1 - currentMonthFirstDayWeekly }"
                          *ngIf="i + 1 > currentMonthFirstDayWeekly">
                             {{ i + 1 - currentMonthFirstDayWeekly }}
                     </div>
-                    <div *ngIf="isShowDot(i + 1 - currentMonthFirstDayWeekly )" class="dot"></div>
+                    <div class="dot-bar">
+                        <div class="dot" 
+                            [ngStyle]="{background: '#661983'}"
+                            *ngFor="let dotNumber of [].constructor(countDot(i + 1 - currentMonthFirstDayWeekly))">
+                        </div> 
+                    </div>
             </div>
         </div>
     </div>
