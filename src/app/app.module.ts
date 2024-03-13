@@ -26,6 +26,7 @@ import { ReviewBookingCalendarComponent } from './review-booking/components/revi
 import { ReviewBookingFormComponent } from './review-booking/components/review-booking-form/review-booking-form.component';
 import { DialogComponent } from './common/dialog/components/dialog/dialog.component';
 import { WordShrotenPipe } from './common/pipe/word-shroten.pipe';
+import { InputComponent } from './common/input/components/input/input.component';
 
 
 const  firebase = {
@@ -60,7 +61,8 @@ const  firebase = {
     ReviewBookingCalendarComponent,
     ReviewBookingFormComponent,
     DialogComponent,
-    WordShrotenPipe
+    WordShrotenPipe,
+    InputComponent
   ],
   imports: [
     BrowserModule,

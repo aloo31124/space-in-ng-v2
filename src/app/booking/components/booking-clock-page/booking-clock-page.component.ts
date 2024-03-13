@@ -9,14 +9,17 @@ import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-
 })
 export class BookingClockPageComponent {
 
-  selectDate = "";
-
   _selectHour = 12;
   isSelectHour = true;
   _selectMin = 0;
   isSelectMin = false;
   isAm = true;
   isPm = false;
+
+
+  selectDate = "";
+  selectStartTime = "12:00";
+  selectEndTime = "12:00"
 
   constructor(
     private routeUrlRecordService: RouteUrlRecordService,

@@ -1,5 +1,10 @@
 
 <div class="clock-page-container">
+
+    <app-input [inputTitle]="'開始時間:'" [inputContent]="selectStartTime"></app-input>
+    <app-input [inputTitle]="'結束時間:'" [inputContent]="selectStartTime"></app-input>
+
+
     <div class="clock-paicker">
         <div class="clock-header">
             <div (click)="selectHour()" [ngClass]="{ 'selected': isSelectHour }">{{ getHourString() }}</div>
