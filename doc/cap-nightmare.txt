@@ -1,0 +1,37 @@
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+03/14
+(已解決)
+npx cap open ios
+=> pod 目錄紅色
+=> unable to open configuration settings file
+=> 與 cocoapods 安裝不完整有關
+
+https://stackoverflow.com/questions/74134200/xcode-cloud-unable-to-open-configuration-settings-file
+
+
+============================================================================
+cocoapods install
+
+> sudo gem install cocoapods
+=> 與 pod 有關
+
+Building native extensions. This could take a while...
+ERROR:  Error installing cocoapods:
+	ERROR: Failed to build gem native extension.
+
+    current directory: /Library/Ruby/Gems/2.6.0/gems/ffi-1.16.3/ext/ffi_c
+
+
+key: 整理上面資訊:
+Building native extensions. This could take a while...ERROR:  Error installing cocoapods: ERROR: Failed to build gem native extension. ffi-1.16.3/ext/ffi_c
+
+https://forums.developer.apple.com/forums/thread/668456
+
+> sudo gem install -n /usr/local/bin cocoapods -v 1.8.4
+
+> pod --version
+
+
+
+
