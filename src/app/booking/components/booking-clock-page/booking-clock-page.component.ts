@@ -116,9 +116,12 @@ export class BookingClockPageComponent {
 
   nextStep() {
 
-    const selectTime = this.getHourString() + ":" + this.getMinString();
+    if(!this.checkValidTime()) {
+      return;
+    }
 
-    alert(selectTime);
+    const selectTime = this.getHourString() + ":" + this.getMinString();
+    alert("選擇時段: " + selectTime);
     
     const navigationExtras: NavigationExtras = {
       queryParams: {
@@ -130,5 +133,37 @@ export class BookingClockPageComponent {
     
     this.routeUrlRecordService.nextPage("booking-select-type", navigationExtras);
   }
+  
+  /*
+   * 確認選擇時端卡控是否正確:
+   *  1. 開始時間 小於 結束時間
+   *  2. 選擇之時段 不可 包含 已預約之時段 => 時端不可重疊
+   */
+  checkValidTime() {
+    const selectStarTime = new Date(this.selectDate + " " + this.startTime);
+    const selectEndTime = new Date(this.selectDate + " " + this.endTime);
+
+    if(selectStarTime >= selectEndTime) {
+      alert("開始時間必須早於結束時間, 請重新選擇時段。");
+      return false;
+    }
+
+    // 檢查段是否重複
+    const isTimeReatList = this.selectDayAllBookingRecord.filter(bookingTime => {
+      const timeArray = bookingTime.split("~");
+      const startTime = new Date(this.selectDate + " " + timeArray[0]);
+      const endTime = new Date(this.selectDate + " " + timeArray[1]);
+      //時段重疊
+      return (startTime < selectEndTime  && endTime > selectStarTime );
+    });
+
+    if(isTimeReatList.length >= 0) {
+      alert("選擇段:" + this.startTime + "~" + this.endTime + "與" + isTimeReatList[0] + "重疊, 請重新選擇時段。");
+      return false;
+    }
+    
+    return true;
+  }
+
   
 }
