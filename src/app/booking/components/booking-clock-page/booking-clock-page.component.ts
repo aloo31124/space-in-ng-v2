@@ -149,15 +149,18 @@ export class BookingClockPageComponent {
     }
 
     // 檢查段是否重複
-    const isTimeReatList = this.selectDayAllBookingRecord.filter(bookingTime => {
+    let isTimeReatList = false
+    this.selectDayAllBookingRecord.filter(bookingTime => {
       const timeArray = bookingTime.split("~");
       const startTime = new Date(this.selectDate + " " + timeArray[0]);
       const endTime = new Date(this.selectDate + " " + timeArray[1]);
       //時段重疊
-      return (startTime < selectEndTime  && endTime > selectStarTime );
+      if (startTime < selectEndTime  && endTime > selectStarTime ) {
+        isTimeReatList = true;
+      }
     });
 
-    if(isTimeReatList.length >= 0) {
+    if(isTimeReatList) {
       alert("選擇段:" + this.startTime + "~" + this.endTime + "與" + isTimeReatList[0] + "重疊, 請重新選擇時段。");
       return false;
     }

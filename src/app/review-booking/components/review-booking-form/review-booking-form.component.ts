@@ -14,7 +14,8 @@ export class ReviewBookingFormComponent {
 
   fireStoreId = "";
   selectDate = "";
-  selectTime = "";
+  startTime = "";
+  endTime = "";
   selectDay = "";
   bookingType = "";
   googleAuthUser!: GoogleAuthUser;
@@ -42,7 +43,8 @@ export class ReviewBookingFormComponent {
     this.activatedRoute.queryParams.subscribe(params => {
       this.fireStoreId = params['fireStoreId'];
       this.selectDate = params['selectDate'];
-      this.selectTime = params['selectTime'];
+      this.startTime = params['startTime'];
+      this.endTime = params['endTime'];
       this.bookingType = params['bookingType'];
       this.selectRoom = params['selectRoom'];
 

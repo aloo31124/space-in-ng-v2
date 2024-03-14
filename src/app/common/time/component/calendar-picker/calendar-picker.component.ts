@@ -43,7 +43,6 @@ export class CalendarPickerComponent {
     this.currentMonth = this.currentDate.getMonth() + 1; //月份從0開始算，後續計算需加1
     this.setCalendarDateInfo();
     this.setBookingDotDate();
-    this.emitDateInfo();
   }
 
 
@@ -132,7 +131,6 @@ export class CalendarPickerComponent {
     this.checkMonth();
     this.setCalendarDateInfo();
     this._selectDate = 1;
-    this.emitDateInfo();
   }
 
 
@@ -144,7 +142,6 @@ export class CalendarPickerComponent {
     this.checkMonth();
     this.setCalendarDateInfo(); 
     this._selectDate = 1;
-    this.emitDateInfo();
   }
 
   /*

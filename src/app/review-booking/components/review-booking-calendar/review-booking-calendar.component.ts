@@ -61,14 +61,18 @@ export class ReviewBookingCalendarComponent {
       .forEach(booking => {
         // 後續要改成id @_@
         console.log(booking.startTime)
-        if(new Date(booking.startDate).getTime() === new Date(this.selectDateInfo).getTime() &&
-            booking.startTime === bookingTimeList[0]) {
+        if(
+            new Date(booking.startDate).getTime() === new Date(this.selectDateInfo).getTime() &&
+            booking.startTime === bookingTimeList[0] &&
+            booking.endTime === bookingTimeList[1]
+          ) {
           // 建立 NavigationExtras 對象
             const navigationExtras: NavigationExtras = {
               queryParams: {                
                 fireStoreId: booking.fireStoreId,
                 selectDate: booking.startDate,
-                selectTime: booking.startTime,
+                startTime: booking.startTime,
+                endTime: booking.endTime,
                 bookingType: booking.bookingType,
                 selectRoom: booking.roomName,
               }
