@@ -13,6 +13,8 @@ export class BookingDatePageComponent {
 
   currentYear = 0;
   currentMonth = 0;
+  
+  // 選擇日期
   selectDateInfo = "";
   // 該日 預約booking 紀錄
   selectDayAllBookingRecordList = new Array<Booking>();

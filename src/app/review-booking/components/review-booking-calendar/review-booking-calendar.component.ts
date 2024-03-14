@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { ReviewBookingService } from '../../services/review-booking.service';
+import { NavigationExtras } from '@angular/router';
 import { Booking } from 'src/app/booking/models/booking.model';
 import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
 
@@ -11,172 +10,59 @@ import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-
 })
 export class ReviewBookingCalendarComponent {
 
-  currentDate = new Date();
-  currentYear = 0;
-  currentMonth = 0;
-  currentMonthAllDay = 0;
-  currentMonthFirstDay?: Date;
-  currentMonthFirstDayWeekly = 0;
-  displayAllDayGrid = 0
-  _selectDate = 1;
 
-  // 當前使用者 booking 之日期
-  bookingDateList = new Array<Booking>();
+  // 選擇日期
+  selectDateInfo = "";
+  // 該日 預約booking 紀錄
+  selectDayAllBookingRecordList = new Array<Booking>();
+
+  // dialog 是否隱藏 該日 之 booking 紀錄
+  isHiddenDialogBookingRecord = true;
+  // dialog 該日 booking 紀錄陣列
+  dialogBookingRecordItemList = new Array<string>();
   
   
   constructor(
     private routeUrlRecordService: RouteUrlRecordService,
-    private reviewBookingService: ReviewBookingService,
   ) { }
 
   ngOnInit(): void {
-    //取得當前日期
-    this.currentDate = new Date(); 
-
-    //取得當前年月
-    this.currentYear = this.currentDate.getFullYear();
-    this.currentMonth = this.currentDate.getMonth() + 1; //月份從0開始算，後續計算需加1
-    this.setCalendarDateInfo();
-    this.setBookingDotDate();
   }
-
-
-  /* 
-   * 初始、切換月份後重取月份資訊。
+  /*
+   * 更新日期元件 之 日期資訊 
    */
-  setCalendarDateInfo() {
-    //取得當前月份總日數
-    this.currentMonthAllDay = new Date(this.currentYear, this.currentMonth , 0).getDate();
-
-    //當前月份首日星期
-    this.currentMonthFirstDay = new Date(this.currentYear, this.currentMonth - 1, 1);
-    this.currentMonthFirstDayWeekly = this.currentMonthFirstDay.getDay();
-    
-    //需要呈現之日期格子數
-    this.displayAllDayGrid = this.currentMonthAllDay + this.currentMonthFirstDayWeekly;
-  }
-
-
-  /* 
-   * 從 FireStore 取得所有 booking 日期。
-   */
-  setBookingDotDate() {
-    // 取得已選擇 日期 (尚未依照 email 搜尋)
-
-    const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
-    const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
-
-    this.reviewBookingService
-      .getAllBookingDayByUserId()
-      .subscribe((responseData) => {
-        responseData
-          .filter(data => { 
-            const checkDate = new Date(data['startDate']);
-            return ( startDate <= checkDate && checkDate <= endDate);
-          }) 
-          .forEach(x => {
-            this.bookingDateList.push(new Booking(
-              x["fireStoreId"],
-              x["userId"],
-              x["mail"],
-              x["startDate"],
-              x["endDatae"],
-              x["startTime"],
-              x["endTime"],
-              x["bookingType"],
-              x["roomId"],
-              x["roomName"],
-              x["siteId"],
-              x["siteName"],
-            ));
-          });
-      });
-  }
-
-  /* 
-   * 確認該日是否已被 booking，顯示 紫色小點 dot
-   */
-  isShowDot(checkDay: number): boolean {
-    return this.isIncloudCount(checkDay) > 0;
+  updateSelectDay(selectDay: string) {
+    this.selectDateInfo = selectDay;
   }
 
   /*
-   * 計算該日期(數字) 包含次數 
+   * 更新 該選擇日期 之 預約 booking 紀錄 
    */
-  isIncloudCount(checkNumber: number) {
-    let dotCount = 0;
-    this.bookingDateList
+  updateBookingRecord(bookingRecordList: Booking[]) {
+    this.dialogBookingRecordItemList = [];
+    this.selectDayAllBookingRecordList = bookingRecordList;
+    this.selectDayAllBookingRecordList
       .forEach(booking => {
-        if((new Date(booking.startDate)).getDate() === checkNumber ) {
-          dotCount ++;
-        }
+        this.dialogBookingRecordItemList.push(booking.startTime + "~" + booking.endTime);
       });
-    return dotCount;
-  }
-
-
-  /* 
-   * 上個月。
-   */
-  backMonth() {
-    this.currentMonth =this.currentMonth - 1;
-    this.checkMonth();
-    this.setCalendarDateInfo();
-    this.setBookingDotDate();
-    this._selectDate = 1;
-  }
-
-
-  /* 
-   * 下個月。
-   */
-  nextMonth() {
-    this.currentMonth =this.currentMonth + 1;
-    this.checkMonth();
-    this.setCalendarDateInfo();    
-    this.setBookingDotDate();
-    this._selectDate = 1;
+    // 顯示 dialog
+    if(this.dialogBookingRecordItemList.length > 0) { // 首次忽略
+      this.isHiddenDialogBookingRecord = false;
+    } 
   }
 
   /*
-   * 確認月份若非 1 <= month <= 12，則切換年分。
+   * 選擇該日 booking 紀錄, 並導向取消頁面 
    */
-  checkMonth() {
-    if(1 <= this.currentMonth && this.currentMonth <= 12) {
-      return;
-    }
+  selectBookingToCancle(bookingTime: string) {
+    const bookingTimeList = bookingTime.split("~");
 
-    if(this.currentMonth < 1) {
-      this.currentMonth = 12;
-      this.currentYear = this.currentYear - 1;   
-      return;   
-    }
-
-    if(this.currentMonth > 12) {
-      this.currentMonth = 1;
-      this.currentYear = this.currentYear + 1;   
-      return;   
-    }
-  }
-
-
-  /* 
-   * 選擇日期,檢視細節並評估是否刪除
-   */
-  selectDate(date: number) {
-
-    if(this.isIncloudCount(date) === 0) {
-      return;
-    }
-
-    if(date > 0) {
-      this._selectDate = date;
-    }
-
-    this.bookingDateList
+    this.selectDayAllBookingRecordList
       .forEach(booking => {
         // 後續要改成id @_@
-        if(new Date(booking.startDate).getDate() === date) {
+        console.log(booking.startTime)
+        if(new Date(booking.startDate).getTime() === new Date(this.selectDateInfo).getTime() &&
+            booking.startTime === bookingTimeList[0]) {
           // 建立 NavigationExtras 對象
             const navigationExtras: NavigationExtras = {
               queryParams: {                
@@ -190,5 +76,6 @@ export class ReviewBookingCalendarComponent {
         }
       });
   }
+
 
 }
