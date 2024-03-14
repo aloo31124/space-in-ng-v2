@@ -6,7 +6,7 @@
     <div class="form">
         <div class="row">
             <label>申請人</label>
-            <div class="select-item">阿翔</div>
+            <div class="select-item"> {{ userMail | wordShroten:8 }} </div>
         </div>
     
         <div class="row">
@@ -23,7 +23,7 @@
 
         <div class="row">
             <label>教室</label>
-            <div class="select-item">智慧教室</div>
+            <div class="select-item">{{ selectRoom | wordShroten:6 }}</div>
             <!-- <img src="assets/images/icon/icon_map_position.png" (click)="selectMap()"> -->
         </div>
 

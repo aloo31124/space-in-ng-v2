@@ -70,6 +70,7 @@ export class ReviewBookingCalendarComponent {
                 selectDate: booking.startDate,
                 selectTime: booking.startTime,
                 bookingType: booking.bookingType,
+                selectRoom: booking.roomName,
               }
             };
           this.routeUrlRecordService.nextPage("review-booking-form", navigationExtras);
