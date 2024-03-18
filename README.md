@@ -1,27 +1,22 @@
-# NgV16Scss
+# Space In V2
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+## 主要功能
+此為提供補習班空間預約功能,主要功能概述為：
+1. [空間預約] 可選擇補習班預約教室(包含基本時間卡控)。
+2. [已預約] 檢視預約者預約狀況，並取消預約。
+3. [空間總覽] 空間擁有者可檢視該空間預約情況。
+4. [購買方案] 串接第三方綠介金流，供補習班付款。
 
-## Development server
+## get start
+1. npm install
+2. ng s
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## 版本
+v2.1: 
+1. 新增 主要功能, get start 說明  2024/3/18
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
