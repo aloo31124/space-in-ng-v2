@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 import { 
   Firestore,
   collection,
@@ -15,10 +16,10 @@ import {
 export class ReviewRoomDetailComponent {
 
   //選擇空間種類 dialog
-  dialogRoomType = ["全部", "教室預約", "座位預約"];
+  dialogRoomType: DialogItemModel[] = [{id:"全部", name: "全部"}, {id:"教室預約", name: "教室預約"}, {id:"座位預約", name:"座位預約"}];
   isDialogHiddenRoomType = true;
   //選擇剩餘空間 dialog
-  dialogRemainRoomRate = ["10%", "20%", "30%", "40%", "50%"];
+  dialogRemainRoomRate: DialogItemModel[] = [{id:"10%", name:"10%"}, {id:"20%", name:"20%"}, {id:"30%", name:"30%"}, {id:"40%", name:"40%"}, {id:"50%", name:"50%"}];
   isDialogHiddenRemainRommRate = true;
 
   currentDate = new Date();

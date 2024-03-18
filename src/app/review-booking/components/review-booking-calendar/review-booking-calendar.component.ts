@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { Booking } from 'src/app/booking/models/booking.model';
 import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
+import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 
 @Component({
   selector: 'app-review-booking-calendar',
@@ -19,7 +20,7 @@ export class ReviewBookingCalendarComponent {
   // dialog 是否隱藏 該日 之 booking 紀錄
   isHiddenDialogBookingRecord = true;
   // dialog 該日 booking 紀錄陣列
-  dialogBookingRecordItemList = new Array<string>();
+  dialogBookingRecordItemList = new Array<DialogItemModel>();
   
   
   constructor(
@@ -43,7 +44,7 @@ export class ReviewBookingCalendarComponent {
     this.selectDayAllBookingRecordList = bookingRecordList;
     this.selectDayAllBookingRecordList
       .forEach(booking => {
-        this.dialogBookingRecordItemList.push(booking.startTime + "~" + booking.endTime);
+        this.dialogBookingRecordItemList.push({id:booking.fireStoreId, name: booking.startTime + "~" + booking.endTime});
       });
     // 顯示 dialog
     if(this.dialogBookingRecordItemList.length > 0) { // 首次忽略
@@ -54,18 +55,11 @@ export class ReviewBookingCalendarComponent {
   /*
    * 選擇該日 booking 紀錄, 並導向取消頁面 
    */
-  selectBookingToCancle(bookingTime: string) {
-    const bookingTimeList = bookingTime.split("~");
+  selectBookingToCancle(bookingId: string) {
 
     this.selectDayAllBookingRecordList
       .forEach(booking => {
-        // 後續要改成id @_@
-        console.log(booking.startTime)
-        if(
-            new Date(booking.startDate).getTime() === new Date(this.selectDateInfo).getTime() &&
-            booking.startTime === bookingTimeList[0] &&
-            booking.endTime === bookingTimeList[1]
-          ) {
+        if(booking.fireStoreId === bookingId) {
           // 建立 NavigationExtras 對象
             const navigationExtras: NavigationExtras = {
               queryParams: {                

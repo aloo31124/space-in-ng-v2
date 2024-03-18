@@ -5,6 +5,7 @@ import { ReviewRoomService } from '../../services/review-room.service';
 import { ChartTimeType } from '../../models/chartTimeType.model';
 import { ChartTimeWord } from '../../models/chartTimeWord.model';
 import { ChartTimeModel } from '../../models/chartTimeModel.model';
+import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 
 @Component({
   selector: 'app-review-room-overview',
@@ -20,12 +21,12 @@ export class ReviewRoomOverviewComponent {
 
   public lineChart: any;
   public isHiddenDialog = true;
-  public dialogChartTimeItem = [
-    this.chartTimeWording.week,
-    this.chartTimeWording.month,
-    this.chartTimeWording.season,
-    this.chartTimeWording.halfYear,
-    this.chartTimeWording.year,
+  public dialogChartTimeItem: DialogItemModel[] = [
+    {id:this.chartTimeWording.week , name: this.chartTimeWording.week},
+    {id:this.chartTimeWording.month , name: this.chartTimeWording.month},
+    {id:this.chartTimeWording.season , name: this.chartTimeWording.season},
+    {id:this.chartTimeWording.halfYear , name: this.chartTimeWording.halfYear},
+    {id:this.chartTimeWording.year , name: this.chartTimeWording.year},
   ];
   
   constructor(

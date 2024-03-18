@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
 import { GoogleAuthService } from 'src/app/auth/services/google-auth.service';
 import { GoogleAuthUser } from 'src/app/auth/models/google-auth-user.model';
+import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 
 @Component({
   selector: 'app-booking-check-form-page',
@@ -22,9 +23,9 @@ export class BookingCheckFormPageComponent {
   roomList = new Array<Room>();
   selectRoom!: Room;
   currentUser!: GoogleAuthUser;
-  dialogRoomList:string[] = [];
+  dialogRoomList: DialogItemModel[] = [];
   isHiddenDialogRoom = true;
-  dialogUserInfo: string[] = [];
+  dialogUserInfo: DialogItemModel[] = [];
   isHiddenDialogUserInfo = true;
 
   constructor(
@@ -43,8 +44,8 @@ export class BookingCheckFormPageComponent {
       alert("無法取得使用者資訊，請重新登入。");
       this.routeUrlRecordService.nextPage("/", {});
     }
-    this.dialogUserInfo.push("姓名: " + this.currentUser.name);
-    this.dialogUserInfo.push("信箱: " + this.currentUser.email);
+    this.dialogUserInfo.push({id: "0", name: "姓名: " + this.currentUser.name});
+    this.dialogUserInfo.push({id: "1", name: "信箱: " + this.currentUser.email});
 
 
     // 取得教室資訊
@@ -56,7 +57,7 @@ export class BookingCheckFormPageComponent {
             this.roomList.push(
               new Room(room['fireStoreId'],room['name'],room['ownerId'],room['ownerMail'])
             );
-            this.dialogRoomList.push(room['name']);
+            this.dialogRoomList.push({id:room['fireStoreId'] , name: room['name']});
           });
           this.selectRoom = this.roomList[0];
         },
@@ -107,8 +108,8 @@ export class BookingCheckFormPageComponent {
     });
   }
 
-  selectedRoom(_selectRoomName: string) {
-    this.selectRoom = this.roomList.filter(room => {return room.name === _selectRoomName; })[0];
+  selectedRoom(_selectRoomId: string) {
+    this.selectRoom = this.roomList.filter(room => {return room.fireStoreId === _selectRoomId; })[0];
     console.log(this.selectRoom);
   }
 

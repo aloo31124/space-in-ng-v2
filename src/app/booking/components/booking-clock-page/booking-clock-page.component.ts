@@ -161,7 +161,7 @@ export class BookingClockPageComponent {
     });
 
     if(isTimeReatList) {
-      alert("選擇段:" + this.startTime + "~" + this.endTime + "與" + isTimeReatList[0] + "重疊, 請重新選擇時段。");
+      alert("選擇段:" + this.startTime + "~" + this.endTime + "與" + this.selectDayAllBookingRecord[0] + "重疊, 請重新選擇時段。");
       return false;
     }
     
