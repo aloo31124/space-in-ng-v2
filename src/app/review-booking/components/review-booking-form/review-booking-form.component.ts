@@ -16,7 +16,6 @@ export class ReviewBookingFormComponent {
   selectDate = "";
   startTime = "";
   endTime = "";
-  selectDay = "";
   bookingType = "";
   googleAuthUser!: GoogleAuthUser;
   userMail = "";
@@ -47,40 +46,6 @@ export class ReviewBookingFormComponent {
       this.endTime = params['endTime'];
       this.bookingType = params['bookingType'];
       this.selectRoom = params['roomName'];
-
-
-      const dayOfWeek = (new Date(this.selectDate)).getDay();
-      //判斷星期
-      switch(dayOfWeek) {        
-        case 0:
-          // 星期日
-          this.selectDay = "(日)";
-          break;
-        case 1:
-          // 星期一
-          this.selectDay = "(一)";
-          break;
-        case 2:
-          // 星期二
-          this.selectDay = "(二)";
-          break;
-        case 3:
-          // 星期三
-          this.selectDay = "(三)";
-          break;
-        case 4:
-          // 星期四
-          this.selectDay = "(四)";
-          break;
-        case 5:
-          // 星期五
-          this.selectDay = "(五)";
-          break;
-        case 6:
-          // 星期六
-          this.selectDay = "(六)";
-          break;
-      }
     });
   }
 

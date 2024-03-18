@@ -27,6 +27,7 @@ import { ReviewBookingFormComponent } from './review-booking/components/review-b
 import { DialogComponent } from './common/dialog/components/dialog/dialog.component';
 import { WordShrotenPipe } from './common/pipe/word-shroten.pipe';
 import { InputComponent } from './common/input/components/input/input.component';
+import { DateToDayOfWeekPipe } from './common/pipe/date-to-day-of-week.pipe';
 
 
 const  firebase = {
@@ -62,7 +63,8 @@ const  firebase = {
     ReviewBookingFormComponent,
     DialogComponent,
     WordShrotenPipe,
-    InputComponent
+    InputComponent,
+    DateToDayOfWeekPipe
   ],
   imports: [
     BrowserModule,
