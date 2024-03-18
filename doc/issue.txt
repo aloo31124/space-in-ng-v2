@@ -1,6 +1,19 @@
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm; 
 
+/////////////////////////////////////////////////////////////////////////////////////////
+03/18
+angular router 攜帶參數之 變化
+
+https://stackoverflow.com/questions/44864303/send-data-through-routing-paths-in-angular
+
+router 攜帶參數：
+
+1. Required Paramater => "path/:id" =>  Router.navigate(["path", id]); 
+2. Optional Paramater => "path"     =>  Router.navigate(["path", {id:1, name:"loulou"}]);
+3. Query    paramater => "path"     =>  Router.navigate(["path"], queryParams: {id:1, name:"loulou"});
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
