@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
-import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
+import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 
 @Component({
   selector: 'app-booking-clock-page',

@@ -3,7 +3,7 @@ import { BookingService } from '../../services/booking.service';
 import { RoomSiteService } from 'src/app/common/room-site/services/room-site.service';
 import { Room } from 'src/app/common/room-site/models/room.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
+import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 import { GoogleAuthService } from 'src/app/auth-route/services/google-auth.service';
 import { GoogleAuthUser } from 'src/app/auth-route/models/google-auth-user.model';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
+import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 
 @Component({
   selector: 'app-home-page',

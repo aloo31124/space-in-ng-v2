@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { RouteUrlRecordService } from '../../services/route-url-record.service';
+import { RouteUrlRecordService } from '../../../../auth-route/services/route-url-record.service';
 
 @Component({
   selector: 'app-header',

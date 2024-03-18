@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { Booking } from 'src/app/booking/models/booking.model';
-import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
+import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 
 @Component({

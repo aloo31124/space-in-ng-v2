@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReviewBookingService } from '../../services/review-booking.service';
-import { RouteUrlRecordService } from 'src/app/common/header/services/route-url-record.service';
+import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 import { GoogleAuthService } from 'src/app/auth-route/services/google-auth.service';
 import { GoogleAuthUser } from 'src/app/auth-route/models/google-auth-user.model';
 
