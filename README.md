@@ -7,6 +7,10 @@
 3. [空間總覽] 空間擁有者可檢視該空間預約情況。
 4. [購買方案] 串接第三方綠介金流，供補習班付款。
 
+操作畫面參考:
+https://photos.app.goo.gl/PsUfABJvewWt2reh7
+
+
 ## get start
 1. npm install
 2. ng s
