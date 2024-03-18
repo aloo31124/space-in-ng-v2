@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavigationExtras } from '@angular/router';
 import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 import { Booking } from '../../models/booking.model';
 
@@ -20,10 +19,11 @@ export class BookingDatePageComponent {
   selectDayAllBookingRecordList = new Array<Booking>();
   // 該日期 預約booking 上限
   bookingDaylimit = 3;
+
   
   
   constructor(
-    private routeUrlRecordService: RouteUrlRecordService,
+    private routeUrlRecordService: RouteUrlRecordService<{selectDate: string, selectDayAllBookingRecord: string[]}>,
   ) { }
 
   ngOnInit(): void { }
@@ -43,15 +43,12 @@ export class BookingDatePageComponent {
       .map(booking => {
         return booking.startTime + "~" + booking.endTime;
       });
-    // 建立 NavigationExtras 對象
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        selectDate: this.selectDateInfo,
-        selectDayAllBookingRecord: bookingRecordList
-      }
-    };
-    
-    this.routeUrlRecordService.nextPage("booking-clock", navigationExtras);
+
+    const queryParams =  {
+      selectDate: this.selectDateInfo,
+      selectDayAllBookingRecord: bookingRecordList
+    }
+    this.routeUrlRecordService.nextPage("booking-clock", queryParams);
   }
 
 

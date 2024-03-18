@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, NavigationExtras } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 
 @Component({
@@ -32,7 +32,7 @@ export class BookingClockPageComponent {
 
 
   constructor(
-    private routeUrlRecordService: RouteUrlRecordService,
+    private routeUrlRecordService: RouteUrlRecordService<{selectDate:string, startTime:string, endTime:string}>,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -122,16 +122,13 @@ export class BookingClockPageComponent {
 
     const selectTime = this.getHourString() + ":" + this.getMinString();
     alert("選擇時段: " + selectTime);
-    
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        selectDate: this.selectDate,
-        startTime: this.startTime,
-        endTime: this.endTime,
-      }
-    };
-    
-    this.routeUrlRecordService.nextPage("booking-select-type", navigationExtras);
+
+    const queryParams =  {
+      selectDate: this.selectDate,
+      startTime: this.startTime,
+      endTime: this.endTime,
+    }
+    this.routeUrlRecordService.nextPage("booking-select-type", queryParams);
   }
   
   /*

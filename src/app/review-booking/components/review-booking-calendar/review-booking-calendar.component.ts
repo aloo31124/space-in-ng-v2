@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavigationExtras } from '@angular/router';
 import { Booking } from 'src/app/booking/models/booking.model';
 import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
@@ -24,7 +23,7 @@ export class ReviewBookingCalendarComponent {
   
   
   constructor(
-    private routeUrlRecordService: RouteUrlRecordService,
+    private routeUrlRecordService: RouteUrlRecordService<Booking>,
   ) { }
 
   ngOnInit(): void {
@@ -60,18 +59,7 @@ export class ReviewBookingCalendarComponent {
     this.selectDayAllBookingRecordList
       .forEach(booking => {
         if(booking.fireStoreId === bookingId) {
-          // 建立 NavigationExtras 對象
-            const navigationExtras: NavigationExtras = {
-              queryParams: {                
-                fireStoreId: booking.fireStoreId,
-                selectDate: booking.startDate,
-                startTime: booking.startTime,
-                endTime: booking.endTime,
-                bookingType: booking.bookingType,
-                selectRoom: booking.roomName,
-              }
-            };
-          this.routeUrlRecordService.nextPage("review-booking-form", navigationExtras);
+          this.routeUrlRecordService.nextPage("review-booking-form", booking);
         }
       });
   }

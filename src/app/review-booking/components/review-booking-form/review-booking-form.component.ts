@@ -23,7 +23,7 @@ export class ReviewBookingFormComponent {
   selectRoom = "";
 
   constructor(
-    private routeUrlRecordService: RouteUrlRecordService,
+    private routeUrlRecordService: RouteUrlRecordService<{}>,
     private activatedRoute: ActivatedRoute,
     private reviewBookingService: ReviewBookingService,
     private googleAuthService: GoogleAuthService,
@@ -42,11 +42,11 @@ export class ReviewBookingFormComponent {
     // 提取日期参数
     this.activatedRoute.queryParams.subscribe(params => {
       this.fireStoreId = params['fireStoreId'];
-      this.selectDate = params['selectDate'];
+      this.selectDate = params['startDate'];
       this.startTime = params['startTime'];
       this.endTime = params['endTime'];
       this.bookingType = params['bookingType'];
-      this.selectRoom = params['selectRoom'];
+      this.selectRoom = params['roomName'];
 
 
       const dayOfWeek = (new Date(this.selectDate)).getDay();

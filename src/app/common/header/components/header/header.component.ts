@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   
 
   constructor(
-    private routeUrlRecordService: RouteUrlRecordService,
+    private routeUrlRecordService: RouteUrlRecordService<{}>,
   ) {
 
     this.routeUrlRecordService

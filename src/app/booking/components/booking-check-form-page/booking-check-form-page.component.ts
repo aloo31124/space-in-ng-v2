@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BookingService } from '../../services/booking.service';
 import { RoomSiteService } from 'src/app/common/room-site/services/room-site.service';
 import { Room } from 'src/app/common/room-site/models/room.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 import { GoogleAuthService } from 'src/app/auth-route/services/google-auth.service';
 import { GoogleAuthUser } from 'src/app/auth-route/models/google-auth-user.model';
@@ -29,7 +29,7 @@ export class BookingCheckFormPageComponent {
   isHiddenDialogUserInfo = true;
 
   constructor(
-    private routeUrlRecordService: RouteUrlRecordService,
+    private routeUrlRecordService: RouteUrlRecordService<{}>,
     private activatedRoute: ActivatedRoute,
     private bookingService: BookingService,
     private roomSiteService: RoomSiteService,
@@ -144,15 +144,6 @@ export class BookingCheckFormPageComponent {
       siteId: "",
       siteName: "",
     };
-    
-    //Function addDoc() called with invalid data. Data must be an object, but it was: a custom Booking object 
-    //let bookingData = new Booking();
-    //bookingData.mail = googleAuthUser.email;
-    //bookingData.selectDate = this.selectDate;
-    //bookingData.selectTime = this.selectTime;
-    //bookingData.bookingType = this.bookingType;
-
-    console.log(bookingData);
 
     this.bookingService.post(bookingData)      
       .then(() => {

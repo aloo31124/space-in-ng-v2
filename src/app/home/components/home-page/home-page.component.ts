@@ -9,7 +9,7 @@ import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-rec
 export class HomePageComponent {
 
   constructor(
-    private routeUrlRecordService: RouteUrlRecordService,
+    private routeUrlRecordService: RouteUrlRecordService<{}>,
   ) {}
 
   /*

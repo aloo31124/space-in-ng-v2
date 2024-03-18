@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RouteUrlRecordService {
+export class RouteUrlRecordService<T> {
 
   private routeUrlChangeSubject = new Subject<string>();
   routerUrlChangeEmit = this.routeUrlChangeSubject.asObservable();
@@ -54,13 +54,17 @@ export class RouteUrlRecordService {
   /*
    * 下一頁 
    */
-  nextPage(nextUrl: string, navigationExtras: NavigationExtras) {
+  nextPage(nextUrl: string, paramsObj: T) {
     // 將下一個 url 送給 header
     this.routeUrlChangeSubject.next(nextUrl);
     // 檢查當前頁面
     this.checkRouteUrl(this.getCurrentUrl());
     // 導向下一頁
-    this.router.navigate([nextUrl], navigationExtras);
+    if(paramsObj) {
+      this.router.navigate([nextUrl], {queryParams: {...paramsObj}});
+    } else {
+      this.router.navigate([nextUrl]);
+    }
   }
 
   /*
