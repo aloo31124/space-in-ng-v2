@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/components/header/header.component';
 import { ImgBtnComponent } from './common/button/components/img-btn/img-btn.component';
 import { HomePageComponent } from './home/components/home-page/home-page.component';
-import { LoginPageComponent } from './auth/components/login-page/login-page.component';
+import { LoginPageComponent } from './auth-route/components/login-page/login-page.component';
 import { CalendarPickerComponent } from './common/time/component/calendar-picker/calendar-picker.component';
 import { ClockPickerComponent } from './common/time/component/clock-picker/clock-picker.component';
 import { BookingDatePageComponent } from './booking/components/booking-date-page/booking-date-page.component';

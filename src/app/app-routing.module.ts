@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './home/components/home-page/home-page.component';
-import { LoginPageComponent } from './auth/components/login-page/login-page.component';
-import { AuthGuardService } from './auth/services/auth-guard.service';
+import { LoginPageComponent } from './auth-route/components/login-page/login-page.component';
+import { AuthGuardService } from './auth-route/services/auth-guard.service';
 import { BookingDatePageComponent } from './booking/components/booking-date-page/booking-date-page.component';
 import { BookingClockPageComponent } from './booking/components/booking-clock-page/booking-clock-page.component';
 import { BookingSelectTypePageComponent } from './booking/components/booking-select-type-page/booking-select-type-page.component';
