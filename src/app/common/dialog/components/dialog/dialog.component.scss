@@ -21,10 +21,11 @@
 
 .dialog {
     background: white;
-    width: 250px;
+    width: 270px;
     height: 400px;
     position: fixed;
     top: 10%;
+
     opacity:1.0;
     border-radius: 10px;
     display: flex;
@@ -32,7 +33,18 @@
     justify-content: center;
     align-items: center;
     padding: 5px;
-    padding: 20px;
+    color: #661983;
+
+    .dialog-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .title {
+            padding: 5px;
+            font-size: 25px;
+        }
+    }
 
     .dialog-content {
         height: 80%;
@@ -40,9 +52,16 @@
         flex-direction: column;
         justify-content: center;
         .row {            
-            color: #661983;
             padding: 10px; 
-            font-size: 25px;
+            background: #FBE0FF;
+            padding: 10px 30px;
+            border-radius: 100px;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        .row-click {
+            color: #FBE0FF;
+            background: #661983;
         }
     }
 

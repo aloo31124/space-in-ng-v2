@@ -74,6 +74,7 @@
     <!-- 選擇剩餘空間% dialog -->
     <div class="dialog-container">
         <app-dialog 
+            [dialogTitle]="'選擇剩餘空間比例'"
             [isHiddenDialog]="isDialogHiddenRemainRommRate"
             (hideDialog)="isDialogHiddenRemainRommRate=true"
             (selectedItem)="selectRate($event)"
@@ -84,6 +85,7 @@
     <!-- 選擇空間種類 dialog -->
     <div class="dialog-container">
         <app-dialog 
+            [dialogTitle]="'選擇剩餘空間種類'"
             [isHiddenDialog]="isDialogHiddenRoomType"
             (hideDialog)="isDialogHiddenRoomType=true"
             (selectedItem)="selectRoomType($event)"
