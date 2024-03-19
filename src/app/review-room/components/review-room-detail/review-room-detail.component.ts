@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
+import { RateModel } from '../../models/rate.model';
+import { ReviewRoomService } from '../../services/review-room.service';
 import { 
   Firestore,
   collection,
@@ -25,12 +27,16 @@ export class ReviewRoomDetailComponent {
   currentDate = new Date();
   currentYear = 0;
   currentMonth = 0;
+  /* 
   currentMonthRoomRemainingRoomRate =
     [
       10, 20, 5, 100, 60, 40, 30, 20, 10, 54,
       23, 0,  11, 12, 67, 22, 11, 4,  11, 40,
       10, 20, 5, 100, 60, 100, 60, 40, 30, 1,
     ];
+   */
+  rateList: RateModel[] = [];
+
   showRate = 30;
   currentMonthAllDay = 0;
   currentMonthFirstDay?: Date;
@@ -48,7 +54,8 @@ export class ReviewRoomDetailComponent {
   
   constructor(
     private router: Router,
-    private firestore: Firestore
+    private reviewRoomService: ReviewRoomService,
+    private firestore: Firestore,
   ) { }
 
   ngOnInit(): void {
@@ -59,7 +66,7 @@ export class ReviewRoomDetailComponent {
     this.currentYear = this.currentDate.getFullYear();
     this.currentMonth = this.currentDate.getMonth() + 1; //月份從0開始算，後續計算需加1
     this.setCalendarDateInfo();
-    this.setBookingDotDate();
+    this.getRateList();
   }
 
 
@@ -78,36 +85,23 @@ export class ReviewRoomDetailComponent {
     this.displayAllDayGrid = this.currentMonthAllDay + this.currentMonthFirstDayWeekly;
   }
 
-
   /* 
-   * 從 FireStore 取得所有 booking 日期。
+   * 判斷後, 顯示剩餘率
    */
-  setBookingDotDate() {
-    // 取得已選擇 日期 (尚未依照 email 搜尋)
-    const collectionInstance = collection(this.firestore, 'User');
-    collectionData(collectionInstance)
-      .subscribe((data) => {
-        this._bookedDateAll = [];
-        this._bookedDay = [];
-        const startDate = new Date(this.currentYear + '-' + this.currentMonth + '-01');
-        const endDate = new Date(this.currentYear + '-' + this.currentMonth + '-' + this.currentMonthAllDay);
-        for(let i=0 ; i< data.length ; i++){
-          const checkDate = new Date(data[i]['selectDate']);
-          if(startDate <= checkDate && checkDate <= endDate){
-            this._bookedDateAll[i] = new Date(data[i]['selectDate']);
-            // 取得 已被 bookin 之日期
-            this._bookedDay[i] = this._bookedDateAll[i].getDate();
-          }
-        }
-        console.log(this._bookedDay);        
-      });
-  }
+  isShowRate(date: number): string {
+    if(!this.rateList) {
+      return "";
+    }
 
-  /* 
-   * 是否顯示剩餘率
-   */
-  isShowRate(rate: number): boolean {
-    return ( this.showRate > rate );
+    const rateDate = this.rateList.filter(rate => { return new Date(rate.date).getDate() === date })[0];
+    if(!rateDate) {
+      return "";
+    }
+    if(this.showRate < rateDate.rate) {
+      return "";
+    }
+
+    return rateDate.rate + "%";
   }
 
 
@@ -118,7 +112,6 @@ export class ReviewRoomDetailComponent {
     this.currentMonth =this.currentMonth - 1;
     this.checkMonth();
     this.setCalendarDateInfo();
-    this.setBookingDotDate();
     this._selectDate = 1;
   }
 
@@ -130,7 +123,6 @@ export class ReviewRoomDetailComponent {
     this.currentMonth =this.currentMonth + 1;
     this.checkMonth();
     this.setCalendarDateInfo();   
-    this.setBookingDotDate(); 
     this._selectDate = 1;
   }
 
@@ -217,6 +209,10 @@ export class ReviewRoomDetailComponent {
   public selectRoomType(selectRoomType: string) {
     this.isHiddenRoomDialog = true;
     this._selectRoomType = selectRoomType;
+  }
+
+  public getRateList() {
+    this.rateList = this.reviewRoomService.getBookingRate();
   }
 
 }
