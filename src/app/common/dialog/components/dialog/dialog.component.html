@@ -6,19 +6,23 @@
 
         <div class="dialog">
 
+            <div class="dialog-header">
+                <div class="title"> {{ dialogTitle }} </div>
+            </div>
+
             <div class="dialog-content">
-                <div class="row" 
+                <div class="row" [ngClass]="{'row-click': selectItemId === item.id}"
                     *ngFor="let item of itemList"  
                     (click)="clickItem(item.id)" > 
                         {{ item.name }}
                 </div>
             </div>
 
-           <!--  按鈕待優化
+            
             <div class="dialog-footer">
-                <img class="img-next" src="assets/images/icon/icon_next.png" (click)="hiddenDialog()">    
+                <img class="img-next" src="assets/images/icon/icon_check_ok.png" (click)="emitSelectItem()">    
             </div>
-             -->
+            
         </div>
 
     </div>

@@ -8,6 +8,7 @@
     <!-- dialog 該日之 已預約時段 -->
     <div class="dialog-container">
         <app-dialog 
+            [dialogTitle]="'檢視預約時段'"
             (selectedItem)="selectBookingToCancle($event)"
             [isHiddenDialog]="isHiddenDialogBookingRecord"
             (hideDialog)="isHiddenDialogBookingRecord=true"

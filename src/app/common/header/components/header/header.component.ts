@@ -78,10 +78,16 @@ export class HeaderComponent implements OnInit {
     }
     
     if(nextUrl.includes("review-booking")) {
-      this.headerTitle = "已借用";
+      this.headerTitle = "已預約";
     } 
     else if(nextUrl.includes("booking-")) {
       this.headerTitle = "預約空間";
+    } 
+    else if(nextUrl.includes("review-room")) {
+      this.headerTitle = "空間總覽";
+    } 
+    else if(nextUrl.includes("pay-")) {
+      this.headerTitle = "購買方案";
     } 
     else {
       this.headerTitle = "";

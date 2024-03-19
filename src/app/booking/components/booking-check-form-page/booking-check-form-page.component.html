@@ -38,6 +38,7 @@
     <!-- dialog 選擇教室 -->
     <div class="dialog-container">
         <app-dialog 
+            [dialogTitle]="'選擇教室'"
             (selectedItem)="selectedRoom($event)"
             [isHiddenDialog]="isHiddenDialogRoom"
             (hideDialog)="isHiddenDialogRoom=true"
@@ -48,6 +49,7 @@
     <!-- dialog 使用者資訊 -->
     <div class="dialog-container">
         <app-dialog 
+            [dialogTitle]="'使用者資訊'"
             [isHiddenDialog]="isHiddenDialogUserInfo"
             (hideDialog)="isHiddenDialogUserInfo=true"
             [itemList]="dialogUserInfo">

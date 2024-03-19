@@ -26,8 +26,10 @@
         <canvas  id="lineChart" >{{ lineChart }}</canvas>
     </div>
 
+    <!-- 選擇借用趨勢之時區 -->
     <div class="dialog-container">
         <app-dialog
+         [dialogTitle]="'選擇借用趨勢之時區'"
          (selectedItem)="selectCharTimeModel($event)"
          [isHiddenDialog]="isHiddenDialog"
          (hideDialog)="isHiddenDialog=true"
