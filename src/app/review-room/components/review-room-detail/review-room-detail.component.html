@@ -61,8 +61,8 @@
                                      *ngIf="i + 1 > currentMonthFirstDayWeekly">
                                         {{ i + 1 - currentMonthFirstDayWeekly }}
                                 </div>
-                                <div *ngIf="isShowRate( currentMonthRoomRemainingRoomRate[i] )" class="rate">
-                                    {{ currentMonthRoomRemainingRoomRate[i] }} %
+                                <div class="rate">
+                                    {{ isShowRate(i + 1 - currentMonthFirstDayWeekly) }} 
                                 </div>
                         </div>
                     </div>
