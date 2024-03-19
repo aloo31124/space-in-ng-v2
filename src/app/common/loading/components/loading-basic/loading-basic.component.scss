@@ -1,0 +1,33 @@
+
+.loading-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;    
+    z-index: 91;
+    //align-items: center;
+}
+
+.loading-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background: gray;
+    opacity:0.5;
+}
+
+.loading-gif {
+    z-index: 91;
+    opacity:0.5;
+    position: fixed;
+    top: 10%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+

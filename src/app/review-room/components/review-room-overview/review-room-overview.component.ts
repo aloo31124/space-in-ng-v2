@@ -14,6 +14,8 @@ import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 })
 export class ReviewRoomOverviewComponent {
 
+  // 資料仍在 loading中, 顯示 loading mask
+  isLoading = true;
 
   public chartTimeType = new ChartTimeType();
   public chartTimeWording = new ChartTimeWord();
@@ -49,7 +51,7 @@ export class ReviewRoomOverviewComponent {
     let charCharRoom:number[] = [];
 
     const chartTimeModel = this.reviewRoomService.getChartByTimeType(selectTimeModel);
-      chartTimeModel
+    chartTimeModel
         .subscribe(
           (responseData) => {
             
@@ -68,15 +70,19 @@ export class ReviewRoomOverviewComponent {
               },
               options: { aspectRatio:1}
             });
+
+            this.isLoading = false;
   
           },
           (error) => {
             console.log(error);
+            alert("取得借用趨勢資料錯誤, 錯誤訊息為 : " + error);
           }
         );
   }
 
   selectCharTimeModel(selectTimeModel: string) {
+    this.isLoading = true;
     this.lineChart.destroy(); // 銷毀現有圖表
     
     if(selectTimeModel === this.chartTimeWording.week) {

@@ -28,6 +28,7 @@ import { DialogComponent } from './common/dialog/components/dialog/dialog.compon
 import { WordShrotenPipe } from './common/pipe/word-shroten.pipe';
 import { InputComponent } from './common/input/components/input/input.component';
 import { DateToDayOfWeekPipe } from './common/pipe/date-to-day-of-week.pipe';
+import { LoadingBasicComponent } from './common/loading/components/loading-basic/loading-basic.component';
 
 
 const  firebase = {
@@ -64,7 +65,8 @@ const  firebase = {
     DialogComponent,
     WordShrotenPipe,
     InputComponent,
-    DateToDayOfWeekPipe
+    DateToDayOfWeekPipe,
+    LoadingBasicComponent
   ],
   imports: [
     BrowserModule,
