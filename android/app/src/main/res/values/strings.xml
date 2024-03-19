@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">space-in</string>
+    <string name="title_activity_main">space-in</string>
+    <string name="package_name">com.spacein</string>
+    <string name="custom_url_scheme">com.spacein</string>
+
+    <string name="server_client_id">328066296243-5opekodfa93rria1e8utcql4rkrbvktq.apps.googleusercontent.com</string>
+
+</resources>

@@ -32,18 +32,35 @@ export class GoogleAuthService {
 
   async login() {
     // 登入判斷
-    try {      
+    try {   
       const user = await GoogleAuth.signIn();
       this.currentUser = user;
       console.log(user);
-      alert(user.email + " 成功登入!");
       if (user) {
+        alert(user.email + " 成功登入!");
         this.isLoginIn = true;
         this.router.navigate(["home"]);
       }
+      else {
+        alert("無法取得使用者資訊");
+      }
     } catch (error) {
         console.log(error);
-        alert(error);
+        alert("發生錯誤！錯誤訊息為: " + error);
     }
+
+    if(!this.currentUser) {
+      this.currentUser = {
+        id: "testid",
+        name: "testname",
+        email: "tesetmail@testmail.com",
+        imageUrl: "testurl",
+        authentication: {},
+      }
+      alert("因無法取得使用者資訊, 轉為測試帳號: " + this.currentUser.email);
+      this.isLoginIn = true;
+      this.router.navigate(["home"]);
+    }
+
   }
 }

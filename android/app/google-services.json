@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "328066296243",
+    "firebase_url": "https://spacein-ec8ab-default-rtdb.firebaseio.com",
+    "project_id": "spacein-ec8ab",
+    "storage_bucket": "spacein-ec8ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328066296243:android:7c89069f28928e345843c6",
+        "android_client_info": {
+          "package_name": "com.spacein"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328066296243-b7gkrv1n3cv29afhmp0gtmutl9l38jfg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.spacein",
+            "certificate_hash": "37dbd131de040fd36c814460343e187231cfc8b9"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUomOX0S6UNGG7mRw24kdzZ5cB_pYSfvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328066296243-5opekodfa93rria1e8utcql4rkrbvktq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
