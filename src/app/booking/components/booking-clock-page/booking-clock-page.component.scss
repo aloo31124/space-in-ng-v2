@@ -9,6 +9,19 @@
     align-items: center;
     height: 350px;
     padding: 20px 0;
+
+    .input-bar {
+      margin-bottom: 10px;
+    }
+
+    .btn-bar {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 20px 0;
+    }
 }
 
 img {
@@ -17,6 +30,9 @@ img {
 
 .clock-paicker {
     width: 350px;
+    border: 1px solid #cfcfcf;
+    border-radius: 1px;
+    
     .clock-header {
         background: #661983;
         color: #cfcfcf;
