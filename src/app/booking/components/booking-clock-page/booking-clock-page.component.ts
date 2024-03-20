@@ -9,7 +9,7 @@ import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-rec
 })
 export class BookingClockPageComponent {
 
-  _selectHour = 12;
+  _selectHour = 9;
   isSelectHour = true;
   _selectMin = 0;
   isSelectMin = false;
@@ -17,14 +17,12 @@ export class BookingClockPageComponent {
   isPm = false;
 
   selectDate = "";
-  selectStartTime = "12:00";
+  selectStartTime = "09:00";
   selectEndTime = "12:00";
   selectDayAllBookingRecord = new Array<string>();
 
   //選擇開始時段
   isSelectStartTimeInput = true;
-  //選擇結束時段
-  //isEndTimeInput = false;
   //開始時間
   startTime = "";
   //結束時間
@@ -120,8 +118,7 @@ export class BookingClockPageComponent {
       return;
     }
 
-    const selectTime = this.getHourString() + ":" + this.getMinString();
-    alert("選擇時段: " + selectTime);
+    alert("選擇時段: " + this.startTime + "~" + this.endTime);
 
     const queryParams =  {
       selectDate: this.selectDate,
@@ -145,6 +142,11 @@ export class BookingClockPageComponent {
       return false;
     }
 
+    if(this.selectDayAllBookingRecord.length === 0){
+      // 無重複時段需比對
+      return true;
+    }
+
     // 檢查段是否重複
     let isTimeReatList = false
     this.selectDayAllBookingRecord.filter(bookingTime => {
@@ -152,7 +154,7 @@ export class BookingClockPageComponent {
       const startTime = new Date(this.selectDate + " " + timeArray[0]);
       const endTime = new Date(this.selectDate + " " + timeArray[1]);
       //時段重疊
-      if (startTime < selectEndTime  && endTime > selectStarTime ) {
+      if (startTime < selectEndTime  && endTime > selectStarTime) {
         isTimeReatList = true;
       }
     });

@@ -1,20 +1,22 @@
 
 <div class="clock-page-container">
 
-    <app-input 
-        (inputClick)="toggleInput()"
-        [inputContent]="startTime"
-        [isSelect]="isSelectStartTimeInput"
-        [inputTitle]="'開始時間:'" 
-        [inputContent]="selectStartTime">
-    </app-input>
-    <app-input 
-        (inputClick)="toggleInput()"
-        [inputContent]="endTime"
-        [isSelect]="!isSelectStartTimeInput"
-        [inputTitle]="'結束時間:'" 
-        [inputContent]="selectStartTime">
-    </app-input>
+    <div class="input-bar">
+        <app-input 
+            (inputClick)="toggleInput()"
+            [inputContent]="startTime"
+            [isSelect]="isSelectStartTimeInput"
+            [inputTitle]="'開始時間:'" 
+            [inputContent]="selectStartTime">
+        </app-input>
+        <app-input 
+            (inputClick)="toggleInput()"
+            [inputContent]="endTime"
+            [isSelect]="!isSelectStartTimeInput"
+            [inputTitle]="'結束時間:'" 
+            [inputContent]="selectStartTime">
+        </app-input>
+    </div>
 
 
     <div class="clock-paicker">
@@ -31,7 +33,7 @@
         <div class="clock-container">
             <section class="clock">
                 <ul *ngIf="isSelectHour">
-                    <li><i (click)="selectTime(12)" [ngClass]="{'selected':_selectHour === 12 }">12</i></li>
+                    <li><i (click)="selectTime(0)" [ngClass]="{'selected':_selectHour === 0 }">12</i></li>
                     <li><i (click)="selectTime(1)" [ngClass]="{'selected':_selectHour === 1 }">1</i></li>
                     <li><i (click)="selectTime(2)" [ngClass]="{'selected':_selectHour === 2 }">2</i></li>
                     <li><i (click)="selectTime(3)" [ngClass]="{'selected':_selectHour === 3 }">3</i></li>
@@ -71,12 +73,16 @@
         </div>
     </div>
 
-    <div class="booking-record">
+    <div class="booking-record" *ngIf="selectDayAllBookingRecord.length !== 0">
         <div>已預約時段: </div>
         <div *ngFor="let record of selectDayAllBookingRecord">
             {{ record }}
         </div>
     </div>
 
-    <img src="assets/images/icon/icon_next.png" (click)="nextStep()">
+
+    <div class="btn-bar">
+        <img src="assets/images/icon/icon_next.png" (click)="nextStep()">
+    </div>
+    
 </div>

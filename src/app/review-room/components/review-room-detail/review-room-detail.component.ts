@@ -3,12 +3,6 @@ import { NavigationExtras, Router } from '@angular/router';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 import { RateModel } from '../../models/rate.model';
 import { ReviewRoomService } from '../../services/review-room.service';
-import { 
-  Firestore,
-  collection,
-  collectionData,
-  addDoc
-} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-review-room-detail',
@@ -16,6 +10,9 @@ import {
   styleUrls: ['./review-room-detail.component.scss']
 })
 export class ReviewRoomDetailComponent {
+
+  // 畫面正在 loading 中
+  isLoading = true;
 
   //選擇空間種類 dialog
   dialogRoomType: DialogItemModel[] = [{id:"全部", name: "全部"}, {id:"教室預約", name: "教室預約"}, {id:"座位預約", name:"座位預約"}];
@@ -27,14 +24,6 @@ export class ReviewRoomDetailComponent {
   currentDate = new Date();
   currentYear = 0;
   currentMonth = 0;
-  /* 
-  currentMonthRoomRemainingRoomRate =
-    [
-      10, 20, 5, 100, 60, 40, 30, 20, 10, 54,
-      23, 0,  11, 12, 67, 22, 11, 4,  11, 40,
-      10, 20, 5, 100, 60, 100, 60, 40, 30, 1,
-    ];
-   */
   rateList: RateModel[] = [];
 
   showRate = 30;
@@ -55,7 +44,6 @@ export class ReviewRoomDetailComponent {
   constructor(
     private router: Router,
     private reviewRoomService: ReviewRoomService,
-    private firestore: Firestore,
   ) { }
 
   ngOnInit(): void {
@@ -212,7 +200,14 @@ export class ReviewRoomDetailComponent {
   }
 
   public getRateList() {
-    this.rateList = this.reviewRoomService.getBookingRate();
+    this.reviewRoomService
+      .getBookingRate(3)
+      .subscribe(responseData => {
+        console.log(responseData);
+        this.rateList = responseData;
+        console.log(this.rateList)
+        this.isLoading = false;
+      });
   }
 
 }
