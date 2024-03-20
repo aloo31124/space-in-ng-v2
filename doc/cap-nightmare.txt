@@ -1,5 +1,25 @@
 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+03/19
+(已解決)
+安卓 googla auth 其 code trix 出現 somthing went wrong
+
+工具
 @codetrix-studio/capacitor-google-auth
+
+原因： mac 對 android 產生 sha1 與 firebase auth 設定不一致
+
+https://stackoverflow.com/questions/51845559/generate-sha-1-for-flutter-react-native-android-native-app
+
+Mac 
+> keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+
+Windows 
+> keytool -list -v -keystore "\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
