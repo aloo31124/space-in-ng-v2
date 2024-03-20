@@ -27,14 +27,6 @@ export class ReviewRoomDetailComponent {
   currentDate = new Date();
   currentYear = 0;
   currentMonth = 0;
-  /* 
-  currentMonthRoomRemainingRoomRate =
-    [
-      10, 20, 5, 100, 60, 40, 30, 20, 10, 54,
-      23, 0,  11, 12, 67, 22, 11, 4,  11, 40,
-      10, 20, 5, 100, 60, 100, 60, 40, 30, 1,
-    ];
-   */
   rateList: RateModel[] = [];
 
   showRate = 30;
@@ -212,7 +204,14 @@ export class ReviewRoomDetailComponent {
   }
 
   public getRateList() {
-    this.rateList = this.reviewRoomService.getBookingRate();
+    //this.rateList = this.reviewRoomService.getBookingRate();
+    this.reviewRoomService
+      .getBookingRate(3)
+      .subscribe(responseData => {
+        console.log(responseData);
+        this.rateList.push(responseData);
+      });
+    console.log(this.rateList);
   }
 
 }
