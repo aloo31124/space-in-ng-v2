@@ -40,8 +40,8 @@ export class CloudFunService {
       {date:"2024-3-3", rate: 20},
     ];
    */
-  getBookingRate(month: number): Observable<RateModel> {
-    return this.httpClient.get<RateModel>(this.cloudFunApiList.REVIEW_ROOM_RATE + "?month=" + month);
+  getBookingRate(month: number): Observable<RateModel[]> {
+    return this.httpClient.get<RateModel[]>(this.cloudFunApiList.REVIEW_ROOM_RATE + "?month=" + month);
   }
 
 }

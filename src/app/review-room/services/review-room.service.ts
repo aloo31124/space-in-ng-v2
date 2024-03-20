@@ -23,7 +23,7 @@ export class ReviewRoomService {
   /*
    * 取得 booking 每日剩餘空間 
    */
-  getBookingRate(month: number): Observable<RateModel> {
+  getBookingRate(month: number): Observable<RateModel[]> {
     return this.cloudFunService.getBookingRate(month);
   }
 
