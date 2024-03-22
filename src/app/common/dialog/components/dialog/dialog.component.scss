@@ -21,7 +21,7 @@
 
 .dialog {
     background: white;
-    width: 270px;
+    width: 300px;
     height: 400px;
     position: fixed;
     top: 10%;
@@ -32,7 +32,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 5px;
+    padding: 15px;
     color: #661983;
 
     .dialog-header {
@@ -58,6 +58,7 @@
             border-radius: 100px;
             margin-bottom: 10px;
             font-size: 20px;
+            word-break: break-all;
         }
         .row-click {
             color: #FBE0FF;

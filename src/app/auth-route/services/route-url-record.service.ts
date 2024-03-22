@@ -72,8 +72,10 @@ export class RouteUrlRecordService<T> {
    */
   backPage() {
     const previousUrl = this.getPreviousUrl();
+    console.log(previousUrl)
     // 問號參數的攜帶需處理
     if(previousUrl.includes("?")) {
+      console.log(previousUrl);
       this.location.back();
     }
     this.routeUrlRecord.pop();
