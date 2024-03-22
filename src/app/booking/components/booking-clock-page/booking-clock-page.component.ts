@@ -18,15 +18,15 @@ export class BookingClockPageComponent {
 
   selectDate = "";
   selectStartTime = "09:00";
-  selectEndTime = "12:00";
+  selectEndTime = "09:00";
   selectDayAllBookingRecord = new Array<string>();
 
   //選擇開始時段
   isSelectStartTimeInput = true;
   //開始時間
-  startTime = "";
+  startTime = "09:00";
   //結束時間
-  endTime = "";
+  endTime = "09:00";
 
 
   constructor(
@@ -77,8 +77,8 @@ export class BookingClockPageComponent {
     // 提取日期参数
     this.activatedRoute.queryParams
       .subscribe(params => {
-        this.selectDate = params['selectDate'];
-        this.selectDayAllBookingRecord = params['selectDayAllBookingRecord'];
+        this.selectDate! = params['selectDate'];
+        this.selectDayAllBookingRecord! = params['selectDayAllBookingRecord']?params['selectDayAllBookingRecord']:[];
       });
   }
 
@@ -105,7 +105,6 @@ export class BookingClockPageComponent {
     else {
       this.endTime = this.getHourString() + ":" + this.getMinString();
     } 
-
   }
 
   getRotationAngle(hour: number): number {
@@ -130,7 +129,7 @@ export class BookingClockPageComponent {
   
   /*
    * 確認選擇時端卡控是否正確:
-   *  1. 開始時間 小於 結束時間
+   *  1. 開始時間 需小於 結束時間
    *  2. 選擇之時段 不可 包含 已預約之時段 => 時端不可重疊
    */
   checkValidTime() {
