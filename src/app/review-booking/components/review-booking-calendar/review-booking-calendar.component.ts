@@ -20,6 +20,8 @@ export class ReviewBookingCalendarComponent {
   dialogBookingRecordItemList = new Array<DialogItemModel>();
   // 所有 booking 紀錄
   bookingList = new Array<Booking>();
+  // 畫面 loading 中
+  isLoading = true;
   
   
   constructor(
@@ -55,6 +57,7 @@ export class ReviewBookingCalendarComponent {
               booking["siteName"],
             ));
           });
+        this.isLoading = false;
       });
   }
 

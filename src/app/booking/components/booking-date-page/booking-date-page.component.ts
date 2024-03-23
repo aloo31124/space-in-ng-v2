@@ -17,6 +17,8 @@ export class BookingDatePageComponent {
   bookingDaylimit = 3;
   // 所有 booking 紀錄
   bookingList = new Array<Booking>();
+  // 畫面loading
+  isLoading = true;
 
   
   constructor(
@@ -53,6 +55,7 @@ export class BookingDatePageComponent {
               booking["siteName"],
             ));
           });
+        this.isLoading = false;
       });
   }
 
