@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Booking } from 'src/app/booking/models/booking.model';
 import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
+import { BookingService } from 'src/app/booking/services/booking.service';
 
 @Component({
   selector: 'app-review-booking-calendar',
@@ -13,42 +14,71 @@ export class ReviewBookingCalendarComponent {
 
   // 選擇日期
   selectDateInfo = "";
-  // 該日 預約booking 紀錄
-  selectDayAllBookingRecordList = new Array<Booking>();
-
   // dialog 是否隱藏 該日 之 booking 紀錄
   isHiddenDialogBookingRecord = true;
   // dialog 該日 booking 紀錄陣列
   dialogBookingRecordItemList = new Array<DialogItemModel>();
+  // 所有 booking 紀錄
+  bookingList = new Array<Booking>();
   
   
   constructor(
     private routeUrlRecordService: RouteUrlRecordService<Booking>,
+    private bookingService: BookingService,
   ) { }
 
   ngOnInit(): void {
+    this.getAllBookingRecord();
   }
+
+  /* 
+   * 從 FireStore 取得所有 booking 日期。
+   */
+  getAllBookingRecord() {
+    this.bookingService
+      .getAll()
+      .subscribe(bookingList => {
+        bookingList
+          .forEach(booking => {
+            this.bookingList.push(new Booking(
+              booking["fireStoreId"],
+              booking["userId"],
+              booking["mail"],
+              booking["startDate"],
+              booking["endDatae"],
+              booking["startTime"],
+              booking["endTime"],
+              booking["bookingType"],
+              booking["roomId"],
+              booking["roomName"],
+              booking["siteId"],
+              booking["siteName"],
+            ));
+          });
+      });
+  }
+
+
+
   /*
    * 更新日期元件 之 日期資訊 
    */
   updateSelectDay(selectDay: string) {
     this.selectDateInfo = selectDay;
-  }
-
-  /*
-   * 更新 該選擇日期 之 預約 booking 紀錄 
-   */
-  updateBookingRecord(bookingRecordList: Booking[]) {
-    this.dialogBookingRecordItemList = [];
-    this.selectDayAllBookingRecordList = bookingRecordList;
-    this.selectDayAllBookingRecordList
+    this.bookingList
       .forEach(booking => {
-        this.dialogBookingRecordItemList.push({id:booking.fireStoreId, name: booking.startTime + "~" + booking.endTime});
-      });
-    // 顯示 dialog
-    if(this.dialogBookingRecordItemList.length > 0) { // 首次忽略
+        // 篩選該日期 之前所有 booking 紀錄
+        if(new Date(this.selectDateInfo).getTime() === new Date(booking.startDate).getTime()) {
+          this.dialogBookingRecordItemList.push({
+            id: booking.fireStoreId,
+            name: booking.startTime + "~" + booking.endTime
+          });
+        }
+      })
+    
+    if(this.dialogBookingRecordItemList.length > 0){
       this.isHiddenDialogBookingRecord = false;
-    } 
+    }
   }
 
   /*
@@ -56,7 +86,7 @@ export class ReviewBookingCalendarComponent {
    */
   selectBookingToCancle(bookingId: string) {
 
-    this.selectDayAllBookingRecordList
+    this.bookingList
       .forEach(booking => {
         if(booking.fireStoreId === bookingId) {
           this.routeUrlRecordService.nextPage("review-booking-form", booking);

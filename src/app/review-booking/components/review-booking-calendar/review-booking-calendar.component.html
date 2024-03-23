@@ -1,8 +1,8 @@
 
 <div class="container">
     <app-calendar-picker 
-        (selectDatInfo)="updateSelectDay($event)" 
-        (selectDayAllBookingRecord)="updateBookingRecord($event)"> 
+        (selectDatInfo)="updateSelectDay($event)"
+        [bookingList]="bookingList"> 
     </app-calendar-picker>
 
     <!-- dialog 該日之 已預約時段 -->
