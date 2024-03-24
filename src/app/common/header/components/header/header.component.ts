@@ -66,8 +66,10 @@ export class HeaderComponent implements OnInit {
    * 藉由 下一頁 路由 url 判斷該 header 標題 
    */
   setHeaderTitle(nextUrl: string) {
-    
-    if(nextUrl.includes("review-booking")) {
+    if(!nextUrl) {
+      this.headerTitle = "";
+    }
+    else if(nextUrl.includes("review-booking")) {
       this.headerTitle = "已預約";
     } 
     else if(nextUrl.includes("booking-")) {

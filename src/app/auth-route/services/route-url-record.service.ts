@@ -71,6 +71,14 @@ export class RouteUrlRecordService<T> {
    * 上一頁 
    */
   backPage() {
+    // 最初始畫面, 離開 app
+    console.log(this.getCurrentUrl());
+    if(this.getCurrentUrl() === "/" || !this.getCurrentUrl()) {
+      alert("確定離開app?");
+      window.close(); // 無效
+      return;
+    }
+
     const previousUrl = this.getPreviousUrl();
     // 問號參數的攜帶需處理
     if(previousUrl.includes("?")) {
