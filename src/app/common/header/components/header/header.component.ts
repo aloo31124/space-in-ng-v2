@@ -10,8 +10,6 @@ export class HeaderComponent implements OnInit {
 
   // header 標題
   headerTitle = "";
-  // header底圖 url
-  headerImageUrl = "";
   // 是否為主畫面 header底圖
   isMainHeader = true;
   // 上一頁 是否指定其他路徑
@@ -52,19 +50,14 @@ export class HeaderComponent implements OnInit {
       this.isMainHeader = false;
     }
 
-    //判斷 header 依照當設備前寬度,判斷所需取用之圖片, 與設定天充物高度
-    const urlContent = "assets/header/";
-    if(window.innerWidth > 1200) {
-      this.headerImageUrl 
-        = urlContent + (this.isMainHeader?"main/bar-main-2000px.png":"secondary/bar-secondary-2000px.png");
+    //判斷 header 填充物 高度
+    if(window.innerWidth > 1100) {
         this.headerPeddingHeigh  = this.isMainHeader? '200px':'100px';
-    } else if( 500 <= window.innerWidth && window.innerWidth <= 1200) {
-      this.headerImageUrl 
-        = urlContent + (this.isMainHeader?"main/bar-main-1000px.png":"secondary/bar-secondary-1000px.png");
+    } 
+    else if(500 <= window.innerWidth && window.innerWidth <= 1100) {
       this.headerPeddingHeigh  = this.isMainHeader? '200px':'100px';
-    } else {
-      this.headerImageUrl 
-        = urlContent + (this.isMainHeader?"main/bar-main-400px.png":"secondary/bar-secondary-400px.png");
+    } 
+    else {
       this.headerPeddingHeigh  = this.isMainHeader? '160px':'100px';
     }
   }
@@ -73,9 +66,6 @@ export class HeaderComponent implements OnInit {
    * 藉由 下一頁 路由 url 判斷該 header 標題 
    */
   setHeaderTitle(nextUrl: string) {
-    if(!nextUrl) {
-      this.headerImageUrl = "";
-    }
     
     if(nextUrl.includes("review-booking")) {
       this.headerTitle = "已預約";

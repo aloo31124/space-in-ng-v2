@@ -1,6 +1,36 @@
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm; 
 
+
+/////////////////////////////////////////////////////////////////////////////////////////
+03/24
+
+css 使用 @media 偵測設備切換三種圖片: a.png, b.png, c.png,
+1. 1500px 以上使用 a.png
+2. 500~1500px 以內使用 b.png
+3. 500 以內使用 c.png 圖片
+
+@media (min-width: 1500px) {
+  img {
+    content: url("a.png");
+  }
+}
+
+@media (min-width: 500px) and (max-width: 1500px) {
+  img {
+    content: url("b.png");
+  }
+}
+
+@media (max-width: 500px) {
+  img {
+    content: url("c.png");
+  }
+}
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 03/18
 angular router 攜帶參數之 變化
