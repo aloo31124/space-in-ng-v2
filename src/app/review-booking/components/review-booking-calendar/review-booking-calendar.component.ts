@@ -67,6 +67,7 @@ export class ReviewBookingCalendarComponent {
    * 更新日期元件 之 日期資訊 
    */
   updateSelectDay(selectDay: string) {
+    this.dialogBookingRecordItemList = [];
     this.selectDateInfo = selectDay;
     this.bookingList
       .forEach(booking => {

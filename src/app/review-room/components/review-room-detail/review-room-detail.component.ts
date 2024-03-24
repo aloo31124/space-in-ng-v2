@@ -15,10 +15,10 @@ export class ReviewRoomDetailComponent {
   isLoading = true;
 
   //選擇空間種類 dialog
-  dialogRoomType: DialogItemModel[] = [{id:"全部", name: "全部"}, {id:"教室預約", name: "教室預約"}, {id:"座位預約", name:"座位預約"}];
+  dialogRoomTypeList: DialogItemModel[] = [{id:"1", name: "全部"}, {id:"2", name: "教室預約"}, {id:"3", name:"座位預約"}];
   isDialogHiddenRoomType = true;
   //選擇剩餘空間 dialog
-  dialogRemainRoomRate: DialogItemModel[] = [{id:"10%", name:"10%"}, {id:"20%", name:"20%"}, {id:"30%", name:"30%"}, {id:"40%", name:"40%"}, {id:"50%", name:"50%"}];
+  dialogRemainRoomRate: DialogItemModel[] = [{id:"1", name:"10%"}, {id:"2", name:"20%"}, {id:"3", name:"30%"}, {id:"4", name:"40%"}, {id:"5", name:"50%"}];
   isDialogHiddenRemainRommRate = true;
 
   currentDate = new Date();
@@ -170,33 +170,23 @@ export class ReviewRoomDetailComponent {
     this.router.navigate(["booking/clock"], navigationExtras);
   }
 
-  public selectRate(selectRate: string) {
+  public selectRate(selectRateTypeId: string) {
     this.isHiddenDialog = true;
-    switch(selectRate) {
-      case "10%" :
-        this.showRate = 10;
-        break;
-      case "20%" :
-        this.showRate = 20;
-        break;
-      case "30%" :
-        this.showRate = 30;
-        break;
-      case "40%" :
-        this.showRate = 40;
-        break;
-      case "50%" :
-        this.showRate = 50;
-        break;
-      default:
-        this.showRate = 30;
-    }
-    
+    this.dialogRemainRoomRate.forEach(rateType => {
+      const rateChar = rateType.name.split("%");
+      if(rateType.id === selectRateTypeId && !isNaN(+rateChar[0])) {
+        this.showRate = +rateChar[0];
+      }
+    });
   }
 
-  public selectRoomType(selectRoomType: string) {
+  public selectRoomType(selectRoomTypeId: string) {
     this.isHiddenRoomDialog = true;
-    this._selectRoomType = selectRoomType;
+    this.dialogRoomTypeList.forEach(roomType => {
+      if(roomType.id === selectRoomTypeId) {
+        this._selectRoomType = roomType.name;
+      }
+    });
   }
 
   public getRateList() {
