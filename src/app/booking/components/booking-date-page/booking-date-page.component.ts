@@ -11,8 +11,7 @@ import { BookingService } from '../../services/booking.service';
 })
 export class BookingDatePageComponent {
   
-  // 選擇日期
-  selectDateInfo = "";
+
   // 該日期 預約booking 上限
   bookingDaylimit = 3;
   // 所有 booking 紀錄
@@ -22,12 +21,23 @@ export class BookingDatePageComponent {
 
   
   constructor(
-    private routeUrlRecordService: RouteUrlRecordService<{selectDate: string, selectDayAllBookingRecord: string[]}>,
+    private routeUrlRecordService: RouteUrlRecordService<{}>,
     private bookingService: BookingService,
   ) { }
 
   ngOnInit(): void { 
     this.getAllBookingRecord();
+    this.getSelectDate();
+  }
+
+  /*
+   * 從 bookingService 取得之前已選擇日期 
+   */
+  getSelectDate() {
+    if(this.bookingService.getSelectDate().length !== 0) {
+      return new Date(this.bookingService.getSelectDate()).getDate();
+    }
+    return 0;
   }
 
 
@@ -66,10 +76,8 @@ export class BookingDatePageComponent {
     
     // 取得該選擇日期 有幾筆 預約記錄
     const selectDayAllBookingRecordList = this.bookingList.filter(booking => {
-      return new Date(booking.startDate).getTime() === new Date(this.selectDateInfo).getTime(); 
+      return new Date(booking.startDate).getTime() === new Date(this.bookingService.getSelectDate()).getTime(); 
     });
-
-    console.log(selectDayAllBookingRecordList)
 
     // 檢查該日期是否超過上限
     if(selectDayAllBookingRecordList.length >= this.bookingDaylimit) {
@@ -77,17 +85,11 @@ export class BookingDatePageComponent {
       return;
     }
 
-    alert("確定下一步？選擇日期為: " + this.selectDateInfo);
-    const bookingRecordList = selectDayAllBookingRecordList
-      .map(booking => {
-        return booking.startTime + "~" + booking.endTime;
-      });
+    // 存入該選擇日期紀錄
+    this.bookingService.setThisDayAllBookingRecord(selectDayAllBookingRecordList);
 
-    const queryParams =  {
-      selectDate: this.selectDateInfo,
-      selectDayAllBookingRecord: bookingRecordList
-    }
-    this.routeUrlRecordService.nextPage("booking-clock", queryParams);
+    alert("確定下一步？選擇日期為: " + this.bookingService.getSelectDate());
+    this.routeUrlRecordService.nextPage("booking-clock", {});
   }
 
 
@@ -96,7 +98,7 @@ export class BookingDatePageComponent {
    * 接收 行事曆 component 的 emit
    */
   getEmitterSelectDay(selectDay: string) {
-    this.selectDateInfo = selectDay;
+    this.bookingService.setSelectDate(selectDay);
   }
 
 }

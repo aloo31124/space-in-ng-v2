@@ -15,6 +15,9 @@ export class CalendarPickerComponent {
 
   // 所有 Booking 紀錄
   @Input() bookingList = new Array<Booking>();
+  
+  // 輸入 當前選擇日期
+  @Input() _selectDate = 0;
 
   currentDate = new Date();
   currentYear = 0;
@@ -24,7 +27,7 @@ export class CalendarPickerComponent {
   currentMonthFirstDayWeekly = 0;
   displayAllDayGrid = 0
 
-  _selectDate = 1;
+  
   //該天 booking 幾次
   thisDayBookingList = new Array<Booking>();
   
@@ -36,7 +39,9 @@ export class CalendarPickerComponent {
   ngOnInit(): void {
     //取得當前日期
     this.currentDate = new Date();
-    this._selectDate = this.currentDate.getDate();
+    if(this._selectDate === 0){
+      this._selectDate = this.currentDate.getDate();
+    }
 
     //取得當前年月
     this.currentYear = this.currentDate.getFullYear();

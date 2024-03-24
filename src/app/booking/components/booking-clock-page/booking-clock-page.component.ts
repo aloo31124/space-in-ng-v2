@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
+import { BookingService } from '../../services/booking.service';
 
 @Component({
   selector: 'app-booking-clock-page',
@@ -16,22 +17,15 @@ export class BookingClockPageComponent {
   isAm = true;
   isPm = false;
 
-  selectDate = "";
-  selectStartTime = "09:00";
-  selectEndTime = "09:00";
-  selectDayAllBookingRecord = new Array<string>();
 
   //選擇開始時段
   isSelectStartTimeInput = true;
-  //開始時間
-  startTime = "09:00";
-  //結束時間
-  endTime = "09:00";
 
 
   constructor(
-    private routeUrlRecordService: RouteUrlRecordService<{selectDate:string, startTime:string, endTime:string}>,
-    private activatedRoute: ActivatedRoute
+    private routeUrlRecordService: RouteUrlRecordService<{}>,
+    private activatedRoute: ActivatedRoute,
+    private bookingService: BookingService,
   ) {}
 
   
@@ -73,13 +67,13 @@ export class BookingClockPageComponent {
   }
     
 
-  ngOnInit(): void {
-    // 提取日期参数
-    this.activatedRoute.queryParams
-      .subscribe(params => {
-        this.selectDate! = params['selectDate'];
-        this.selectDayAllBookingRecord! = params['selectDayAllBookingRecord']?params['selectDayAllBookingRecord']:[];
-      });
+  ngOnInit(): void {}
+
+  /*
+   * 從 service 中取得 上一步選擇日 之前 booking 紀錄 
+   */
+  getThisDayAllBookingRecord() {
+    return this.bookingService.getThisDayAllBookingRecord();
   }
 
   
@@ -96,14 +90,29 @@ export class BookingClockPageComponent {
   }
 
   /*
+   * 從 service 取得 開始時間 
+   */
+  getStartTime() {
+    return this.bookingService.getStartTime();
+  }
+
+  /*
+   * 從 service 取得 結束時間 
+   */
+  getEndTime() {
+    return this.bookingService.getEndTime();
+  }
+
+  /*
    * 設定 開始 或 結束 時間 
    */
   setSelectTime() {
+    const selectTime = this.getHourString() + ":" + this.getMinString();
     if(this.isSelectStartTimeInput) {
-      this.startTime = this.getHourString() + ":" + this.getMinString();
+      this.bookingService.setStartTime(selectTime);
     } 
     else {
-      this.endTime = this.getHourString() + ":" + this.getMinString();
+      this.bookingService.setEndTime(selectTime);
     } 
   }
 
@@ -111,20 +120,18 @@ export class BookingClockPageComponent {
     return (hour - 1) * 30; 
   }
 
+  /*
+   * 按下下一步 icon , 檢查時段, 並路由導向 
+   */
   nextStep() {
 
     if(!this.checkValidTime()) {
       return;
     }
 
-    alert("選擇時段: " + this.startTime + "~" + this.endTime);
+    alert("選擇時段: " + this.getStartTime() + "~" + this.getEndTime());
 
-    const queryParams =  {
-      selectDate: this.selectDate,
-      startTime: this.startTime,
-      endTime: this.endTime,
-    }
-    this.routeUrlRecordService.nextPage("booking-select-type", queryParams);
+    this.routeUrlRecordService.nextPage("booking-select-type", {});
   }
   
   /*
@@ -133,33 +140,37 @@ export class BookingClockPageComponent {
    *  2. 選擇之時段 不可 包含 已預約之時段 => 時端不可重疊
    */
   checkValidTime() {
-    const selectStarTime = new Date(this.selectDate + " " + this.startTime);
-    const selectEndTime = new Date(this.selectDate + " " + this.endTime);
+    const selectStarTime = new Date(this.bookingService.getSelectDate() + " " + this.getStartTime());
+    const selectEndTime = new Date(this.bookingService.getSelectDate() + " " + this.getEndTime());
 
     if(selectStarTime >= selectEndTime) {
       alert("開始時間必須早於結束時間, 請重新選擇時段。");
       return false;
     }
 
-    if(this.selectDayAllBookingRecord.length === 0){
+    if(this.getThisDayAllBookingRecord().length === 0){
       // 無重複時段需比對
       return true;
     }
 
     // 檢查段是否重複
     let isTimeReatList = false
-    this.selectDayAllBookingRecord.filter(bookingTime => {
-      const timeArray = bookingTime.split("~");
-      const startTime = new Date(this.selectDate + " " + timeArray[0]);
-      const endTime = new Date(this.selectDate + " " + timeArray[1]);
+    // 重複時段文字
+    let reatTimeWording = "";
+    this.getThisDayAllBookingRecord().filter(bookingRecord => {
+      const startTime = new Date(this.bookingService.getSelectDate() + " " + bookingRecord.startTime);
+      const endTime = new Date(this.bookingService.getSelectDate() + " " + bookingRecord.endTime);
+      console.log(startTime);
+      console.log(endTime);
       //時段重疊
       if (startTime < selectEndTime  && endTime > selectStarTime) {
         isTimeReatList = true;
+        reatTimeWording = bookingRecord.startTime + "~" + bookingRecord.endTime;
       }
     });
 
     if(isTimeReatList) {
-      alert("選擇段:" + this.startTime + "~" + this.endTime + "與" + this.selectDayAllBookingRecord[0] + "重疊, 請重新選擇時段。");
+      alert("選擇段:" + this.getStartTime() + "~" + this.getEndTime() + "與" + reatTimeWording + "重疊, 請重新選擇時段。");
       return false;
     }
     

@@ -1,6 +1,7 @@
 
 <div class="container">
     <app-calendar-picker 
+        [_selectDate]="getSelectDate()"
         (selectDatInfo)="getEmitterSelectDay($event)"
         [bookingList]="bookingList">
     </app-calendar-picker>
