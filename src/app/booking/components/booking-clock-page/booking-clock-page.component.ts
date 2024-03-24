@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 import { BookingService } from '../../services/booking.service';
 
@@ -24,7 +23,6 @@ export class BookingClockPageComponent {
 
   constructor(
     private routeUrlRecordService: RouteUrlRecordService<{}>,
-    private activatedRoute: ActivatedRoute,
     private bookingService: BookingService,
   ) {}
 

@@ -15,13 +15,21 @@ import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 })
 export class BookingCheckFormPageComponent {
 
+  // booking 種類, 教室預約/座位預約
   bookingType = "";
+  // 教室 list
   roomList = new Array<Room>();
+  // 選擇教室
   selectRoom!: Room;
+  // 當前使用者資訊
   currentUser!: GoogleAuthUser;
+  // 教室 dialog 資訊
   dialogRoomList: DialogItemModel[] = [];
+  // 是否隱藏 教室dialog
   isHiddenDialogRoom = true;
+  // 使用者 dialog 資訊
   dialogUserInfo: DialogItemModel[] = [];
+  // 是否隱藏 使用者 dialog
   isHiddenDialogUserInfo = true;
 
   constructor(
@@ -62,7 +70,7 @@ export class BookingCheckFormPageComponent {
         }
       );
 
-    // 提取日期参数
+    // 取得 booking 種類
     this.activatedRoute.queryParams.subscribe(params => {
       this.bookingType = params['bookingType'];
     });
@@ -89,11 +97,16 @@ export class BookingCheckFormPageComponent {
     return this.bookingService.getEndTime();
   }
 
+  /*
+   * 教室 dialog 選擇之後觸發 
+   */
   selectedRoom(_selectRoomId: string) {
     this.selectRoom = this.roomList.filter(room => {return room.fireStoreId === _selectRoomId; })[0];
-    console.log(this.selectRoom);
   }
 
+  /*
+   * 按下送出 icon , post booking預約資訊 
+   */
   submitBooking() {
 
     if(!this.currentUser) {
@@ -107,7 +120,7 @@ export class BookingCheckFormPageComponent {
     }
 
     if(this.currentUser.id === "") {
-      alert("無法取得使用者 id ，請重新登入");
+      alert("無法取得使用者 id，請重新登入");
       return;
     }
 
