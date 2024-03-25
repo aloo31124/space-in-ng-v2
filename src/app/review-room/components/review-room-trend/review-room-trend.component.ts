@@ -88,9 +88,5 @@ export class ReviewRoomTrendComponent {
       }
     });
   }
-  
-  clickToReivewRoomDetail() {
-    this.router.navigate(["/review-room-detail"]);
-  }
 
 }

@@ -29,6 +29,7 @@ import { WordShrotenPipe } from './common/pipe/word-shroten.pipe';
 import { InputComponent } from './common/input/components/input/input.component';
 import { DateToDayOfWeekPipe } from './common/pipe/date-to-day-of-week.pipe';
 import { LoadingBasicComponent } from './common/loading/components/loading-basic/loading-basic.component';
+import { ReviewRoomOverviewComponent } from './review-room/components/review-room-overview/review-room-overview.component';
 
 
 const  firebase = {
@@ -66,7 +67,8 @@ const  firebase = {
     WordShrotenPipe,
     InputComponent,
     DateToDayOfWeekPipe,
-    LoadingBasicComponent
+    LoadingBasicComponent,
+    ReviewRoomOverviewComponent
   ],
   imports: [
     BrowserModule,

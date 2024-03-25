@@ -14,7 +14,7 @@ import { ReviewRoomRemanetRateComponent } from './review-room/components/review-
 
 import { ReviewBookingCalendarComponent } from './review-booking/components/review-booking-calendar/review-booking-calendar.component';
 import { ReviewBookingFormComponent } from './review-booking/components/review-booking-form/review-booking-form.component';
-
+import { ReviewRoomOverviewComponent } from './review-room/components/review-room-overview/review-room-overview.component';
 
 const routes: Routes = [
   {path:'', component: LoginPageComponent},
@@ -49,12 +49,14 @@ const routes: Routes = [
   },
   {
     path: 'review-room-overview',
-    component: ReviewRoomTrendComponent,
+    component: ReviewRoomOverviewComponent,
   },
+/* 
   {
     path: 'review-room-detail',
     component: ReviewRoomRemanetRateComponent,
   },
+   */
   {
     path: 'pay-plan-list',
     component: PaidPlanListComponent,
