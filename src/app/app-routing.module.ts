@@ -9,12 +9,12 @@ import { BookingSelectTypePageComponent } from './booking/components/booking-sel
 import { BookingCheckFormPageComponent } from './booking/components/booking-check-form-page/booking-check-form-page.component';
 import { PaidPlanListComponent } from './payment/components/paid-plan-list/paid-plan-list.component';
 import { EcpayFormComponent } from './payment/components/ecpay-form/ecpay-form.component';
-import { ReviewRoomOverviewComponent } from './review-room/components/review-room-overview/review-room-overview.component';
-import { ReviewRoomDetailComponent } from './review-room/components/review-room-detail/review-room-detail.component';
+import { ReviewRoomTrendComponent } from './review-room/components/review-room-trend/review-room-trend.component';
+import { ReviewRoomRemanetRateComponent } from './review-room/components/review-room-remanet-rate/review-room-remanet-rate.component';
 
 import { ReviewBookingCalendarComponent } from './review-booking/components/review-booking-calendar/review-booking-calendar.component';
 import { ReviewBookingFormComponent } from './review-booking/components/review-booking-form/review-booking-form.component';
-
+import { ReviewRoomOverviewComponent } from './review-room/components/review-room-overview/review-room-overview.component';
 
 const routes: Routes = [
   {path:'', component: LoginPageComponent},
@@ -51,10 +51,12 @@ const routes: Routes = [
     path: 'review-room-overview',
     component: ReviewRoomOverviewComponent,
   },
+/* 
   {
     path: 'review-room-detail',
-    component: ReviewRoomDetailComponent,
+    component: ReviewRoomRemanetRateComponent,
   },
+   */
   {
     path: 'pay-plan-list',
     component: PaidPlanListComponent,

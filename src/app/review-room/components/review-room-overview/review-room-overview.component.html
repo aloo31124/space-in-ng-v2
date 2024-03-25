@@ -1,47 +1,38 @@
 
 <div class="main-container">
+
+    <div class="select-review-type-bar">
+        <div    class="item-icon"
+                [ngClass]="{'item-icon-selected': selectReviewType === reviewType.BOOKING_TREND}"
+                (click)="changeReviewType(reviewType.BOOKING_TREND)">
+            借用趨勢
+        </div>
+        <div    class="item-icon"
+                [ngClass]="{'item-icon-selected': selectReviewType === reviewType.REMANET_RATE}"
+                (click)="changeReviewType(reviewType.REMANET_RATE)">
+            剩餘空間
+        </div>
+    </div>
+        
     <div class="review-container">    
         <div class="row">
-            <label class="title">剩餘空間</label>
-            <div class="select-item" id="show-modal-example">今日</div>
-        </div>
-        <div class="row">
-            <label class="title-second">所有剩餘空間</label>
+            <label class="title-second">今日剩餘空間</label>
         </div>
         <div class="row">
             <label class="content">140 / 200間 (70%)</label>
         </div>       
-        <div class="row" (click)="clickToReivewRoomDetail()">
+        <div class="row">
             <div class="progress-bar">
                 <div class="progress"></div>
             </div>
         </div>   
     </div>
     
-    <div class="review-container">      
-        <div class="row">
-            <label class="title">借用趨勢</label>
-            <div class="select-item" (click)="isHiddenDialog=false"> {{ selectChartTimeWording }}</div>
-        </div> 
-        <canvas  id="lineChart" >{{ lineChart }}</canvas>
-    </div>
-
-    <!-- 選擇借用趨勢之時區 -->
-    <div class="dialog-container">
-        <app-dialog
-         [dialogTitle]="'選擇借用趨勢之時區'"
-         (selectedItem)="selectCharTimeModel($event)"
-         [isHiddenDialog]="isHiddenDialog"
-         (hideDialog)="isHiddenDialog=true"
-         [itemList]="dialogChartTimeItemList">
-        </app-dialog>
-    </div>
-
-    <!-- 取趨勢資料時, 顯示 loading -->
-    <div class="loading-container">
-        <app-loading-basic
-            [isLoading]="isLoading">
-        </app-loading-basic>
-    </div>
-    
 </div>
+
+<app-review-room-trend *ngIf="selectReviewType === reviewType.BOOKING_TREND">
+</app-review-room-trend>
+
+<app-review-room-remanet-rate *ngIf="selectReviewType === reviewType.REMANET_RATE">
+</app-review-room-remanet-rate>
+

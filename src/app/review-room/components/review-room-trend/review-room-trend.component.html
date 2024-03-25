@@ -1,0 +1,30 @@
+
+<div class="main-container">
+    
+    <div class="review-container">      
+        <div class="row">
+            <label class="title">借用趨勢</label>
+            <div class="select-item" (click)="isHiddenDialog=false"> {{ selectChartTimeWording }}</div>
+        </div> 
+        <canvas  id="lineChart" >{{ lineChart }}</canvas>
+    </div>
+
+    <!-- 選擇借用趨勢之時區 -->
+    <div class="dialog-container">
+        <app-dialog
+         [dialogTitle]="'選擇借用趨勢之時區'"
+         (selectedItem)="selectCharTimeModel($event)"
+         [isHiddenDialog]="isHiddenDialog"
+         (hideDialog)="isHiddenDialog=true"
+         [itemList]="dialogChartTimeItemList">
+        </app-dialog>
+    </div>
+
+    <!-- 取趨勢資料時, 顯示 loading -->
+    <div class="loading-container">
+        <app-loading-basic
+            [isLoading]="isLoading">
+        </app-loading-basic>
+    </div>
+    
+</div>
