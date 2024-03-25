@@ -67,6 +67,10 @@ export class CalendarPickerComponent {
     
     //需要呈現之日期格子數
     this.displayAllDayGrid = this.currentMonthAllDay + this.currentMonthFirstDayWeekly;
+
+    // emmit 更改日期
+    const selectDate = this.currentYear + '-' + this.currentMonth + '-' + this._selectDate;
+    this.selectDatInfo.emit(selectDate);
   }
 
 
@@ -181,7 +185,6 @@ export class CalendarPickerComponent {
     if(!this.rateList) {
       return "";
     }
-    console.log(this.rateList)
     const rateDate = this.rateList.filter(rate => { return new Date(rate.date).getDate() === date })[0];
     if(!rateDate) {
       return "";

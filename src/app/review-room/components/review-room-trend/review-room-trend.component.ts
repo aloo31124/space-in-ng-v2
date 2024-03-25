@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { Router } from '@angular/router';
 import { ReviewRoomService } from '../../services/review-room.service';
 import { ChartTimeType } from '../../models/chartTimeType.model';
 import { ChartTimeWord } from '../../models/chartTimeWord.model';
@@ -31,7 +30,6 @@ export class ReviewRoomTrendComponent {
   ];
   
   constructor(
-    private router : Router,
     private reviewRoomService : ReviewRoomService,
   ) {}
 
