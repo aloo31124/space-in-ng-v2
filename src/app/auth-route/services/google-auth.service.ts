@@ -30,6 +30,9 @@ export class GoogleAuthService {
     return this.currentUser;
   }
 
+  /*
+   * 登入 
+   */
   async login() {
     // 登入判斷
     try {   
@@ -62,5 +65,14 @@ export class GoogleAuthService {
       this.router.navigate(["home"]);
     }
 
+  }
+
+  /*
+   * 登出 
+   */
+  logout() {
+    GoogleAuth.signOut();
+    this.currentUser = new GoogleAuthUser();
+    this.isLoginIn = false;
   }
 }

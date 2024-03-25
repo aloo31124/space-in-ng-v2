@@ -4,7 +4,7 @@
     <div class="review-container"> 
         <div class="row">
             <label class="title">空間種類</label>
-            <div class="select-item" (click)="isDialogHiddenRoomType=false"> {{ _selectRoomType }} </div>
+            <div class="select-item" (click)="isDialogHiddenRoomType=false"> {{ _selectRoomType.name }} </div>
         </div>
         
         <div class="row">
@@ -15,6 +15,7 @@
 
         <!-- 剩餘率% 行事曆 -->
         <app-calendar-picker
+            (selectDatInfo)="getEmitterSelectDay($event)"
             [rateList]="rateList"
             [showRate]="showRate">
         </app-calendar-picker>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NavigationEnd, NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
+import { GoogleAuthService } from './google-auth.service';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ export class RouteUrlRecordService<T> {
   constructor(
     private location: Location,
     private router: Router,
+    private googleAuthService: GoogleAuthService,
   ) { 
     // 每次初始時, 存取新的 路由路徑
     this.router.events.subscribe((event)=> {
@@ -76,6 +78,13 @@ export class RouteUrlRecordService<T> {
     if(this.getCurrentUrl() === "/" || !this.getCurrentUrl()) {
       alert("確定離開app?");
       window.close(); // 無效
+      return;
+    }
+
+    if(this.getCurrentUrl() === "/home") {
+      alert("確定登出?");
+      this.googleAuthService.logout();
+      this.router.navigate(["/"]);
       return;
     }
 

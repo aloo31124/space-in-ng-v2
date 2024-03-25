@@ -14,24 +14,24 @@ export class ReviewRoomRemanetRateComponent {
   isLoading = true;
 
   //選擇空間種類 dialog
-  dialogRoomTypeList: DialogItemModel[] = [{id:"1", name: "全部"}, {id:"2", name: "教室預約"}, {id:"3", name:"座位預約"}];
+  dialogRoomTypeList: DialogItemModel[] = [{id:"all", name: "全部"}, {id:"room", name: "教室預約"}, {id:"site", name:"座位預約"}];
   isDialogHiddenRoomType = true;
 
   //選擇剩餘空間 dialog
   dialogRemainRoomRate: DialogItemModel[] = [{id:"1", name:"10%"}, {id:"2", name:"20%"}, {id:"3", name:"30%"}, {id:"4", name:"40%"}, {id:"5", name:"50%"}];
   isDialogHiddenRemainRommRate = true;
-
-  // 空間種類 wording
-  roomType = { all: "全部", roomBooking: "教室預約", siteBooking: "座位預約" };
   
   // 選擇 顯示剩餘率 之 空間種類
-  _selectRoomType = this.roomType.all;
+  _selectRoomType: DialogItemModel = this.dialogRoomTypeList[0];
 
   // 該空間 其 剩餘率 紀錄
   rateList: RateModel[] = [];
 
   // 當前選擇呈現剩餘率 %
   showRate = 30;
+
+  // 當前 剩餘行事曆 所切換日期，於以換算月份
+  selectDate = "";
   
   
   constructor(
@@ -39,6 +39,8 @@ export class ReviewRoomRemanetRateComponent {
   ) { }
 
   ngOnInit(): void {
+    const currentDate = new Date();
+    this.selectDate = currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-1";
     this.getRateList();
   }
 
@@ -46,10 +48,12 @@ export class ReviewRoomRemanetRateComponent {
    * 從 service => api 取 該擁有者空間剩餘率
    */
   public getRateList() {
+    this.isLoading = true;
     this.reviewRoomService
-      .getBookingRate(3)
+      .getBookingRate(this.selectDate, this._selectRoomType.id)
       .subscribe(responseData => {
         this.rateList = responseData;
+        console.log(this.rateList);
         this.isLoading = false;
       });
   }
@@ -72,9 +76,18 @@ export class ReviewRoomRemanetRateComponent {
   public selectDialogRoomType(selectRoomTypeId: string) {
     this.dialogRoomTypeList.forEach(roomType => {
       if(roomType.id === selectRoomTypeId) {
-        this._selectRoomType = roomType.name;
+        this._selectRoomType = roomType;
       }
     });
+  }
+
+  /*
+   * 更新日期元件 之 日期資訊 
+   * 接收 行事曆 component 的 emit
+   */
+  getEmitterSelectDay(selectDay: string) {
+    this.selectDate = selectDay;
+    this.getRateList();
   }
 
 }
