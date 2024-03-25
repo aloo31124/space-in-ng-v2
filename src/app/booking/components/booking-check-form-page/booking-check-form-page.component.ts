@@ -15,16 +15,21 @@ import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 })
 export class BookingCheckFormPageComponent {
 
-  selectDate = "";
-  startTime = "";
-  endTime = "";
+  // booking 種類, 教室預約/座位預約
   bookingType = "";
+  // 教室 list
   roomList = new Array<Room>();
+  // 選擇教室
   selectRoom!: Room;
+  // 當前使用者資訊
   currentUser!: GoogleAuthUser;
+  // 教室 dialog 資訊
   dialogRoomList: DialogItemModel[] = [];
+  // 是否隱藏 教室dialog
   isHiddenDialogRoom = true;
+  // 使用者 dialog 資訊
   dialogUserInfo: DialogItemModel[] = [];
+  // 是否隱藏 使用者 dialog
   isHiddenDialogUserInfo = true;
 
   constructor(
@@ -65,20 +70,43 @@ export class BookingCheckFormPageComponent {
         }
       );
 
-    // 提取日期参数
+    // 取得 booking 種類
     this.activatedRoute.queryParams.subscribe(params => {
-      this.selectDate = params['selectDate'];
-      this.startTime = params['startTime'];
-      this.endTime = params['endTime'];
       this.bookingType = params['bookingType'];
     });
   }
 
-  selectedRoom(_selectRoomId: string) {
-    this.selectRoom = this.roomList.filter(room => {return room.fireStoreId === _selectRoomId; })[0];
-    console.log(this.selectRoom);
+  /*
+   *  從 service 取得 選擇日期
+   */
+  getSelectDate() {
+    return this.bookingService.getSelectDate();
   }
 
+  /*
+   * 從 service 取得 開始時間 
+   */
+  getStartTime() {
+    return this.bookingService.getStartTime();
+  }
+
+  /*
+   * 從 service 取得 結束時間 
+   */
+  getEndTime() {
+    return this.bookingService.getEndTime();
+  }
+
+  /*
+   * 教室 dialog 選擇之後觸發 
+   */
+  selectedRoom(_selectRoomId: string) {
+    this.selectRoom = this.roomList.filter(room => {return room.fireStoreId === _selectRoomId; })[0];
+  }
+
+  /*
+   * 按下送出 icon , post booking預約資訊 
+   */
   submitBooking() {
 
     if(!this.currentUser) {
@@ -92,7 +120,7 @@ export class BookingCheckFormPageComponent {
     }
 
     if(this.currentUser.id === "") {
-      alert("無法取得使用者 id ，請重新登入");
+      alert("無法取得使用者 id，請重新登入");
       return;
     }
 
@@ -100,10 +128,10 @@ export class BookingCheckFormPageComponent {
       fireStoreId: "",
       userId: this.currentUser.id, 
       mail: this.currentUser.email, 
-      startDate: this.selectDate, 
-      endDatae: this.selectDate, 
-      startTime: this.startTime,
-      endTime: this.endTime,
+      startDate: this.getSelectDate(), 
+      endDatae: this.getSelectDate(), 
+      startTime: this.getStartTime(),
+      endTime: this.getEndTime(),
       bookingType: this.bookingType,
       roomId: this.selectRoom.fireStoreId,
       roomName: this.selectRoom.name,
@@ -113,7 +141,7 @@ export class BookingCheckFormPageComponent {
 
     this.bookingService.post(bookingData)      
       .then(() => {
-        alert("送出成功, 預約時間: " + this.selectDate + " " + this.startTime + "~" + this.endTime + " ,地點:" + this.selectRoom.name + "預約成功。");
+        alert("送出成功, 預約時間: " + this.getSelectDate() + " " + this.getStartTime() + "~" + this.getEndTime() + " ,地點:" + this.selectRoom.name + "預約成功。");
         this.routeUrlRecordService.nextPage("/home", {});
       })
       .catch((error) => {

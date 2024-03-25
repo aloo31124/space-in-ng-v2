@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { ReviewRoomService } from '../../services/review-room.service';
 import { ChartTimeType } from '../../models/chartTimeType.model';
 import { ChartTimeWord } from '../../models/chartTimeWord.model';
-import { ChartTimeModel } from '../../models/chartTimeModel.model';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 
 @Component({
@@ -17,18 +16,18 @@ export class ReviewRoomOverviewComponent {
   // 資料仍在 loading中, 顯示 loading mask
   isLoading = true;
 
-  public chartTimeType = new ChartTimeType();
-  public chartTimeWording = new ChartTimeWord();
-  public selectChartTimeWording = this.chartTimeWording.halfYear; 
+  chartTimeType = new ChartTimeType();
+  chartTimeWording = new ChartTimeWord();
+  selectChartTimeWording = this.chartTimeWording.halfYear; 
 
-  public lineChart: any;
-  public isHiddenDialog = true;
-  public dialogChartTimeItem: DialogItemModel[] = [
-    {id:this.chartTimeWording.week , name: this.chartTimeWording.week},
-    {id:this.chartTimeWording.month , name: this.chartTimeWording.month},
-    {id:this.chartTimeWording.season , name: this.chartTimeWording.season},
-    {id:this.chartTimeWording.halfYear , name: this.chartTimeWording.halfYear},
-    {id:this.chartTimeWording.year , name: this.chartTimeWording.year},
+  lineChart: any;
+  isHiddenDialog = true;
+  dialogChartTimeItemList: DialogItemModel[] = [
+    {id:this.chartTimeType.week , name: this.chartTimeWording.week},
+    {id:this.chartTimeType.month , name: this.chartTimeWording.month},
+    {id:this.chartTimeType.season , name: this.chartTimeWording.season},
+    {id:this.chartTimeType.halfYear , name: this.chartTimeWording.halfYear},
+    {id:this.chartTimeType.year , name: this.chartTimeWording.year},
   ];
   
   constructor(
@@ -42,9 +41,6 @@ export class ReviewRoomOverviewComponent {
   } 
   
   createChart(selectTimeModel: string){
-    //https://www.chartjs.org/docs/latest/charts/line.html
-
-
     //圖表資料初始值為週。
     let chartTitle:string[] =[];
     let charCharSite:number[] = [];
@@ -81,30 +77,16 @@ export class ReviewRoomOverviewComponent {
         );
   }
 
-  selectCharTimeModel(selectTimeModel: string) {
+  selectCharTimeModel(selectTimeTypeId: string) {
     this.isLoading = true;
     this.lineChart.destroy(); // 銷毀現有圖表
-    
-    if(selectTimeModel === this.chartTimeWording.week) {
-      this.selectChartTimeWording = this.chartTimeWording.week;
-      this.createChart(this.chartTimeType.week);
-    }
-    if(selectTimeModel === this.chartTimeWording.month) {
-      this.selectChartTimeWording = this.chartTimeWording.month;
-      this.createChart(this.chartTimeType.month);
-    }
-    if(selectTimeModel === this.chartTimeWording.season) {
-      this.selectChartTimeWording = this.chartTimeWording.season;
-      this.createChart(this.chartTimeType.season);
-    }
-    if(selectTimeModel === this.chartTimeWording.halfYear) {
-      this.selectChartTimeWording = this.chartTimeWording.halfYear;
-      this.createChart(this.chartTimeType.halfYear);
-    }
-    if(selectTimeModel === this.chartTimeWording.year) {
-      this.selectChartTimeWording = this.chartTimeWording.year;
-      this.createChart(this.chartTimeType.year);
-    }
+
+    this.dialogChartTimeItemList.forEach(timeType => {
+      if(timeType.id === selectTimeTypeId) {
+        this.selectChartTimeWording = timeType.name;
+        this.createChart(timeType.id);
+      }
+    });
   }
   
   clickToReivewRoomDetail() {

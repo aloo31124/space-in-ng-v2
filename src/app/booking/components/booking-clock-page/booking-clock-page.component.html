@@ -4,17 +4,15 @@
     <div class="input-bar">
         <app-input 
             (inputClick)="toggleInput()"
-            [inputContent]="startTime"
+            [inputContent]="getStartTime()"
             [isSelect]="isSelectStartTimeInput"
-            [inputTitle]="'開始時間:'" 
-            [inputContent]="selectStartTime">
+            [inputTitle]="'開始時間:'">
         </app-input>
         <app-input 
             (inputClick)="toggleInput()"
-            [inputContent]="endTime"
+            [inputContent]="getEndTime()"
             [isSelect]="!isSelectStartTimeInput"
-            [inputTitle]="'結束時間:'" 
-            [inputContent]="selectStartTime">
+            [inputTitle]="'結束時間:'">
         </app-input>
     </div>
 
@@ -73,10 +71,10 @@
         </div>
     </div>
 
-    <div class="booking-record" *ngIf="selectDayAllBookingRecord.length !== 0">
+    <div class="booking-record" *ngIf="getThisDayAllBookingRecord().length !== 0">
         <div>已預約時段: </div>
-        <div *ngFor="let record of selectDayAllBookingRecord">
-            {{ record }}
+        <div *ngFor="let record of getThisDayAllBookingRecord()">
+            {{ record.startTime }} ~ {{ record.endTime }}
         </div>
     </div>
 

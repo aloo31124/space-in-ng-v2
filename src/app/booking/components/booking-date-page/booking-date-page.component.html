@@ -1,10 +1,18 @@
 
 <div class="container">
     <app-calendar-picker 
-        (selectDatInfo)="updateSelectDay($event)" 
-        (selectDayAllBookingRecord)="updateBookingRecord($event)">
+        [_selectDate]="getSelectDate()"
+        (selectDatInfo)="getEmitterSelectDay($event)"
+        [bookingList]="bookingList">
     </app-calendar-picker>
     <div class="btn-bar">
         <img src="assets/images/icon/icon_next.png" (click)="nextStep()">
     </div>
+
+    <!-- 畫面 loading 中 -->
+    <div class="loading-container">
+        <app-loading-basic [isLoading]="isLoading">
+        </app-loading-basic>
+    </div>
+
 </div>

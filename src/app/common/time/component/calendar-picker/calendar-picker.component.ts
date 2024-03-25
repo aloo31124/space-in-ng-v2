@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
-import { BookingService } from 'src/app/booking/services/booking.service';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { Booking } from 'src/app/booking/models/booking.model';
+import { RateModel } from 'src/app/review-room/models/rate.model';
 
 @Component({
   selector: 'app-calendar-picker',
@@ -12,8 +12,18 @@ export class CalendarPickerComponent {
 
   // 該日期元件選擇年月日
   @Output() selectDatInfo = new EventEmitter<string>();
-  // 選擇該日 之 其他 booking 紀錄
-  @Output() selectDayAllBookingRecord = new EventEmitter<Booking[]>();
+
+  // 所有 Booking 紀錄
+  @Input() bookingList = new Array<Booking>();
+
+  // 該空間 其 剩餘率 紀錄
+  @Input() rateList: RateModel[] = [];
+  
+  // 輸入 當前選擇日期
+  @Input() _selectDate = 0;
+
+  // 剩餘比率
+  @Input() showRate = 60;
 
   currentDate = new Date();
   currentYear = 0;
@@ -23,26 +33,24 @@ export class CalendarPickerComponent {
   currentMonthFirstDayWeekly = 0;
   displayAllDayGrid = 0
 
-  _selectDate = 1;
-  bookingList = new Array<Booking>();
+  
   //該天 booking 幾次
   thisDayBookingList = new Array<Booking>();
   
   
-  constructor(
-    private bookingService: BookingService,
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     //取得當前日期
     this.currentDate = new Date();
-    this._selectDate = this.currentDate.getDate();
+    if(this._selectDate === 0){
+      this._selectDate = this.currentDate.getDate();
+    }
 
     //取得當前年月
     this.currentYear = this.currentDate.getFullYear();
     this.currentMonth = this.currentDate.getMonth() + 1; //月份從0開始算，後續計算需加1
     this.setCalendarDateInfo();
-    this.setBookingDotDate();
   }
 
 
@@ -63,34 +71,6 @@ export class CalendarPickerComponent {
 
 
 
-  /* 
-   * 從 FireStore 取得所有 booking 日期。
-   */
-  setBookingDotDate() {
-
-    this.bookingService
-      .getAll()
-      .subscribe(bookingList => {
-        bookingList
-          .forEach(booking => {
-            this.bookingList.push(new Booking(
-              booking["fireStoreId"],
-              booking["userId"],
-              booking["mail"],
-              booking["startDate"],
-              booking["endDatae"],
-              booking["startTime"],
-              booking["endTime"],
-              booking["bookingType"],
-              booking["roomId"],
-              booking["roomName"],
-              booking["siteId"],
-              booking["siteName"],
-            ));
-          });
-      });
-
-  }
 
   /*
    * 計算該日期(數字) 包含次數 
@@ -191,7 +171,25 @@ export class CalendarPickerComponent {
       .filter(booking => {
         return (new Date(booking.startDate).getTime() === new Date(selectDate).getTime());
       });
-    this.selectDayAllBookingRecord.emit(selectDayAllBookingRecord);
+  }
+
+
+  /* 
+   * 行事曆日期逐個判斷, 顯示剩餘率 %
+   */
+  isShowRate(date: number): string {
+    if(!this.rateList) {
+      return "";
+    }
+    console.log(this.rateList)
+    const rateDate = this.rateList.filter(rate => { return new Date(rate.date).getDate() === date })[0];
+    if(!rateDate) {
+      return "";
+    }
+    if(this.showRate < rateDate.rate) {
+      return "";
+    }
+    return rateDate.rate + "%";
   }
 
 }

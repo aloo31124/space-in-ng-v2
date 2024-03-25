@@ -12,10 +12,10 @@
         </div>
         <div class="row-time">
             <div>
-                {{ selectDate }}  {{ selectDate | dateToDayOfWeek:"tw" }} {{ startTime }}
+                {{ getSelectDate() }}  {{ getSelectDate() | dateToDayOfWeek:"tw" }} {{ getStartTime() }}
             </div>
             <div>
-                {{ selectDate }}  {{ selectDate | dateToDayOfWeek:"tw" }}  {{ endTime }}
+                {{ getSelectDate() }}  {{ getSelectDate() | dateToDayOfWeek:"tw" }}  {{ getEndTime() }}
             </div>
         </div>
         
