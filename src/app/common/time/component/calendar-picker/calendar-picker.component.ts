@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output, ElementRef, ViewChild, Input } from '@angular/core';
-import { BookingService } from 'src/app/booking/services/booking.service';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { Booking } from 'src/app/booking/models/booking.model';
+import { RateModel } from 'src/app/review-room/models/rate.model';
 
 @Component({
   selector: 'app-calendar-picker',
@@ -15,9 +15,15 @@ export class CalendarPickerComponent {
 
   // 所有 Booking 紀錄
   @Input() bookingList = new Array<Booking>();
+
+  // 該空間 其 剩餘率 紀錄
+  @Input() rateList: RateModel[] = [];
   
   // 輸入 當前選擇日期
   @Input() _selectDate = 0;
+
+  // 剩餘比率
+  @Input() showRate = 60;
 
   currentDate = new Date();
   currentYear = 0;
@@ -32,9 +38,7 @@ export class CalendarPickerComponent {
   thisDayBookingList = new Array<Booking>();
   
   
-  constructor(
-    private bookingService: BookingService,
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     //取得當前日期
@@ -167,6 +171,25 @@ export class CalendarPickerComponent {
       .filter(booking => {
         return (new Date(booking.startDate).getTime() === new Date(selectDate).getTime());
       });
+  }
+
+
+  /* 
+   * 行事曆日期逐個判斷, 顯示剩餘率 %
+   */
+  isShowRate(date: number): string {
+    if(!this.rateList) {
+      return "";
+    }
+    console.log(this.rateList)
+    const rateDate = this.rateList.filter(rate => { return new Date(rate.date).getDate() === date })[0];
+    if(!rateDate) {
+      return "";
+    }
+    if(this.showRate < rateDate.rate) {
+      return "";
+    }
+    return rateDate.rate + "%";
   }
 
 }

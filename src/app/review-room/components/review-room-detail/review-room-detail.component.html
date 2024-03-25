@@ -26,49 +26,18 @@
             <div class="select-item" (click)="isDialogHiddenRoomType=false"> {{ _selectRoomType }} </div>
         </div>
         
-           
         <div class="row">
             <label class="title-second">顯示剩餘空間</label>
             <div class="select-item" (click)="isDialogHiddenRemainRommRate=false"> {{ showRate }} %</div>
             <label class="title-second">以下</label>
         </div>
-    
-        <div class="container">
-            <div class="calendar-picker">
-                <div class="calendar-header">
-                    <img src="assets/images/icon/icon_back.png" (click)="backMonth()">
-                    {{ currentYear }} 年 {{ currentMonth }} 月
-                    <img src="assets/images/icon/icon_next.png" (click)="nextMonth()">
-                </div>
-                <div class="calendar-content">
-                    <div class="grid-row">
-                        <div class="grid">日</div>
-                        <div class="grid">一</div>
-                        <div class="grid">二</div>
-                        <div class="grid">三</div>
-                        <div class="grid">四</div>
-                        <div class="grid">五</div>
-                        <div class="grid">六</div>
-                    </div>
-                    <div class="grid-row">
-                        <div 
-                            class="grid" 
-                            *ngFor="let number of [].constructor(displayAllDayGrid); let i = index"  
-                            (click)="selectDate( i + 1 - currentMonthFirstDayWeekly )"                     
-                            [id]="'grid-' + ( i + 1 - currentMonthFirstDayWeekly )">
-                                <div class="no-selected"
-                                     [ngClass]="{ 'selected': _selectDate === i + 1 - currentMonthFirstDayWeekly }"
-                                     *ngIf="i + 1 > currentMonthFirstDayWeekly">
-                                        {{ i + 1 - currentMonthFirstDayWeekly }}
-                                </div>
-                                <div class="rate">
-                                    {{ isShowRate(i + 1 - currentMonthFirstDayWeekly) }} 
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <!-- 剩餘率% 行事曆 -->
+        <app-calendar-picker
+            [rateList]="rateList"
+            [showRate]="showRate">
+        </app-calendar-picker>
+
     </div>
     
     <!-- 選擇剩餘空間% dialog -->
@@ -77,7 +46,7 @@
             [dialogTitle]="'選擇剩餘空間比例'"
             [isHiddenDialog]="isDialogHiddenRemainRommRate"
             (hideDialog)="isDialogHiddenRemainRommRate=true"
-            (selectedItem)="selectRate($event)"
+            (selectedItem)="selectDialogRate($event)"
             [itemList]="dialogRemainRoomRate">
         </app-dialog>
     </div>
@@ -88,7 +57,7 @@
             [dialogTitle]="'選擇剩餘空間種類'"
             [isHiddenDialog]="isDialogHiddenRoomType"
             (hideDialog)="isDialogHiddenRoomType=true"
-            (selectedItem)="selectRoomType($event)"
+            (selectedItem)="selectDialogRoomType($event)"
             [itemList]="dialogRoomTypeList">
         </app-dialog>
     </div>

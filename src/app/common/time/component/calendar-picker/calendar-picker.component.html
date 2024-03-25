@@ -19,17 +19,27 @@
             <div class="grid" 
                 *ngFor="let number of [].constructor(displayAllDayGrid); let i = index"  
                 (click)="selectDate( i + 1 - currentMonthFirstDayWeekly )">
+
+                    <!-- 顯示該行事曆該日文字 -->
                     <div class="no-selected"
                          [ngClass]="{ 'selected': _selectDate === i + 1 - currentMonthFirstDayWeekly }"
                          *ngIf="i + 1 > currentMonthFirstDayWeekly">
                             {{ i + 1 - currentMonthFirstDayWeekly }}
                     </div>
-                    <div class="dot-bar">
+
+                    <!-- 顯示 booking 紀錄 dot小點 -->
+                    <div class="dot-bar" *ngIf="bookingList.length > 0">
                         <div class="dot" 
                             *ngFor="let i of [].constructor(countDot(i + 1 - currentMonthFirstDayWeekly))"
                             [ngStyle]="{background: checkDotColor()}">
                         </div>
                     </div>
+
+                    <!-- 顯示 剩餘率% -->
+                    <div class="rate" *ngIf="rateList.length > 0">
+                        {{ isShowRate(i + 1 - currentMonthFirstDayWeekly) }} 
+                    </div>
+
             </div>
         </div>
     </div>
