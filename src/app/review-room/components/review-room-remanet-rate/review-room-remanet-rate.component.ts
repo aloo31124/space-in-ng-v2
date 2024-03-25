@@ -4,11 +4,11 @@ import { RateModel } from '../../models/rate.model';
 import { ReviewRoomService } from '../../services/review-room.service';
 
 @Component({
-  selector: 'app-review-room-detail',
-  templateUrl: './review-room-detail.component.html',
-  styleUrls: ['./review-room-detail.component.scss']
+  selector: 'app-review-room-remanet-rate',
+  templateUrl: './review-room-remanet-rate.component.html',
+  styleUrls: ['./review-room-remanet-rate.component.scss']
 })
-export class ReviewRoomDetailComponent {
+export class ReviewRoomRemanetRateComponent {
 
   // 畫面正在 loading 中
   isLoading = true;

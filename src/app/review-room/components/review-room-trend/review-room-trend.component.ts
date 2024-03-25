@@ -7,11 +7,11 @@ import { ChartTimeWord } from '../../models/chartTimeWord.model';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 
 @Component({
-  selector: 'app-review-room-overview',
-  templateUrl: './review-room-overview.component.html',
-  styleUrls: ['./review-room-overview.component.scss']
+  selector: 'app-review-room-trend',
+  templateUrl: './review-room-trend.component.html',
+  styleUrls: ['./review-room-trend.component.scss']
 })
-export class ReviewRoomOverviewComponent {
+export class ReviewRoomTrendComponent {
 
   // 資料仍在 loading中, 顯示 loading mask
   isLoading = true;

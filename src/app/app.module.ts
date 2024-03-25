@@ -20,8 +20,8 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { PaidPlanListComponent } from './payment/components/paid-plan-list/paid-plan-list.component';
 import { EcpayFormComponent } from './payment/components/ecpay-form/ecpay-form.component';
-import { ReviewRoomOverviewComponent } from './review-room/components/review-room-overview/review-room-overview.component';
-import { ReviewRoomDetailComponent } from './review-room/components/review-room-detail/review-room-detail.component';
+import { ReviewRoomTrendComponent } from './review-room/components/review-room-trend/review-room-trend.component';
+import { ReviewRoomRemanetRateComponent } from './review-room/components/review-room-remanet-rate/review-room-remanet-rate.component';
 import { ReviewBookingCalendarComponent } from './review-booking/components/review-booking-calendar/review-booking-calendar.component';
 import { ReviewBookingFormComponent } from './review-booking/components/review-booking-form/review-booking-form.component';
 import { DialogComponent } from './common/dialog/components/dialog/dialog.component';
@@ -58,8 +58,8 @@ const  firebase = {
     BookingCheckFormPageComponent,
     PaidPlanListComponent,
     EcpayFormComponent,
-    ReviewRoomOverviewComponent,
-    ReviewRoomDetailComponent,
+    ReviewRoomTrendComponent,
+    ReviewRoomRemanetRateComponent,
     ReviewBookingCalendarComponent,
     ReviewBookingFormComponent,
     DialogComponent,
