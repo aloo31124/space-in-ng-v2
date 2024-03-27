@@ -17,12 +17,17 @@ export class ReviewRoomOverviewComponent {
   selectReviewType = this.reviewType.BOOKING_TREND;
 
   // 今日剩餘比率
-  todayRemanent = new TodayRemanent();
+  todayRemanent: TodayRemanent = {remanent: 0, totalRoom: 0};
 
   constructor(
     private reviewRoomService: ReviewRoomService,
   ) {
-    this.todayRemanent = this.reviewRoomService.getTodayRemanent();
+    // 取得 今日剩餘比率
+    this.reviewRoomService
+      .getTodayRemanent()
+      .subscribe(todayRemanent => {
+        this.todayRemanent = todayRemanent;
+      });
   }
 
   /*
@@ -36,6 +41,9 @@ export class ReviewRoomOverviewComponent {
    * 取得今日剩餘比率 
    */
   getToDayRate() {
+    if(this.todayRemanent.totalRoom === 0) {
+      return 100;
+    }
     return (this.todayRemanent.remanent / this.todayRemanent.totalRoom) * 100;
   }
 

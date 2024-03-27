@@ -10,26 +10,16 @@ import { TodayRemanent } from '../models/today-remanent.model';
 })
 export class ReviewRoomService {
 
-  // 取得 今日 剩餘資訊
-  private todayRemanent: TodayRemanent = {remanent: 0, totalRoom:10};
-
   constructor(
     private cloudFunService: CloudFunService,
-  ) {
-    this.cloudFunService
-      .getTodayRate()
-      .subscribe(todayRemanent => {
-        this.todayRemanent = todayRemanent;
-        console.log(this.todayRemanent);
-      })
-  }
+  ) { }
 
   /*
    * 取得 今日剩餘比率資訊
      剩餘 / 空間總數 
    */
   getTodayRemanent() {
-    return this.todayRemanent;
+    return this.cloudFunService.getTodayRate();
   }
 
   /*
