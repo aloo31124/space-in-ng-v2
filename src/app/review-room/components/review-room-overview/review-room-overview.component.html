@@ -19,11 +19,11 @@
             <label class="title-second">今日剩餘空間</label>
         </div>
         <div class="row">
-            <label class="content">140 / 200間 (70%)</label>
+            <label class="content"> {{ getRateWording() }} 間 ( {{ getToDayRate() }}% )</label>
         </div>       
         <div class="row">
             <div class="progress-bar">
-                <div class="progress"></div>
+                <div class="progress" [ngStyle]="{'width' : getToDayRate()+'%'}"></div>
             </div>
         </div>   
     </div>

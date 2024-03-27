@@ -74,13 +74,24 @@
     border-radius: 5px;
     margin: 0px 20px;  
     padding: 5px; 
+}
 
-    .progress {
-        width: 70%;
-        height: 100%;
-        border-radius: 5px;
-        background: #661983;
+
+.progress {
+    width: 30%;
+    height: 100%;
+    border-radius: 5px;
+    background: #661983;
+
+    animation-name: progress-slide;
+    animation-duration:2s;
+
+    @keyframes progress-slide {
+        from{
+            width:0;
+        }
     }
+
 }
 
 
