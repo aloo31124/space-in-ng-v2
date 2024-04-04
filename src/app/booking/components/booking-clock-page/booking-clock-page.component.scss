@@ -69,12 +69,6 @@ img {
   }
 
   
-  i {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-  }
-
   .clock {    
     background: #F0EDF1;
     border-radius: 50%;
@@ -104,10 +98,6 @@ img {
           background: #661983;
           color: white;
           border-radius: 50%;
-          width: 35px;
-          height: 35px;
-
-          text-align: center; /* 文本水平居中 */
         }
         
         i {
@@ -118,6 +108,10 @@ img {
           position: absolute;
           top: 0;
           left: 45%;
+
+          width: 30px;
+          height: 30px;
+          text-align: center; /* 文本水平居中 */
         }
         
         &:nth-child(1) {
@@ -195,7 +189,7 @@ img {
     position: absolute;
     height: 102px;
     width: 2px;
-    bottom: 10px; //指針向上偏移 ="=
+    bottom: 8px; //指針向上偏移 ="=
     transform-origin: bottom;
     background: #661983;
     
