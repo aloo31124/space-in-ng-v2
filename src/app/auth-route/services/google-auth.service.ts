@@ -52,7 +52,7 @@ export class GoogleAuthService {
         alert("發生錯誤！錯誤訊息為: " + error);
     }
 
-    if(!this.currentUser) {
+    if(!this.isLoginIn) {
       this.currentUser = {
         id: "testid",
         name: "testname",
