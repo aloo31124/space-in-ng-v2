@@ -1,0 +1,8 @@
+
+
+
+ng build --output-path docs --base-href /space-in-ng-v2/ 
+
+
+
+
