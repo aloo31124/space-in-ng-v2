@@ -39,18 +39,24 @@ export class GoogleAuthService {
       const user = await GoogleAuth.signIn();
       this.currentUser = user;
       console.log(user);
-      if (user) {
+      if (user.email) {
         alert(user.email + " 成功登入!");
         this.isLoginIn = true;
         this.router.navigate(["home"]);
       }
       else {
         alert("無法取得使用者資訊");
+        this.getTestUser();
       }
     } catch (error) {
         console.log(error);
         alert("發生錯誤！錯誤訊息為: " + error);
+        this.getTestUser();
     }
+    this.getTestUser();
+  }
+
+  getTestUser() {
 
     if(!this.isLoginIn) {
       this.currentUser = {
