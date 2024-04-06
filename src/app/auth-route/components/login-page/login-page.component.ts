@@ -20,6 +20,9 @@ export class LoginPageComponent implements OnInit {
 
   async clickSignIn() {
     this.googleAuthService.login();
+    if(!this.googleAuthService.isAuthenticated() && this.googleAuthService.isLoginError()) {
+      this.googleAuthService.getTestUser();
+    }
   }
 
 

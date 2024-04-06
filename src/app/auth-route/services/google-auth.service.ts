@@ -9,6 +9,7 @@ import { GoogleAuthUser } from '../models/google-auth-user.model';
 export class GoogleAuthService {
 
   private isLoginIn = false;
+  private _isLoginError = false;
   private currentUser!: GoogleAuthUser;
 
   constructor(
@@ -24,6 +25,10 @@ export class GoogleAuthService {
 
   isAuthenticated() {
     return this.isLoginIn;
+  }
+
+  isLoginError() {
+    return this._isLoginError;
   }
 
   getCurrentUser() {
@@ -51,13 +56,13 @@ export class GoogleAuthService {
     } catch (error) {
         console.log(error);
         alert("發生錯誤！錯誤訊息為: " + error);
+        this._isLoginError = true;
         this.getTestUser();
     }
-    this.getTestUser();
+    this._isLoginError = true;
   }
 
   getTestUser() {
-
     if(!this.isLoginIn) {
       this.currentUser = {
         id: "testid",
@@ -70,7 +75,6 @@ export class GoogleAuthService {
       this.isLoginIn = true;
       this.router.navigate(["home"]);
     }
-
   }
 
   /*
