@@ -1,0 +1,23 @@
+
+
+ng build --output-path docs --base-href /space-in-ng-v2/ 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+4/6
+
+github 上, 需要 scss 相對路徑設定
+
+component.scss?ngResource - Error: Module Error can't resolve ./ png path
+
+key: angular content: url("assets/... Can't resolve
+
+
+https://stackoverflow.com/questions/62619062/unable-to-use-assets-in-url-in-scss-after-upgrading-to-angular-10
+
+最後使用 background: url("~src/assets/...") 設定相對路徑 :)
+其他都失敗
+
+
+
+
