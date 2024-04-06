@@ -11,5 +11,8 @@ github 上, 需要 scss 相對路徑設定
 
 component.scss?ngResource - Error: Module Error can't resolve ./ png path
 
+key: angular content: url("assets/... Can't resolve
+
+
 
 

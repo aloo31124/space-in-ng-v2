@@ -36,32 +36,32 @@ header {
 
 @media (min-width: 1100px) {
     .img-header-main {
-        content: url("/./assets/images/header/main/2000px.png");
+        content: url("/../../../assets/images/header/main/2000px.png");
     }
 }
 @media (min-width: 500px) and (max-width: 1100px) {
     .img-header-main {
-        content: url("/./assets/images/header/main/1000px.png");
+        content: url("/../../../assets/images/header/main/1000px.png");
     }
 }
 @media (max-width: 500px) {
     .img-header-main {
-        content: url("/./assets/images/header/main/400px.png");
+        content: url("/../../../assets/images/header/main/400px.png");
     }
 }
 
 @media (min-width: 1100px) {
     .img-header {
-        content: url("/./assets/images/header/secondary/2000px.png");
+        content: url("/../../../assets/images/header/secondary/2000px.png");
     }
 }
 @media (min-width: 500px) and (max-width: 1100px) {
     .img-header {
-        content: url("/./assets/images/header/secondary/1000px.png");
+        content: url("/../../../assets/images/header/secondary/1000px.png");
     }
 }
 @media (max-width: 500px) {
     .img-header {
-        content: url("/./assets/images/header/secondary/400px.png");
+        content: url('/../../../assets/images/header/secondary/400px.png');
     }
 }
