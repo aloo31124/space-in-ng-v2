@@ -4,7 +4,22 @@ ng build --output-path docs --base-href /space-in-ng-v2/
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-4/6
+4/7 (日)
+key: angular firebase host
+
+
+https://www.youtube.com/watch?v=UNCggEPZQ0c
+
+
+Build App using Angular 15 and Firebase in 15 minutes!
+https://www.youtube.com/watch?v=t0Uav7TQ-RQ
+=> 教的很仔細, 從無到有, 從 vscode, node.js, angular cli 安裝 都教 ="=
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+4/6 (六)
+
 
 github 上, 需要 scss 相對路徑設定
 
@@ -18,6 +33,16 @@ https://stackoverflow.com/questions/62619062/unable-to-use-assets-in-url-in-scss
 最後使用 background: url("~src/assets/...") 設定相對路徑 :)
 其他都失敗
 
+修正寫法:
+src/app/common/header/components/header/header.component.scss
+
+    .img-header-main {
+        content: url("~src/assets/images/header/main/2000px.png");
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
