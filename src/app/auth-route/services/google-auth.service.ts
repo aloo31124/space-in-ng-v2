@@ -39,7 +39,6 @@ export class GoogleAuthService {
    */
   async login() {
     // 登入判斷
-    
     const user = await GoogleAuth.signIn();
     if(user["email"]) {
       this.userService
@@ -62,6 +61,13 @@ export class GoogleAuthService {
           }
         });
     }
+
+    // 等待超過 7秒, 使用測試帳號登入
+    setTimeout(()=> {
+      if(!this.currentUser) {
+        this.getTestUserInfo();
+      }
+    }, 7000);
   }
 
   /*
@@ -78,7 +84,7 @@ export class GoogleAuthService {
    * 取得測試登入帳號 
    */
   getTestUserInfo() {
-  this.currentUser = new GoogleAuthUser({
+    this.currentUser = new GoogleAuthUser({
       id: "testid",
       name: "testname",
       email: "tesetmail@testmail.com",
