@@ -3,6 +3,7 @@ import { Booking } from 'src/app/booking/models/booking.model';
 import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 import { BookingService } from 'src/app/booking/services/booking.service';
+import { GoogleAuthService } from 'src/app/auth-route/services/google-auth.service';
 
 @Component({
   selector: 'app-review-booking-calendar',
@@ -27,6 +28,7 @@ export class ReviewBookingCalendarComponent {
   constructor(
     private routeUrlRecordService: RouteUrlRecordService<Booking>,
     private bookingService: BookingService,
+    private googleAuthService: GoogleAuthService
   ) { }
 
   ngOnInit(): void {
@@ -38,27 +40,11 @@ export class ReviewBookingCalendarComponent {
    */
   getAllBookingRecord() {
     this.bookingService
-      .getAll()
-      .subscribe(bookingList => {
-        bookingList
-          .forEach(booking => {
-            this.bookingList.push(new Booking(
-              booking["fireStoreId"],
-              booking["userId"],
-              booking["mail"],
-              booking["startDate"],
-              booking["endDatae"],
-              booking["startTime"],
-              booking["endTime"],
-              booking["bookingType"],
-              booking["roomId"],
-              booking["roomName"],
-              booking["siteId"],
-              booking["siteName"],
-            ));
-          });
+      .getBookingByMail(this.googleAuthService.getCurrentUser().email)
+      .then(doc => {
+        console.log(doc);
         this.isLoading = false;
-      });
+      })
   }
 
 

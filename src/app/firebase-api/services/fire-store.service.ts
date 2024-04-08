@@ -50,7 +50,6 @@ export class FireStoreService {
    * 新增一筆 資料
    */
   post(tableName:string, newData:any):Promise<any> {
-    console.log("add data: " + newData);
     const collectionInstance = collection(this.firestore, tableName);
     return addDoc(collectionInstance, newData);
   }

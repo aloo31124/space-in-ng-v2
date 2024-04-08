@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-record.service';
 import { Booking } from '../../models/booking.model';
 import { BookingService } from '../../services/booking.service';
+import { GoogleAuthService } from 'src/app/auth-route/services/google-auth.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class BookingDatePageComponent {
   constructor(
     private routeUrlRecordService: RouteUrlRecordService<{}>,
     private bookingService: BookingService,
+    private googleAuthService: GoogleAuthService,
   ) { }
 
   ngOnInit(): void { 
@@ -46,27 +48,21 @@ export class BookingDatePageComponent {
    */
   getAllBookingRecord() {
     this.bookingService
-      .getAll()
-      .subscribe(bookingList => {
-        bookingList
-          .forEach(booking => {
-            this.bookingList.push(new Booking(
-              booking["fireStoreId"],
-              booking["userId"],
-              booking["mail"],
-              booking["startDate"],
-              booking["endDatae"],
-              booking["startTime"],
-              booking["endTime"],
-              booking["bookingType"],
-              booking["roomId"],
-              booking["roomName"],
-              booking["siteId"],
-              booking["siteName"],
-            ));
-          });
+      .getBookingByMail(this.googleAuthService.getCurrentUser().email)
+      .then(doc => {
+        console.log(doc)
+        console.log(doc.docs)
+        doc.docs.forEach((data: any) => {
+          const booking = data._document.data.value.mapValue.fields;
+          console.log(booking);
+          this.bookingList.push({...booking});
+        });
+        console.log(this.bookingList);
+        console.log(this.bookingList[0].startDate);
+      })
+      .finally(() => {
         this.isLoading = false;
-      });
+      })
   }
 
   /* 
