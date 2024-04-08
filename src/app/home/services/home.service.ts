@@ -13,9 +13,17 @@ export class HomeService {
   /*
    * 檢查是否顯示 [空間總覽] 
    */
-  checkShowReviewRoom() {
+  getAllRoom() {
     const roomTable = this.fireStoreService.fireStoreTabelNameList.Room;
     return this.fireStoreService.getAll(roomTable)
+  }
+
+  /*
+   * 取得權限 
+   */
+  getAllPermission() {
+    const userToPermissionTable = this.fireStoreService.fireStoreTabelNameList.UserToPermission;
+    return this.fireStoreService.getAll(userToPermissionTable);
   }
 
 }

@@ -11,6 +11,7 @@ import { GoogleAuthService } from 'src/app/auth-route/services/google-auth.servi
 export class HomePageComponent implements OnInit {
 
   isShowReviewRoom = false;
+  isShowPayment = false;
 
   constructor(
     private routeUrlRecordService: RouteUrlRecordService<{}>,
@@ -20,12 +21,25 @@ export class HomePageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const ownerId = this.googleAuthService.getCurrentUser().userFirestoreId;
+    const userId = this.googleAuthService.getCurrentUser().userFirestoreId;
+
+    // 取得該使用者 所有權限
     this.homeService
-      .checkShowReviewRoom()
+      .getAllPermission()
+      .subscribe(data => {
+        data.forEach(p => {
+          if(p["userId"] === userId) {
+            this.isShowPayment = true;
+          }
+        });
+      });
+
+    // 判斷是否顯示 [空間總覽]
+    this.homeService
+      .getAllRoom()
       .subscribe(data => {
         data.forEach(x => {
-          if(x["ownerId"] === ownerId) {
+          if(x["ownerId"] === userId) {
             this.isShowReviewRoom = true;
           }
         });
