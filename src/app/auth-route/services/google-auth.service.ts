@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { GoogleAuthUser } from '../models/google-auth-user.model';
+import { UserService } from 'src/app/common/user/services/user-service.service';
+import { User } from 'src/app/common/user/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,8 @@ export class GoogleAuthService {
   private currentUser!: GoogleAuthUser;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private userService: UserService,
   ) { 
     // 於此取得初始資料
     GoogleAuth.initialize({
@@ -36,36 +39,29 @@ export class GoogleAuthService {
    */
   async login() {
     // 登入判斷
-    try {   
-      const user = await GoogleAuth.signIn();
-      this.currentUser = new GoogleAuthUser(user);
-      console.log(this.currentUser);
-      if (user) {
-        alert(user.email + " 成功登入!");
-        this.isLoginIn = true;
-        this.router.navigate(["home"]);
-      }
-      else {
-        alert("無法取得使用者資訊");
-      }
-    } catch (error) {
-        console.log(error);
-        alert("發生錯誤！錯誤訊息為: " + error);
-    }
+    
+    const user = await GoogleAuth.signIn();
+    if(user["email"]) {
+      this.userService
+        .getUserIdByMail(user["email"])
+        .then(doc => {
 
-    if(!this.currentUser) {
-      this.currentUser = new GoogleAuthUser({
-        id: "testid",
-        name: "testname",
-        email: "tesetmail@testmail.com",
-        imageUrl: "testurl",
-        authentication: {},
-      });
-      alert("因無法取得使用者資訊, 轉為測試帳號: " + this.currentUser.email);
-      this.isLoginIn = true;
-      this.router.navigate(["home"]);
+          const newUser = {
+            userFirestoreId: doc.docs[0]._key.path.segments[6],
+            ...user,
+          }
+          this.currentUser = new GoogleAuthUser(newUser);
+          console.log(this.currentUser);
+          if (user) {
+            alert(user.email + " 成功登入!");
+            this.isLoginIn = true;
+            this.router.navigate(["home"]);
+          }
+          else {
+            alert("無法取得使用者資訊");
+          }
+        });
     }
-
   }
 
   /*
@@ -76,4 +72,23 @@ export class GoogleAuthService {
     this.currentUser = new GoogleAuthUser({});
     this.isLoginIn = false;
   }
+
+
+  /*
+   * 取得測試登入帳號 
+   */
+  getTestUserInfo() {
+  this.currentUser = new GoogleAuthUser({
+      id: "testid",
+      name: "testname",
+      email: "tesetmail@testmail.com",
+      imageUrl: "testurl",
+      authentication: {},
+    });
+    alert("因無法取得使用者資訊, 轉為測試帳號: " + this.currentUser.email);
+    this.isLoginIn = true;
+    this.router.navigate(["home"]);
+  }
+    
+
 }

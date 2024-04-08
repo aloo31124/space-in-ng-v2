@@ -6,6 +6,9 @@ import {
   doc,
   addDoc,
   deleteDoc,
+  getDocs,
+  query,
+  where,
 } from '@angular/fire/firestore';
 
 @Injectable({
@@ -38,7 +41,9 @@ export class FireStoreService {
   /*
    * 藉由 欄位名稱取得資料 
    */
-  getDataByField(tableName: string, fieldName: string) {
+  getDataByField(tableName: string, fieldName: string, fieldValue: string):Promise<any> {
+    const q = query(collection(this.firestore, tableName), where(fieldName, "==", fieldValue));
+    return getDocs(q);
   }
 
   /* 

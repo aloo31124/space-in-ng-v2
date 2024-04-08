@@ -3,6 +3,25 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
+04/08
+
+firebase get document by field
+
+https://cloud.google.com/firestore/docs/query-data/get-data#get_multiple_documents_from_a_collection
+
+import { collection, query, where, getDocs } from "firebase/firestore";
+
+const q = query(collection(db, "cities"), where("capital", "==", true));
+
+const querySnapshot = await getDocs(q);
+querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+  console.log(doc.id, " => ", doc.data());
+});
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
 03/24
 
 css 使用 @media 偵測設備切換三種圖片: a.png, b.png, c.png,
