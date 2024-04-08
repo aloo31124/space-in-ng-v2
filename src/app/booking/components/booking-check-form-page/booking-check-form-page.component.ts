@@ -7,7 +7,6 @@ import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-rec
 import { GoogleAuthService } from 'src/app/auth-route/services/google-auth.service';
 import { GoogleAuthUser } from 'src/app/auth-route/models/google-auth-user.model';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
-import { Booking } from '../../models/booking.model';
 
 @Component({
   selector: 'app-booking-check-form-page',

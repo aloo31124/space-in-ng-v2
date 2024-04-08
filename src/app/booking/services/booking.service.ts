@@ -79,11 +79,11 @@ export class BookingService {
     this.selectDayAllBookingRecordList = list;
   }
 
-  /*
-   * 取得 booking 資料, 依照 mail 
+  /* 
+   * 取得所有 booking 資料
    */
-  getBookingByMail(email: string) {
-    return this.fireStoreService.getDataByField(this.bookingTable, "mail", email);
+  getAll() {
+    return this.fireStoreService.getAll(this.bookingTable);
   }
 
   /* 

@@ -12,19 +12,32 @@ export class Booking {
     siteId = "";
     siteName = ""
 
-    constructor(booking: any){
-        this.fireStoreId = booking["fireStoreId"];
-        this.userId = booking["userId"];
-        this.mail = booking["mail"];
-        this.startDate = booking["startDate"];
-        this.endDatae = booking["endDatae"];
-        this.startTime = booking["startTime"];
-        this.endTime = booking["endTime"];
-        this.bookingType = booking["bookingType"];
-        this.roomId = booking["roomId"];
-        this.roomName = booking["roomName"];
-        this.siteId = booking["siteId"];
-        this.siteName = booking["siteName"];
+    constructor(
+        fireStoreId: string,
+        userId: string,
+        mail: string,
+        startDate: string,
+        endDatae: string,
+        startTime: string,
+        endTime: string,
+        bookingType: string,
+        roomId: string,
+        roomName: string,
+        siteId: string,
+        siteName: string
+    ){
+        this.fireStoreId = fireStoreId;
+        this.userId = userId;
+        this.mail = mail;
+        this.startDate = startDate;
+        this.endDatae = endDatae;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.bookingType = bookingType;
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.siteId = siteId;
+        this.siteName = siteName;
     }
 
 }
