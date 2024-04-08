@@ -14,13 +14,14 @@ export class GoogleAuthService {
   constructor(
     private router: Router
   ) { 
-    // 初始
+    // 於此取得初始資料
     GoogleAuth.initialize({
       clientId: '328066296243-5opekodfa93rria1e8utcql4rkrbvktq.apps.googleusercontent.com',
       scopes: ['profile', 'email'],
       grantOfflineAccess: true,
     });
   }
+  
 
   isAuthenticated() {
     return this.isLoginIn;
