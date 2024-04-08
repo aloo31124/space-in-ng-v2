@@ -21,7 +21,7 @@ export class GoogleAuthService {
       grantOfflineAccess: true,
     });
   }
-  
+
 
   isAuthenticated() {
     return this.isLoginIn;
@@ -38,8 +38,8 @@ export class GoogleAuthService {
     // 登入判斷
     try {   
       const user = await GoogleAuth.signIn();
-      this.currentUser = user;
-      console.log(user);
+      this.currentUser = new GoogleAuthUser(user);
+      console.log(this.currentUser);
       if (user) {
         alert(user.email + " 成功登入!");
         this.isLoginIn = true;
@@ -54,13 +54,13 @@ export class GoogleAuthService {
     }
 
     if(!this.currentUser) {
-      this.currentUser = {
+      this.currentUser = new GoogleAuthUser({
         id: "testid",
         name: "testname",
         email: "tesetmail@testmail.com",
         imageUrl: "testurl",
         authentication: {},
-      }
+      });
       alert("因無法取得使用者資訊, 轉為測試帳號: " + this.currentUser.email);
       this.isLoginIn = true;
       this.router.navigate(["home"]);
@@ -73,7 +73,7 @@ export class GoogleAuthService {
    */
   logout() {
     GoogleAuth.signOut();
-    this.currentUser = new GoogleAuthUser();
+    this.currentUser = new GoogleAuthUser({});
     this.isLoginIn = false;
   }
 }

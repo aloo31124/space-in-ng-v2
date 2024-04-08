@@ -35,6 +35,12 @@ export class FireStoreService {
       );
   }
 
+  /*
+   * 藉由 欄位名稱取得資料 
+   */
+  getDataByField(tableName: string, fieldName: string) {
+  }
+
   /* 
    * 新增一筆 資料
    */
@@ -47,8 +53,6 @@ export class FireStoreService {
    * 依照 id 刪除資料 
    */
   deleteById(tableName:string, id:string) {
-    console.log(tableName);
-    console.log(id);
     const docInstance = doc(this.firestore, tableName, id);
     deleteDoc(docInstance);
   }
