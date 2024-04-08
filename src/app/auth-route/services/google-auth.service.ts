@@ -77,6 +77,7 @@ export class GoogleAuthService {
    */
   registerUserForFirstLogin(doc: any, user: any) {
     this.userService
+      //.addUser(new GoogleAuthUser(user))
       .addUser(user)
       .then(() => {
         alert("首次 google 授權, 註冊成功, 請再次登入");
