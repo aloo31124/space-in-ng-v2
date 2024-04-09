@@ -30,7 +30,7 @@ export class DialogComponent<T extends DialogItemModel> {
    */
   public hiddenDialog() {
     this.isHiddenDialog = true;
-    this.hideDialog.emit(true);
+    this.hideDialog.emit(this.isHiddenDialog);
   }
 
   /*

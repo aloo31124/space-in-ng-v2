@@ -18,27 +18,30 @@ export class BookingCheckFormPageComponent {
 
   // booking 種類, 教室預約/座位預約
   bookingType = "";
+
   // 教室 list
   roomList = new Array<Room>();
   // 選擇教室
   selectRoom!: Room;
-  // 當前使用者資訊
-  currentUser!: GoogleAuthUser;
   // 教室 dialog 資訊
   dialogRoomList: DialogItemModel[] = [];
-  // 是否隱藏 教室dialog
+  // 教室dialog 是否隱藏 
   isHiddenDialogRoom = true;
+
+  // 選擇座位
+  selectSite!: Site;
   // 座位 dialog 資訊
   dialogSiteList: DialogItemModel[] = [];
-  // 是否隱藏 座位dialog
+  // 座位 dialog是否隱藏 
   isHiddenDialogSite = true;
-  // 是否隱藏 座位 dialog
-  isHiddenDialogSiteInfo = true;
-  // 所有 座位資訊 
+  // 座位 所有資訊 
   dialogSiteAllList: Site[] =[];
+
+  // 當前使用者資訊
+  currentUser!: GoogleAuthUser;
   // 使用者 dialog 資訊
   dialogUserInfo: DialogItemModel[] = [];
-  // 是否隱藏 使用者 dialog
+  // 使用者 dialog 是否隱藏 
   isHiddenDialogUserInfo = true;
 
   constructor(
@@ -88,6 +91,12 @@ export class BookingCheckFormPageComponent {
               new Site(site)
             );
           });
+
+          this.dialogSiteAllList.forEach(site => { 
+            if(site.roomId === this.selectRoom.fireStoreId) {
+              this.selectSite = site;
+            }
+          });
         });
 
     // 取得 booking 種類
@@ -122,6 +131,15 @@ export class BookingCheckFormPageComponent {
    */
   selectedRoom(_selectRoomId: string) {
     this.selectRoom = this.roomList.filter(room => {return room.fireStoreId === _selectRoomId; })[0];
+    // 預設選擇一個 座位空間
+    this.selectedSite((this.dialogSiteAllList.filter(site => {return site.roomId === this.selectRoom.fireStoreId})[0]).name);
+  }
+
+  /* 
+   * 座位 dialog 選擇觸發
+   */
+  selectedSite(_selectSiteId: string) {
+    this.selectSite = this.dialogSiteAllList.filter(site => {return site.name === _selectSiteId; })[0];
   }
 
   /*
