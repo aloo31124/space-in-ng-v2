@@ -7,6 +7,7 @@ import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-rec
 import { GoogleAuthService } from 'src/app/auth-route/services/google-auth.service';
 import { GoogleAuthUser } from 'src/app/auth-route/models/google-auth-user.model';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
+import { Site } from 'src/app/common/room-site/models/site.model';
 
 @Component({
   selector: 'app-booking-check-form-page',
@@ -27,6 +28,14 @@ export class BookingCheckFormPageComponent {
   dialogRoomList: DialogItemModel[] = [];
   // 是否隱藏 教室dialog
   isHiddenDialogRoom = true;
+  // 座位 dialog 資訊
+  dialogSiteList: DialogItemModel[] = [];
+  // 是否隱藏 座位dialog
+  isHiddenDialogSite = true;
+  // 是否隱藏 座位 dialog
+  isHiddenDialogSiteInfo = true;
+  // 所有 座位資訊 
+  dialogSiteAllList: Site[] =[];
   // 使用者 dialog 資訊
   dialogUserInfo: DialogItemModel[] = [];
   // 是否隱藏 使用者 dialog
@@ -69,6 +78,17 @@ export class BookingCheckFormPageComponent {
           alert("教室資訊無法取得,錯誤資訊 : " + error);
         }
       );
+    
+    // 取得所有 座位資訊
+    this.roomSiteService
+        .getAllSiteList()
+        .subscribe(dataList => {
+          dataList.forEach(site => {
+            this.dialogSiteAllList.push(
+              new Site(site)
+            );
+          });
+        });
 
     // 取得 booking 種類
     this.activatedRoute.queryParams.subscribe(params => {
@@ -149,6 +169,20 @@ export class BookingCheckFormPageComponent {
         alert("資料送出失敗,請重新輸入");
       });
     alert("資料傳輸中");
+  }
+
+  /*
+   * 點選 座位 dialog 
+   */
+  clickSiteShowDialog() {
+    this.isHiddenDialogSite=false;
+    this.dialogSiteList = [];
+    this.dialogSiteAllList.forEach(site => {
+      if(site.roomId === this.selectRoom.fireStoreId) {
+        this.dialogSiteList.push({id:site.name , name: site.name});
+      }
+    });
+    console.log(this.dialogSiteList);
   }
 
   selectMap() {

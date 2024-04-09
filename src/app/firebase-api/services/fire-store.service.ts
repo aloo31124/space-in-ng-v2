@@ -26,8 +26,10 @@ export class FireStoreService {
     UserToPermission: "UserToPermission",
     // 預約資訊表
     Booking: "Booking",
-    // 空間表
+    // 教室表
     Room: "Room",
+    // 座位表
+    RoomToSite: "RoomToSite",
     // 購買方案表
     Payment: "Payment",
   };
