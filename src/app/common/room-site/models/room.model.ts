@@ -5,16 +5,12 @@ export class Room {
     name = "";
     ownerId = "";
     ownerMail = "";
+    bookingCount = 0;
 
-    constructor(
-        fireStoreId:string,
-        name:string,
-        ownerId:string,
-        ownerMail:string,
-    ) {
-        this.fireStoreId = fireStoreId;
-        this.name = name;
-        this.ownerId = ownerId;
-        this.ownerMail = ownerMail;
+    constructor(room: any) {
+        this.fireStoreId = room["fireStoreId"];
+        this.name = room["name"];
+        this.ownerId = room["ownerId"];
+        this.ownerMail = room["ownerMail"];
     }
 }

@@ -27,7 +27,7 @@
         
         <div class="row" *ngIf="bookingType === 'site'">
             <div class="row-txt">座位</div>
-            <div class="select-item">A105</div>
+            <div class="select-item" (click)="clickSiteShowDialog()">{{ selectSite ? selectSite.name : "" }}</div>
         </div>
     
     </div>
@@ -45,6 +45,19 @@
             [itemList]="dialogRoomList">
         </app-dialog>
     </div>
+
+
+    <!-- dialog 選擇座位 -->
+    <div class="dialog-container">
+        <app-dialog 
+            [dialogTitle]="'選擇座位'"
+            (selectedItem)="selectedSite($event)"
+            [isHiddenDialog]="isHiddenDialogSite"
+            (hideDialog)="isHiddenDialogSite=true"
+            [itemList]="dialogSiteList">
+        </app-dialog>
+    </div>
+
 
     <!-- dialog 使用者資訊 -->
     <div class="dialog-container">

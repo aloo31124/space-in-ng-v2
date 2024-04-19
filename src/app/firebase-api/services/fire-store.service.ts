@@ -18,9 +18,20 @@ export class FireStoreService {
 
   // 資料庫表名稱
   fireStoreTabelNameList = { 
+    // 使用者資訊
     User: "User", 
+    // 該使用者 購買 之 方案
+    UserToPayment: "UserToPayment",
+    // 該使用者擁有權限
+    UserToPermission: "UserToPermission",
+    // 預約資訊表
     Booking: "Booking",
+    // 教室表
     Room: "Room",
+    // 座位表
+    RoomToSite: "RoomToSite",
+    // 購買方案表
+    Payment: "Payment",
   };
 
   constructor(
@@ -50,7 +61,6 @@ export class FireStoreService {
    * 新增一筆 資料
    */
   post(tableName:string, newData:any):Promise<any> {
-    console.log("add data: " + newData);
     const collectionInstance = collection(this.firestore, tableName);
     return addDoc(collectionInstance, newData);
   }

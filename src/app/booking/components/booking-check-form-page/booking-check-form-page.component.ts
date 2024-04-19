@@ -7,6 +7,7 @@ import { RouteUrlRecordService } from 'src/app/auth-route/services/route-url-rec
 import { GoogleAuthService } from 'src/app/auth-route/services/google-auth.service';
 import { GoogleAuthUser } from 'src/app/auth-route/models/google-auth-user.model';
 import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
+import { Site } from 'src/app/common/room-site/models/site.model';
 
 @Component({
   selector: 'app-booking-check-form-page',
@@ -17,19 +18,30 @@ export class BookingCheckFormPageComponent {
 
   // booking 種類, 教室預約/座位預約
   bookingType = "";
+
   // 教室 list
   roomList = new Array<Room>();
   // 選擇教室
   selectRoom!: Room;
-  // 當前使用者資訊
-  currentUser!: GoogleAuthUser;
   // 教室 dialog 資訊
   dialogRoomList: DialogItemModel[] = [];
-  // 是否隱藏 教室dialog
+  // 教室dialog 是否隱藏 
   isHiddenDialogRoom = true;
+
+  // 選擇座位
+  selectSite!: Site;
+  // 座位 dialog 資訊
+  dialogSiteList: DialogItemModel[] = [];
+  // 座位 dialog是否隱藏 
+  isHiddenDialogSite = true;
+  // 座位 所有資訊 
+  dialogSiteAllList: Site[] =[];
+
+  // 當前使用者資訊
+  currentUser!: GoogleAuthUser;
   // 使用者 dialog 資訊
   dialogUserInfo: DialogItemModel[] = [];
-  // 是否隱藏 使用者 dialog
+  // 使用者 dialog 是否隱藏 
   isHiddenDialogUserInfo = true;
 
   constructor(
@@ -59,7 +71,7 @@ export class BookingCheckFormPageComponent {
         responseData => {
           responseData.forEach(room => {
             this.roomList.push(
-              new Room(room['fireStoreId'],room['name'],room['ownerId'],room['ownerMail'])
+              new Room(room)
             );
             this.dialogRoomList.push({id:room['fireStoreId'] , name: room['name']});
           });
@@ -69,6 +81,23 @@ export class BookingCheckFormPageComponent {
           alert("教室資訊無法取得,錯誤資訊 : " + error);
         }
       );
+    
+    // 取得所有 座位資訊
+    this.roomSiteService
+        .getAllSiteList()
+        .subscribe(dataList => {
+          dataList.forEach(site => {
+            this.dialogSiteAllList.push(
+              new Site(site)
+            );
+          });
+
+          this.dialogSiteAllList.forEach(site => { 
+            if(site.roomId === this.selectRoom.fireStoreId) {
+              this.selectSite = site;
+            }
+          });
+        });
 
     // 取得 booking 種類
     this.activatedRoute.queryParams.subscribe(params => {
@@ -102,6 +131,15 @@ export class BookingCheckFormPageComponent {
    */
   selectedRoom(_selectRoomId: string) {
     this.selectRoom = this.roomList.filter(room => {return room.fireStoreId === _selectRoomId; })[0];
+    // 預設選擇一個 座位空間
+    this.selectedSite((this.dialogSiteAllList.filter(site => {return site.roomId === this.selectRoom.fireStoreId})[0]).name);
+  }
+
+  /* 
+   * 座位 dialog 選擇觸發
+   */
+  selectedSite(_selectSiteId: string) {
+    this.selectSite = this.dialogSiteAllList.filter(site => {return site.name === _selectSiteId; })[0];
   }
 
   /*
@@ -149,6 +187,20 @@ export class BookingCheckFormPageComponent {
         alert("資料送出失敗,請重新輸入");
       });
     alert("資料傳輸中");
+  }
+
+  /*
+   * 點選 座位 dialog 
+   */
+  clickSiteShowDialog() {
+    this.isHiddenDialogSite=false;
+    this.dialogSiteList = [];
+    this.dialogSiteAllList.forEach(site => {
+      if(site.roomId === this.selectRoom.fireStoreId) {
+        this.dialogSiteList.push({id:site.name , name: site.name});
+      }
+    });
+    console.log(this.dialogSiteList);
   }
 
   selectMap() {
