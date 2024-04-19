@@ -71,7 +71,7 @@ export class BookingCheckFormPageComponent {
         responseData => {
           responseData.forEach(room => {
             this.roomList.push(
-              new Room(room['fireStoreId'],room['name'],room['ownerId'],room['ownerMail'])
+              new Room(room)
             );
             this.dialogRoomList.push({id:room['fireStoreId'] , name: room['name']});
           });
