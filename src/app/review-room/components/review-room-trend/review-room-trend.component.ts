@@ -38,6 +38,11 @@ export class ReviewRoomTrendComponent {
     this.createChart(this.chartTimeType.halfYear);
   } 
   
+
+  /*
+    依照與得資料, 顯示折線圖 
+   */
+   // 原本寫法, cloud fun 需要改善 key 搜尋 => 保留
   createChart(selectTimeModel: string){
     //圖表資料初始值為週。
     let chartTitle:string[] =[];
@@ -48,7 +53,6 @@ export class ReviewRoomTrendComponent {
     chartTimeModel
         .subscribe(
           (responseData) => {
-            
             chartTitle = responseData.timeTitle;
             charCharSite = responseData.siteCount;
             charCharRoom = responseData.roomCount;
