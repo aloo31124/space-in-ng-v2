@@ -29,6 +29,9 @@ export class CloudFunService {
 
   /*
    * 取得 [空間總覽] [借用資訊] api 
+    roomCount: (6) [0, 0, 0, 0, 3, 3, _chartjs: {…}, push: ƒ, pop: ƒ, shift: ƒ, splice: ƒ, …]
+    siteCount: (6) [0, 0, 0, 0, 2, 6, _chartjs: {…}, push: ƒ, pop: ƒ, shift: ƒ, splice: ƒ, …]
+    timeTitle: (6) ['11月', '12月', '13月', '14月', '15月', '16月']
    */
   getBookingTrend(timeType:string): Observable<ChartTimeModel> {
     return this.httpClient.get<ChartTimeModel>(this.cloudFunApiList.REVIEW_ROOM_BOOKING_TREND + "?timeType=" + timeType);

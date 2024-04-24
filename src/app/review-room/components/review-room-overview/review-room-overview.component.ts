@@ -44,7 +44,7 @@ export class ReviewRoomOverviewComponent implements OnInit {
 
 
   /*
-   *  取得 [今日剩餘]
+   *  (temp) 取得 [今日剩餘]
    */
   getTodayRemanet() {    
     let ownerId = this.googleAuthService.getCurrentUser().userFirestoreId;

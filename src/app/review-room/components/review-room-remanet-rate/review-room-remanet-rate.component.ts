@@ -3,6 +3,12 @@ import { DialogItemModel } from 'src/app/common/dialog/models/item.model';
 import { RateModel } from '../../models/rate.model';
 import { ReviewRoomService } from '../../services/review-room.service';
 
+
+import { GoogleAuthService } from 'src/app/auth-route/services/google-auth.service';
+import { FireStoreService } from 'src/app/firebase-api/services/fire-store.service';
+import { Room } from 'src/app/common/room-site/models/room.model';
+
+
 @Component({
   selector: 'app-review-room-remanet-rate',
   templateUrl: './review-room-remanet-rate.component.html',
@@ -35,7 +41,8 @@ export class ReviewRoomRemanetRateComponent {
   
   
   constructor(
-    private reviewRoomService: ReviewRoomService,
+    private googleAuthService: GoogleAuthService,
+    private fireStoreService: FireStoreService,
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +54,8 @@ export class ReviewRoomRemanetRateComponent {
   /*
    * 從 service => api 取 該擁有者空間剩餘率
    */
+   // 原本寫法, cloud fun 需要改善 key 搜尋 => 保留
+/* 
   public getRateList() {
     this.isLoading = true;
     this.reviewRoomService
@@ -57,6 +66,79 @@ export class ReviewRoomRemanetRateComponent {
         this.isLoading = false;
       });
   }
+ */
+  getRateList(){
+    let ownerId = this.googleAuthService.getCurrentUser().userFirestoreId;
+    let ownerRoomList: Room[] = [];
+
+    // 取得 Room教室
+    this.fireStoreService
+      .getAll("Room")
+      .subscribe(roomList => {
+        roomList.forEach(room => {
+          // 取得 該 擁有者 之 空間(教室)
+          if(room["ownerId"] === ownerId) {
+            ownerRoomList.push(new Room(room));
+          }
+        });
+
+        // 取得 該 擁有者 其 空間(教室)所有被預約紀錄
+        const today = new Date();
+        this.fireStoreService
+          .getAll("Booking")
+          .subscribe(bookingList => {
+            let bookingListFilter: any[] = [];
+            bookingList.forEach(booking => {
+              ownerRoomList.forEach(room => {
+                if(booking["roomId"] === room.fireStoreId) {
+                  bookingListFilter.push(booking);
+                }
+              })
+            });
+
+            
+            // ==================== 計算 start ====================
+
+            console.log("剩餘 yo ha!");
+            console.log(bookingListFilter);
+
+            const totalRoom = 3;
+            const currentDate = new Date(this.selectDate);
+            const month = currentDate.getMonth() + 1;
+            const lastDate = (new Date(2024, month, 0)).getDate();
+            let resultList = [];
+            for(let i=0; i<lastDate; i++) {
+                let bookingCounter = 0;
+                bookingListFilter.forEach(booking => {
+                    if(i+1 === (new Date(booking.startDate)).getDate()) {
+                        bookingCounter ++;
+                    }
+                });
+                let result = {
+                    date: "2024-" + month + "-" + (i + 1),
+                    rate: new Number(((totalRoom - bookingCounter) / totalRoom) * 100).toFixed(2),
+                }
+
+                resultList.push(result);
+            }
+
+            // ---------- 顯示圖表 start ----------
+            console.log(resultList);
+            //this.rateList = resultList;
+
+            // ---------- 顯示圖表 end ----------
+
+            // ==================== 計算 end ====================
+
+            this.isLoading = false;
+
+
+          });
+      });
+  }
+
+
+  
 
   /*
    * dialog 選擇行事曆呈現 剩餘率 
