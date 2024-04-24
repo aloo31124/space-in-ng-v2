@@ -34,7 +34,6 @@ export class CloudFunService {
     timeTitle: (6) ['11月', '12月', '13月', '14月', '15月', '16月']
    */
   getBookingTrend(timeType:string): Observable<ChartTimeModel> {
-    console.log("yo")
     return this.httpClient.get<ChartTimeModel>(this.cloudFunApiList.REVIEW_ROOM_BOOKING_TREND + "?timeType=" + timeType);
   }
 
