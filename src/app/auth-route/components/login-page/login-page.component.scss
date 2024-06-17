@@ -5,6 +5,25 @@
     justify-content: flex-start;
     align-items: center;
     gap: 20px;
+    font-size: 20px;
+
+    input {
+        border: 2px solid #cfcfcf;
+        font-size: 20px;
+        padding: 10px;
+        border-radius: 25px;
+    }
+    input::placeholder {
+        color: #cfcfcf;
+    }
+    button {
+        background: #661983;
+        color: white;
+        font-size: 15px;
+        padding: 10px 25px;
+        border-radius: 25px;
+    }
+
     .logo-img {
         width: 100px;
     }

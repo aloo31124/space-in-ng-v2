@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleAuthService } from '../../services/google-auth.service';
 
@@ -8,6 +8,9 @@ import { GoogleAuthService } from '../../services/google-auth.service';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
+
+  account = "";
+  password = "";
 
     
   constructor(    
@@ -20,6 +23,10 @@ export class LoginPageComponent implements OnInit {
 
   async clickSignIn() {
     this.googleAuthService.login();
+  }
+
+  clickLogin() {
+    console.log("登入資訊: ", this.account, this.password)
   }
 
 

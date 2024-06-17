@@ -1,5 +1,12 @@
 <div class="container">
     <img class="logo-img" src="assets/images/logo/logo.png">
+
+    <input [(ngModel)]="account" type="text" placeholder="帳號">
+    <input [(ngModel)]="password" type="password" placeholder="密碼">
+    <button (click)="clickLogin()" >登入</button>
+
+    或
+
     <app-img-btn 
         [imgUrl]="'assets/images/button/btn_google-auth.png'" 
         [btnText]="''" (click)="clickSignIn()">
