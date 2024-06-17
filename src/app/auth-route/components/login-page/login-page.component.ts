@@ -22,11 +22,12 @@ export class LoginPageComponent implements OnInit {
   }
 
   async clickSignIn() {
-    this.googleAuthService.login();
+    this.googleAuthService.loginByGoogle();
   }
 
   clickLogin() {
-    console.log("登入資訊: ", this.account, this.password)
+    //console.log("登入資訊: ", this.account, this.password)
+    this.googleAuthService.loginTestAccount(this.account, this.password);
   }
 
 

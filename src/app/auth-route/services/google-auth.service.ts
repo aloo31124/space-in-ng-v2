@@ -45,7 +45,7 @@ export class GoogleAuthService {
   /*
    * 登入 
    */
-  async login() {
+  async loginByGoogle() {
     // 登入判斷
     const user = await GoogleAuth.signIn();
     if(user["email"]) {
@@ -113,6 +113,17 @@ export class GoogleAuthService {
     }
   }
 
+  /* 
+   * 測試 帳密登入, 供給 apple 測試人員使用
+   */
+  loginTestAccount(account:string, password:string) {
+    if(account === "testuser" && password === "123456") {
+      this.getTestUserInfo();
+    } else {
+      alert("帳密錯誤");
+    }
+  }
+
   /*
    * 取得測試登入帳號 
    */
@@ -124,10 +135,9 @@ export class GoogleAuthService {
       imageUrl: "testurl",
       authentication: {},
     });
-    alert("因無法取得使用者資訊, 轉為測試帳號: " + this.currentUser.email);
+    alert("因無取得使用者資訊, 轉為測試帳號: " + this.currentUser.email);
     this.isLoginIn = true;
     this.router.navigate(["home"]);
   }
-    
 
 }
